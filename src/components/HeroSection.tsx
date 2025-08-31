@@ -21,19 +21,12 @@ export default function HeroSection() {
 
             {/* Main Headline */}
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white text-balance">
-              Deja de Trabajar para los{' '}
-              <span className="text-yellow-400">Bancos</span>.{' '}
-              Recupera tu Dinero y tu{' '}
-              <span className="text-yellow-400">Paz</span>{' '}
-              con un Plan que Sí Funciona
+              Libérate de tus deudas en <span className="text-yellow-400">15 minutos al día</span> con el método probado que me sacó de $90,000 de deuda.
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
-              El mismo sistema que me ayudó a eliminar{' '}
-                              <span className="text-yellow-400 font-semibold">$90,000 en deudas</span>{' '}
-              ahora puede ser tuyo. Sin trucos, sin fórmulas mágicas, solo un plan 
-              paso a paso que funciona aunque sientas que no te alcanza el dinero.
+              Descubre el <span className="font-semibold">GPS Anti-Deuda</span>: un plan paso a paso que combina lo mejor de los métodos clásicos con un enfoque único para darte resultados rápidos, reales y duraderos.
             </p>
 
             {/* Stats */}
@@ -58,14 +51,14 @@ export default function HeroSection() {
                 href="/plantilla-gratuita"
                 className="btn-urgent transform hover:scale-105 inline-flex items-center justify-center group"
               >
-                Obtén tu Diagnóstico Gratuito
+                Quiero mi plan anti-deuda ahora
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/comprar"
                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 font-semibold py-4 px-8 rounded-lg transition-all duration-300"
               >
-                Ver el Libro Completo
+                Comprar ahora con garantía
               </Link>
             </div>
 

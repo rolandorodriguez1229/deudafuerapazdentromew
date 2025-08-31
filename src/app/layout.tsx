@@ -15,8 +15,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Deuda Fuera, Paz Dentro - Elimina tus Deudas de Forma Inteligente",
-  description: "Descubre el sistema probado para eliminar deudas que me ayudó a salir de $90,000 en deudas. Por Rolando Rodríguez.",
+  title: "Deuda Fuera Paz Dentro | Método probado para salir de deudas rápido",
+  description: "Descubre el GPS Anti-Deuda: un plan claro que combina Oxígeno, Bola de Nieve y Avalancha según tu IPD para resultados rápidos y reales.",
   keywords: "eliminar deudas, finanzas personales, libertad financiera, Rolando Rodríguez, deudas inteligentes",
   authors: [{ name: "Rolando Rodríguez" }],
   openGraph: {
