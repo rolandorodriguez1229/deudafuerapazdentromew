@@ -181,6 +181,7 @@ export default function ProductsSection() {
                     </Link>
                   )}
                 </div>
+                <p className="text-xs text-neutral-500 text-center mt-3">Incluye garantía de 30 días</p>
               </div>
             </div>
           ))}

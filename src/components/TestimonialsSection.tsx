@@ -3,12 +3,12 @@ import { Star } from 'lucide-react';
 const testimonials = [
   {
     name: 'María S.',
-    text: 'En 3 meses pagué dos tarjetas y por fin duermo tranquila. La claridad del plan me cambió la vida.',
+    text: 'En solo 3 meses pagué dos tarjetas y por fin duermo tranquila. La claridad del plan me cambió la vida.',
     rating: 5,
   },
   {
     name: 'Jorge R.',
-    text: 'Pensé que necesitaba ganar más. Con el IPD supe exactamente qué hacer y vi resultados desde el mes 1.',
+    text: 'Pensé que necesitaba ganar más. Con el IPD supe exactamente qué hacer y en el primer mes recuperé $600 de flujo.',
     rating: 5,
   },
   {
@@ -29,7 +29,7 @@ const testimonials = [
   },
   {
     name: 'Carlos (autónomo)',
-    text: 'Ingresos variables y muchas deudas pequeñas. El IPD priorizó todo sin dolores de cabeza.',
+    text: 'Ingresos variables y muchas deudas pequeñas. En 60 días el IPD priorizó todo sin dolores de cabeza.',
     rating: 5,
   },
   {
