@@ -25,6 +25,10 @@ export default function FinalOfferSection() {
             <div className="text-neutral-900 font-semibold">Hoy solo</div>
             <div className="text-3xl font-bold text-accent-600">$7.99</div>
           </div>
+          <div className="mt-4 grid sm:grid-cols-2 gap-2 text-sm">
+            <div className="bg-white border border-neutral-200 rounded-lg p-3">✅ Plantilla exclusiva IPD</div>
+            <div className="bg-white border border-neutral-200 rounded-lg p-3">✅ Checklist 30-60-90 días</div>
+          </div>
         </div>
         <p className="text-neutral-700 mb-6">
           Piensa en esto: por menos de lo que gastas en dos cafés ☕, tendrás un plan paso a paso para salir de deudas y recuperar tu tranquilidad. Cada día que pospongas esta decisión, sigues pagando intereses a los bancos. Hoy puedes empezar a pagarte a ti mismo.

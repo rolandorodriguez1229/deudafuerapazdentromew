@@ -21,12 +21,12 @@ export default function HeroSection() {
 
             {/* Main Headline */}
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white text-balance">
-              Libérate de tus deudas en <span className="text-yellow-400">15 minutos al día</span> con el método probado que me sacó de $90,000 de deuda.
+              Libérate de tus deudas y recupera la paz que mereces en <span className="text-yellow-400">solo 15 minutos al día</span>.
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
-              Descubre el <span className="font-semibold">GPS Anti-Deuda</span>: un plan paso a paso que combina lo mejor de los métodos clásicos con un enfoque único para darte resultados rápidos, reales y duraderos.
+              Descubre el método probado que me sacó de <span className="font-semibold">$90,000</span> de deudas y que ya está ayudando a cientos de personas a crear un plan real, simple y efectivo para volver a respirar.
             </p>
 
             {/* Stats */}

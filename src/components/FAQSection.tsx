@@ -1,19 +1,23 @@
 const faqs = [
   {
-    q: '¿Y si no me alcanza el dinero cada mes?',
-    a: 'El IPD® primero crea oxígeno financiero. No requiere aumentar tus ingresos para empezar a ver resultados.'
+    q: '¿Y si gano poco dinero?',
+    a: 'El método se adapta a tu realidad. Primero liberamos flujo (Oxígeno) para que puedas respirar, sin importar tu nivel de ingresos.'
   },
   {
-    q: '¿Cuánto tiempo me tomará salir de deudas?',
-    a: 'Depende de tu IPD y tus saldos actuales. La mayoría ve progreso en el primer mes y claridad total en 90 días.'
+    q: '¿Esto es diferente a la bola de nieve o avalancha?',
+    a: 'Sí. Incluye ambos, pero además un tercero: Oxígeno Rápido, diseñado para cuando la presión es alta y necesitas resultados inmediatos.'
   },
   {
-    q: '¿Esto funciona si tengo muchas deudas diferentes?',
-    a: 'Sí. El sistema prioriza inteligentemente tus pagos según tu IPD y tu contexto.'
+    q: '¿Necesito conocimientos financieros?',
+    a: 'No. Está explicado de forma simple y práctica. Si sabes leer, puedes aplicar el sistema paso a paso.'
   },
   {
-    q: '¿Necesito ser “bueno con los números”?',
-    a: 'No. La plantilla hace los cálculos automáticamente y te dice exactamente qué hacer.'
+    q: '¿Cómo recibo el libro?',
+    a: 'Tras la compra, tendrás acceso inmediato. Además, recibirás un email con los enlaces de descarga y materiales de apoyo.'
+  },
+  {
+    q: '¿Cuánto tiempo tardaré en ver resultados?',
+    a: 'Muchos ven claridad inmediata y cambios de flujo en el primer mes. En 30–90 días consolidan hábitos y progreso.'
   },
 ];
 
