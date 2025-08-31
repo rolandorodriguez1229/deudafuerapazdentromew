@@ -1,4 +1,9 @@
 import Header from '@/components/Header';
+import TrustBar from '@/components/TrustBar';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import GuaranteeSection from '@/components/GuaranteeSection';
+import FAQSection from '@/components/FAQSection';
+import FinalCTASection from '@/components/FinalCTASection';
 import Footer from '@/components/Footer';
 import { Book, Star, CheckCircle, ArrowRight } from 'lucide-react';
 
@@ -6,6 +11,7 @@ export default function ComprarPage() {
   return (
     <main>
       <Header />
+      <TrustBar />
       
       <section className="py-20 bg-gradient-to-br from-primary-50 to-accent-50 min-h-screen">
         <div className="section-container">
@@ -106,6 +112,20 @@ export default function ComprarPage() {
                 </button>
               </div>
             </div>
+
+            {/* Social Proof inline */}
+            <div className="mt-10">
+              <TestimonialsSection />
+            </div>
+
+            {/* Guarantee */}
+            <GuaranteeSection />
+
+            {/* FAQ */}
+            <FAQSection />
+
+            {/* Final CTA */}
+            <FinalCTASection />
 
             {/* Temporary Message */}
             <div className="mt-16 bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">

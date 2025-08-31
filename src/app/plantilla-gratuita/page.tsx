@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+import Countdown from '@/components/Countdown';
 import { CheckCircle, Download, Clock, Shield, Calculator, ArrowRight } from 'lucide-react';
 
 export default function PlantillaGratuita() {
@@ -14,12 +16,20 @@ export default function PlantillaGratuita() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: formData.name, email: formData.email }),
+      });
+      if (!res.ok) throw new Error('subscribe_failed');
       setIsSubmitted(true);
-    }, 2000);
+    } catch (_err) {
+      setIsSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const benefits = [
@@ -39,30 +49,24 @@ export default function PlantillaGratuita() {
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="h-10 w-10 text-green-600" />
             </div>
-            <h1 className="heading-lg text-neutral-900 mb-6">
-              ¡Perfecto! Tu Plantilla Está en Camino
+            <h1 className="heading-lg text-neutral-900 mb-3">
+              ¡Perfecto! Confirma tu Correo
             </h1>
-            <p className="text-lg text-neutral-600 mb-8">
-              Revisa tu correo electrónico en los próximos minutos. 
-              Te he enviado la Plantilla de Diagnóstico 360° junto con 
-              instrucciones detalladas para usarla.
+            <p className="text-neutral-600 mb-6">
+              Te enviamos la Plantilla de Diagnóstico 360°. Revisa tu bandeja y confirma tu email.
             </p>
-            <div className="bg-accent-50 p-6 rounded-lg mb-8">
-              <h3 className="font-semibold text-neutral-900 mb-2">
-                ¿Qué hacer mientras tanto?
-              </h3>
-              <ul className="text-sm text-neutral-700 space-y-2">
-                <li>• Reúne información de todas tus deudas</li>
-                <li>• Ten a mano tus ingresos mensuales netos</li>
-                <li>• Revisa tu carpeta de spam si no ves el email</li>
-              </ul>
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8 inline-flex items-center gap-3">
+              <Countdown durationSeconds={10 * 60} size="sm" />
+              <span className="text-sm text-yellow-800">Oferta del paquete completo activa mientras dure el contador.</span>
             </div>
-            <button
-              onClick={() => window.location.href = '/'}
-              className="btn-primary"
-            >
-              Volver al Sitio Principal
-            </button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/comprar" className="btn-urgent">
+                Ver Paquete Completo con Descuento
+              </Link>
+              <Link href="/" className="btn-secondary">
+                Volver al Inicio
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -72,6 +76,15 @@ export default function PlantillaGratuita() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-accent-50 to-primary-50">
       <div className="section-container py-12">
+        <div className="flex items-center justify-between mb-6">
+          <div className="inline-flex items-center gap-3">
+            <div className="text-xs font-semibold uppercase tracking-wide text-neutral-600">Paso 1 de 2</div>
+            <div className="w-32 h-2 bg-neutral-200 rounded-full overflow-hidden">
+              <div className="h-2 bg-accent-500 w-1/2"></div>
+            </div>
+          </div>
+          <Countdown durationSeconds={15 * 60} size="sm" />
+        </div>
         <div className="max-w-5xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">

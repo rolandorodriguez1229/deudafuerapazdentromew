@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Deuda Fuera Paz Dentro//Calendario 7-3-1//ES
+BEGIN:VEVENT
+UID:cal-7-3-1@deudafuerapazdentro
+DTSTAMP:20250101T000000Z
+SUMMARY:Recordatorio de pago (7 días antes)
+RRULE:FREQ=MONTHLY
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Revisa fondos y fechas para no pagar tarde
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-7-3-1-2@deudafuerapazdentro
+DTSTAMP:20250101T000000Z
+SUMMARY:Recordatorio de pago (3 días antes)
+RRULE:FREQ=MONTHLY
+BEGIN:VALARM
+TRIGGER:-P3D
+ACTION:DISPLAY
+DESCRIPTION:Programa/ejecuta tu pago
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-7-3-1-3@deudafuerapazdentro
+DTSTAMP:20250101T000000Z
+SUMMARY:Recordatorio de pago (1 día antes)
+RRULE:FREQ=MONTHLY
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Verifica que el pago fue acreditado
+END:VALARM
+END:VEVENT
+END:VCALENDAR
+
+
