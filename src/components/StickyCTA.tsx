@@ -24,9 +24,12 @@ export default function StickyCTA() {
               <Link href="/plantilla-gratuita" className="btn-urgent rounded-full py-2 px-4">
                 ¡Descargar!
               </Link>
-              <button onClick={handleCheckout} className="btn-primary rounded-full py-2 px-4">
-                $7.99 <ArrowRight className="ml-1 h-4 w-4" />
-              </button>
+              <div className="flex flex-col items-end">
+                <button onClick={handleCheckout} className="btn-primary rounded-full py-2 px-4">
+                  $7.99 <ArrowRight className="ml-1 h-4 w-4" />
+                </button>
+                <span className="text-[10px] text-neutral-500 pr-1">Hasta el 1 de noviembre</span>
+              </div>
             </div>
           </div>
         </div>
@@ -34,8 +37,11 @@ export default function StickyCTA() {
 
       {/* Desktop compact pill */}
       <div className="hidden sm:flex fixed bottom-6 right-6 z-50">
-        <div className="bg-white border border-neutral-200 shadow-2xl rounded-full p-2 pl-3 items-center gap-2 hidden md:flex">
-          <span className="text-sm font-medium text-neutral-800">$7.99 oferta</span>
+        <div className="bg-white border border-neutral-200 shadow-2xl rounded-full p-2 pl-3 items-center gap-3 hidden md:flex">
+          <div className="flex flex-col leading-tight">
+            <span className="text-sm font-medium text-neutral-800">$7.99 oferta</span>
+            <span className="text-[10px] text-neutral-500">Hasta el 1 de noviembre</span>
+          </div>
           <button onClick={handleCheckout} className="btn-primary rounded-full py-2 px-4">
             Comprar <ArrowRight className="ml-1 h-4 w-4" />
           </button>

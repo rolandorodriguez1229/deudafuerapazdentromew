@@ -1,19 +1,19 @@
 const faqs = [
   {
-    q: '¿Y si gano poco dinero?',
-    a: 'El método se adapta a tu realidad. Primero liberamos flujo (Oxígeno) para que puedas respirar, sin importar tu nivel de ingresos.'
+    q: '¿Cómo recibo el libro?',
+    a: 'Al comprar con Stripe, se crea tu acceso privado. Recibirás un email con instrucciones para entrar a tu cuenta (usuario: tu correo; podrás configurar contraseña en el primer acceso) y tendrás los enlaces de descarga y materiales de apoyo.'
   },
   {
-    q: '¿Esto es diferente a la bola de nieve o avalancha?',
-    a: 'Sí. Incluye ambos, pero además un tercero: Oxígeno Rápido, diseñado para cuando la presión es alta y necesitas resultados inmediatos.'
+    q: '¿Y si no gano mucho dinero?',
+    a: 'El método se adapta a tu realidad. Empezamos liberando flujo rápido (Oxígeno) priorizando por ROI de flujo, sin depender de aumentar tus ingresos.'
+  },
+  {
+    q: '¿Esto es diferente a la Bola de Nieve/Avalancha?',
+    a: 'Sí. Incluye ambos, y además añade el Método Oxígeno Rápido para cuando la presión es alta y necesitas resultados inmediatos.'
   },
   {
     q: '¿Necesito conocimientos financieros?',
     a: 'No. Está explicado de forma simple y práctica. Si sabes leer, puedes aplicar el sistema paso a paso.'
-  },
-  {
-    q: '¿Cómo accedo al libro?',
-    a: 'Al comprar con Stripe, se crea tu acceso privado. Recibirás un email con instrucciones para entrar a tu cuenta (usuario: tu correo; podrás configurar contraseña en el primer acceso) y tendrás los enlaces de descarga y materiales de apoyo.'
   },
   {
     q: '¿Cuánto tiempo tardaré en ver resultados?',

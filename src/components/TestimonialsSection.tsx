@@ -1,48 +1,56 @@
 import { Star } from 'lucide-react';
+import Image from 'next/image';
 
 type Testimonial = {
   name: string;
   location?: string;
   text: string;
   rating: number;
+  avatarSrc?: string;
 };
 
 const testimonials: Testimonial[] = [
   {
     name: 'María S.',
     location: 'Dallas',
-    text: 'Con el método Oxígeno liberé $380/mes en 5 semanas. Por fin duermo tranquila y dejé de usar tarjetas para sobrevivir.',
+    text: 'Estaba ahogada pagando $450 en mínimos. Con el método Oxígeno liberé $180/mes en solo 3 semanas. ¡Por fin pude respirar!',
     rating: 5,
+    avatarSrc: '/testimonials/maria-dallas.png',
   },
   {
     name: 'Jorge R.',
     location: 'Phoenix',
-    text: 'Con el IPD entendí por dónde empezar. En el primer mes recuperé $600 de flujo y pagué 2 deudas pequeñas.',
+    text: 'El IPD me dijo por dónde empezar. En 4 semanas recuperé $600/mes y taché 2 deudas pequeñas.',
     rating: 5,
+    avatarSrc: '/testimonials/jorge-phoenix.png',
   },
   {
     name: 'Laura F.',
     location: 'Miami',
-    text: 'El capítulo de psicología me quitó la culpa. En 6 semanas tenía un plan claro y menos ansiedad.',
+    text: 'El capítulo de psicología me quitó la culpa. En 6 semanas pagué 2 tarjetas y bajó mi ansiedad.',
     rating: 5,
+    avatarSrc: '/testimonials/laura-miami.png',
   },
   {
     name: 'Luis G.',
     location: 'San Antonio',
-    text: 'Por primera vez tengo un plan que se adapta a mi situación. Vale cada centavo.',
+    text: 'Reduje intereses y recargos en $120/mes en 2 meses. Por fin un plan que se adapta a mi situación.',
     rating: 5,
+    avatarSrc: '/testimonials/luis-san-antonio.png',
   },
   {
     name: 'Fernanda',
     location: 'Chicago',
-    text: 'Turnos + niños pequeños: el plan paso a paso me dio estructura. En 3 meses sentí paz y control.',
+    text: 'Turnos + niños pequeños: en 30 días recorté $250 en no esenciales y armé rutina. Más paz y control.',
     rating: 5,
+    avatarSrc: '/testimonials/fernanda-chicago.png',
   },
   {
     name: 'Carlos',
     location: 'Houston',
-    text: 'Ingresos variables y muchas deudas pequeñas. En 60 días el IPD priorizó todo sin dolores de cabeza.',
+    text: 'Ingresos variables y 5 deudas. En 8 semanas, con IPD, prioricé pagos y liberé $220/mes.',
     rating: 5,
+    avatarSrc: '/testimonials/carlos-houston.png',
   },
 ];
 
@@ -66,9 +74,19 @@ export default function TestimonialsSection() {
             return (
               <div key={t.name} className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center font-semibold">
-                    {initials}
-                  </div>
+                  {t.avatarSrc ? (
+                    <Image
+                      src={t.avatarSrc}
+                      alt={`Foto de ${t.name}`}
+                      width={48}
+                      height={48}
+                      className="w-12 h-12 rounded-full object-cover object-top"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center font-semibold">
+                      {initials}
+                    </div>
+                  )}
                   <div>
                     <div className="text-sm font-semibold text-neutral-900">{t.name}{t.location ? `, ${t.location}` : ''}</div>
                     <div className="flex">
@@ -82,6 +100,12 @@ export default function TestimonialsSection() {
               </div>
             );
           })}
+        </div>
+        <div className="text-center mt-10">
+          <div className="flex flex-col items-center gap-1">
+            <a href="/checkout" className="btn-urgent">Sí, quiero mi paz financiera – Solo $7.99</a>
+            <span className="text-xs text-neutral-500">Oferta de lanzamiento válida hasta el 1 de noviembre o primeras 100 compras</span>
+          </div>
         </div>
       </div>
     </section>

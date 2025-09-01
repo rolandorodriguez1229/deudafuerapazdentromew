@@ -38,7 +38,7 @@ export default function FinalOfferSection() {
         <div className="text-center">
           <button onClick={handleCheckout} className="btn-urgent text-lg py-4">Sí, quiero mi copia por solo $7.99</button>
           <div className="text-xs text-neutral-500 mt-2">Antes $19.99 · Hoy $7.99 (lanzamiento)</div>
-          <p className="text-xs text-neutral-500 mt-3">⚡ Oferta válida solo durante la semana de lanzamiento o hasta agotar las primeras 100 copias digitales.</p>
+          <p className="text-xs text-neutral-500 mt-3">⚡ Oferta de lanzamiento válida hasta el 1 de noviembre o primeras 100 compras.</p>
         </div>
       </div>
     </section>

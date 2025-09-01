@@ -51,7 +51,7 @@ export default function HeroSection() {
                 href="/checkout"
                 className="btn-urgent transform hover:scale-105 inline-flex items-center justify-center group"
               >
-                Quiero mi paz financiera por $7.99
+                Sí, quiero mi paz financiera – Solo $7.99
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
@@ -62,6 +62,7 @@ export default function HeroSection() {
               </Link>
             </div>
             <div className="text-sm text-white/80 pt-1">Antes $19.99 · Hoy $7.99 (lanzamiento)</div>
+            <div className="text-xs text-white/80 pt-1">Oferta de lanzamiento válida hasta el 1 de noviembre o primeras 100 compras</div>
             <div className="text-xs text-white/80 pt-1">
               <Link href="/garantia" className="underline">Ver política de reembolsos</Link>
             </div>

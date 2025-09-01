@@ -20,15 +20,15 @@ export default function WhyDifferentSection() {
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-neutral-50 p-6 rounded-xl border border-neutral-200">
-            <h3 className="font-semibold text-neutral-900 mb-2">IPD alto</h3>
+            <h3 className="font-semibold text-neutral-900 mb-2">IPD alto 🔥</h3>
             <p className="text-neutral-700">Oxígeno Rápido (flujo primero)</p>
           </div>
           <div className="bg-neutral-50 p-6 rounded-xl border border-neutral-200">
-            <h3 className="font-semibold text-neutral-900 mb-2">IPD medio</h3>
+            <h3 className="font-semibold text-neutral-900 mb-2">IPD medio 🔑</h3>
             <p className="text-neutral-700">Bola de Nieve (motivación)</p>
           </div>
           <div className="bg-neutral-50 p-6 rounded-xl border border-neutral-200">
-            <h3 className="font-semibold text-neutral-900 mb-2">IPD bajo</h3>
+            <h3 className="font-semibold text-neutral-900 mb-2">IPD bajo 📊</h3>
             <p className="text-neutral-700">Avalancha (eficiencia)</p>
           </div>
         </div>
