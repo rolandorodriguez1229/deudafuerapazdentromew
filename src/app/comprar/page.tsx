@@ -1,3 +1,4 @@
+"use client";
 import Header from '@/components/Header';
 import TrustBar from '@/components/TrustBar';
 import TestimonialsSection from '@/components/TestimonialsSection';
