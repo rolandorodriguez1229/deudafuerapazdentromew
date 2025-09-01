@@ -62,13 +62,9 @@ export default function ComprarPage() {
                   </li>
                 </ul>
 
-                <button className="w-full btn-primary" onClick={async () => {
-                  const res = await fetch('/api/checkout', { method: 'POST' });
-                  const data = await res.json();
-                  if (data?.url) window.location.href = data.url;
-                }}>
+                <a className="w-full btn-primary block text-center" href="/checkout">
                   Comprar ahora con garantía
-                </button>
+                </a>
                 <p className="text-xs text-neutral-500 text-center mt-3">Incluye garantía de 30 días • Procesamos reembolsos por el mismo método de pago (Stripe) en 3–5 días hábiles</p>
               </div>
             </div>
