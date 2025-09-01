@@ -18,7 +18,7 @@ export default function Footer() {
   const legal = [
     { name: 'Política de Privacidad', href: '/privacidad' },
     { name: 'Términos de Uso', href: '/terminos' },
-    { name: 'Garantía', href: '/garantia' },
+    { name: 'Política de reembolsos', href: '/garantia' },
   ];
 
   return (
@@ -120,10 +120,11 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="border-t border-primary-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-blue-300 text-sm mb-4 md:mb-0">
-            © 2024 Deuda Fuera, Paz Dentro. Todos los derechos reservados.
+          <p className="text-blue-300 text-sm mb-2 md:mb-0">
+            © 2024 Deuda Fuera, Paz Dentro. IPD™ es un método propietario de Rolando Rodríguez. Todos los derechos reservados.
           </p>
           <div className="flex items-center space-x-6">
+            <a href="mailto:contacto@deudafuerapazdentro.com" className="text-blue-300 text-sm underline">contacto@deudafuerapazdentro.com</a>
             <span className="text-blue-300 text-sm">Síguenos:</span>
             <div className="flex space-x-4">
               <Link

@@ -21,12 +21,12 @@ export default function HeroSection() {
 
             {/* Main Headline */}
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white text-balance">
-              Libérate de tus deudas y recupera la paz que mereces en <span className="text-yellow-400">solo 15 minutos al día</span>.
+              Libérate de tus deudas en <span className="text-yellow-400">15 minutos al día</span> con el método que me sacó de $90,000.
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
-              Descubre el método probado que me sacó de <span className="font-semibold">$90,000</span> de deudas y que ya está ayudando a cientos de personas a crear un plan real, simple y efectivo para volver a respirar.
+              Recupera tu paz financiera sin fórmulas complicadas ni ingresos millonarios.
             </p>
 
             {/* Stats */}
@@ -48,18 +48,22 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
-                href="/plantilla-gratuita"
+                href="/checkout"
                 className="btn-urgent transform hover:scale-105 inline-flex items-center justify-center group"
               >
-                Quiero mi plan anti-deuda ahora
+                Quiero mi paz financiera por $7.99
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="/comprar"
+                href="#por-que-diferente"
                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 font-semibold py-4 px-8 rounded-lg transition-all duration-300"
               >
-                Comprar ahora con garantía
+                Ver cómo funciona
               </Link>
+            </div>
+            <div className="text-sm text-white/80 pt-1">Antes $19.99 · Hoy $7.99 (lanzamiento)</div>
+            <div className="text-xs text-white/80 pt-1">
+              <Link href="/garantia" className="underline">Ver política de reembolsos</Link>
             </div>
 
             {/* Conversion bullets */}
@@ -82,7 +86,7 @@ export default function HeroSection() {
             <div className="flex items-center space-x-4 pt-4">
               <div className="flex items-center space-x-1">
                 <TrendingUp className="h-4 w-4 text-accent-400" />
-                <span className="text-sm text-white/80">Miles de personas ya recuperaron su paz financiera</span>
+                <span className="text-sm text-white/80">Cientos de lectores ya recuperaron su paz financiera</span>
               </div>
             </div>
           </div>

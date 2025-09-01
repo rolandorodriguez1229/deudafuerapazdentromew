@@ -19,15 +19,17 @@ export default function FinalOfferSection() {
         <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-6 mb-6">
           <div className="flex items-center justify-between">
             <div className="text-neutral-600">Precio normal</div>
-            <div className="line-through text-neutral-400">$14.99</div>
+            <div className="line-through text-neutral-400">$19.99</div>
           </div>
           <div className="flex items-center justify-between mt-2">
             <div className="text-neutral-900 font-semibold">Hoy solo</div>
             <div className="text-3xl font-bold text-accent-600">$7.99</div>
           </div>
-          <div className="mt-4 grid sm:grid-cols-2 gap-2 text-sm">
-            <div className="bg-white border border-neutral-200 rounded-lg p-3">✅ Plantilla exclusiva IPD</div>
-            <div className="bg-white border border-neutral-200 rounded-lg p-3">✅ Checklist 30-60-90 días</div>
+          <div className="mt-3 text-sm font-medium text-neutral-800">Hoy $7.99 e incluye estos 3 bonos de regalo:</div>
+          <div className="mt-3 grid sm:grid-cols-3 gap-2 text-sm">
+            <div className="bg-white border border-neutral-200 rounded-lg p-3">🎁 Plantilla IPD 360° (Excel/Sheets)</div>
+            <div className="bg-white border border-neutral-200 rounded-lg p-3">🎁 Checklist 30-60-90 días</div>
+            <div className="bg-white border border-neutral-200 rounded-lg p-3">🎁 Scripts para negociar con acreedores (PDF)</div>
           </div>
         </div>
         <p className="text-neutral-700 mb-6">
@@ -35,6 +37,7 @@ export default function FinalOfferSection() {
         </p>
         <div className="text-center">
           <button onClick={handleCheckout} className="btn-urgent text-lg py-4">Sí, quiero mi copia por solo $7.99</button>
+          <div className="text-xs text-neutral-500 mt-2">Antes $19.99 · Hoy $7.99 (lanzamiento)</div>
           <p className="text-xs text-neutral-500 mt-3">⚡ Oferta válida solo durante la semana de lanzamiento o hasta agotar las primeras 100 copias digitales.</p>
         </div>
       </div>

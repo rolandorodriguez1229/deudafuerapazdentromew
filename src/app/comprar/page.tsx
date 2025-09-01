@@ -26,15 +26,15 @@ export default function ComprarPage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-1 gap-8">
+            <div className="grid md:grid-cols-1 gap-8 place-items-center">
               {/* eBook Digital único */}
-              <div className="bg-white rounded-2xl shadow-lg p-8 border border-neutral-200">
+              <div className="bg-white rounded-2xl shadow-lg p-10 border border-neutral-200 w-full max-w-2xl">
                 <div className="text-center mb-6">
-                  <Book className="h-12 w-12 text-primary-600 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-neutral-900 mb-2">eBook Digital</h3>
-                  <div className="flex items-center justify-center space-x-2 mb-4">
-                    <span className="text-3xl font-bold text-neutral-900">$7.99</span>
-                    <span className="text-lg text-neutral-400 line-through">$19.99</span>
+                  <Book className="h-14 w-14 text-primary-600 mx-auto mb-4" />
+                  <h3 className="text-3xl font-bold text-neutral-900 mb-2">eBook Digital</h3>
+                  <div className="flex items-center justify-center space-x-3 mb-4">
+                    <span className="text-4xl font-bold text-neutral-900">$7.99</span>
+                    <span className="text-xl text-neutral-400 line-through">$19.99</span>
                   </div>
                   <p className="text-green-600 font-medium">Oferta de lanzamiento</p>
                 </div>
@@ -46,15 +46,15 @@ export default function ComprarPage() {
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Bono: Plantilla exclusiva IPD (Excel/Sheets)</span>
+                    <span className="text-neutral-700">🎁 Plantilla IPD 360° (Excel/Sheets)</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Bono: Checklist 30-60-90 días</span>
+                    <span className="text-neutral-700">🎁 Checklist 30-60-90 días</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Bono: Scripts de llamada a acreedores (PDF)</span>
+                    <span className="text-neutral-700">🎁 Scripts para negociar con acreedores (PDF)</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
@@ -65,7 +65,8 @@ export default function ComprarPage() {
                 <a className="w-full btn-primary block text-center" href="/checkout">
                   Comprar ahora con garantía
                 </a>
-                <p className="text-xs text-neutral-500 text-center mt-3">Incluye garantía de 30 días • Procesamos reembolsos por el mismo método de pago (Stripe) en 3–5 días hábiles</p>
+                <p className="text-xs text-neutral-500 text-center mt-3">Antes $19.99 · Hoy $7.99 (lanzamiento) • Incluye garantía de 30 días • Reembolsos por Stripe en 3–5 días hábiles</p>
+                <p className="text-xs text-neutral-500 text-center mt-1"><a className="underline" href="/garantia">Ver política de reembolsos</a></p>
               </div>
             </div>
 

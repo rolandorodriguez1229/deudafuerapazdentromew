@@ -11,9 +11,9 @@ export default function ProductsSection() {
       description: "Oferta de lanzamiento: eBook + bonos incluidos",
       features: [
         "eBook completo en formato digital",
-        "Bono: Plantilla exclusiva IPD (Excel/Sheets)",
-        "Bono: Checklist 30-60-90 días",
-        "Bono: Scripts de llamada a acreedores (PDF)",
+        "🎁 Plantilla IPD 360° (Excel/Sheets)",
+        "🎁 Checklist 30-60-90 días",
+        "🎁 Scripts para negociar con acreedores (PDF)",
         "Acceso inmediato",
         "Garantía 30 días"
       ],
@@ -42,16 +42,10 @@ export default function ProductsSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 place-items-center">
           {products.map((product, index) => (
-            <div key={index} className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${product.popular ? 'ring-2 ring-accent-500' : 'border border-neutral-200'}`}>
-              {product.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-accent-500 text-white px-4 py-2 rounded-full text-sm font-bold">
-                    MÁS POPULAR
-                  </div>
-                </div>
-              )}
+            <div key={index} className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${product.popular ? 'ring-2 ring-accent-500' : 'border border-neutral-200'} w-full max-w-2xl`}>
+              {/* Popular badge removed per request */}
               
               {product.comingSoon && (
                 <div className="absolute top-4 right-4">

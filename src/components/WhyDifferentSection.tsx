@@ -1,6 +1,6 @@
 export default function WhyDifferentSection() {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-white" id="por-que-diferente">
       <div className="section-container max-w-5xl">
         <h2 className="heading-lg text-neutral-900 mb-4">¿Por qué este método es diferente?</h2>
         <p className="text-neutral-700 mb-6">Los métodos tradicionales hablan de Bola de Nieve o Avalancha. Aquí además tienes el Método Oxígeno Rápido para cuando tu IPD es alto y necesitas flujo inmediato.</p>

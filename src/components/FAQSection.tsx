@@ -12,12 +12,16 @@ const faqs = [
     a: 'No. Está explicado de forma simple y práctica. Si sabes leer, puedes aplicar el sistema paso a paso.'
   },
   {
-    q: '¿Cómo recibo el libro?',
-    a: 'Tras la compra, tendrás acceso inmediato. Además, recibirás un email con los enlaces de descarga y materiales de apoyo.'
+    q: '¿Cómo accedo al libro?',
+    a: 'Al comprar con Stripe, se crea tu acceso privado. Recibirás un email con instrucciones para entrar a tu cuenta (usuario: tu correo; podrás configurar contraseña en el primer acceso) y tendrás los enlaces de descarga y materiales de apoyo.'
   },
   {
     q: '¿Cuánto tiempo tardaré en ver resultados?',
     a: 'Muchos ven claridad inmediata y cambios de flujo en el primer mes. En 30–90 días consolidan hábitos y progreso.'
+  },
+  {
+    q: '¿Y si no tengo dinero extra?',
+    a: 'El método empieza liberando flujo desde el primer mes con la estrategia Oxígeno Rápido. Ordenamos tus deudas por ROI de flujo para recuperar efectivo sin depender de ganar más.'
   },
 ];
 

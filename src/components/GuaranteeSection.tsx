@@ -9,9 +9,9 @@ export default function GuaranteeSection() {
             <ShieldCheck className="h-8 w-8 text-green-600" />
           </div>
           <div>
-            <h3 className="heading-md text-neutral-900 mb-3">Garantía Incondicional de 30 Días</h3>
-            <p className="text-neutral-700 mb-4">Prueba el sistema sin riesgo. Si en 30 días no ves claridad y progreso real con tus deudas, te devolvemos el 100% de tu dinero. Sin preguntas.</p>
-            <p className="text-neutral-600">Creemos tanto en el poder del IPD® que asumimos todo el riesgo por ti.</p>
+            <h3 className="heading-md text-neutral-900 mb-3">Garantía 30 días — sin riesgo</h3>
+            <p className="text-neutral-700 mb-4">Prueba el método durante 30 días. Si no liberas al menos el doble de lo que pagaste por el libro, te devolvemos tu dinero. Sin preguntas.</p>
+            <p className="text-neutral-600">Consulta los detalles en nuestra <a href="/garantia" className="text-primary-600 underline">política de reembolsos</a> o escríbenos a <a href="mailto:contacto@deudafuerapazdentro.com" className="text-primary-600 underline">contacto@deudafuerapazdentro.com</a>.</p>
           </div>
         </div>
       </div>

@@ -10,9 +10,7 @@ import BenefitsSection from '@/components/BenefitsSection';
 import WhyDifferentSection from '@/components/WhyDifferentSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import AuthorSection from '@/components/AuthorSection';
-import LeadMagnetSection from '@/components/LeadMagnetSection';
 import ProductsSection from '@/components/ProductsSection';
-import MicroCTASection from '@/components/MicroCTASection';
 import GuaranteeSection from '@/components/GuaranteeSection';
 import FAQSection from '@/components/FAQSection';
 import FinalCTASection from '@/components/FinalCTASection';
@@ -34,12 +32,10 @@ export default function Home() {
       <SolutionSection />
       <TestimonialsSection />
       <AuthorSection />
-      <MicroCTASection />
       <ProductsSection />
       <GuaranteeSection />
       <FAQSection />
       <FinalCTASection />
-      <LeadMagnetSection />
       <StickyCTA />
       <Footer />
     </main>
