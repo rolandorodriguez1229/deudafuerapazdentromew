@@ -5,73 +5,20 @@ export default function ProductsSection() {
   const products = [
     {
       name: "eBook Digital",
-      price: "$19",
-      originalPrice: "$29",
+      price: "$7.99",
+      originalPrice: "$19.99",
       icon: <Book className="h-8 w-8 text-primary-600" />,
-      description: "El libro completo en formato digital",
+      description: "Oferta de lanzamiento: eBook + bonos incluidos",
       features: [
-        "210 páginas de contenido práctico",
-        "Sistema IPD® completo explicado",
-        "Las 3 estrategias paso a paso",
-        "Plantillas y hojas de trabajo",
-        "Acceso inmediato tras la compra",
-        "Compatible con todos los dispositivos"
-      ],
-      popular: false,
-      comingSoon: false
-    },
-    {
-      name: "Paquete Completo",
-      price: "$47",
-      originalPrice: "$97",
-      icon: <Star className="h-8 w-8 text-accent-500" />,
-      description: "Todo lo que necesitas para tu libertad financiera",
-      features: [
-        "eBook Digital completo",
-        "Audiolibro narrado por Rolando",
-        "Curso en video (5 horas)",
-        "Plantillas avanzadas en Excel",
-        "Guía de seguimiento mensual",
-        "Bonos exclusivos ($200 valor)",
-        "Soporte por email 90 días",
-        "Garantía de 30 días"
+        "eBook completo en formato digital",
+        "Bono: Plantilla exclusiva IPD (Excel/Sheets)",
+        "Bono: Checklist 30-60-90 días",
+        "Bono: Scripts de llamada a acreedores (PDF)",
+        "Acceso inmediato",
+        "Garantía 30 días"
       ],
       popular: true,
       comingSoon: false
-    },
-    {
-      name: "Audiolibro",
-      price: "Próximamente",
-      originalPrice: "",
-      icon: <Headphones className="h-8 w-8 text-neutral-400" />,
-      description: "Escucha mientras manejas o haces ejercicio",
-      features: [
-        "Narrado por Rolando Rodríguez",
-        "8 horas de contenido de audio",
-        "Capítulos divididos por tema",
-        "Disponible en todas las plataformas",
-        "Descarga para escuchar sin internet",
-        "Incluye material adicional"
-      ],
-      popular: false,
-      comingSoon: true
-    },
-    {
-      name: "Curso + Chatbot IA",
-      price: "Próximamente",
-      originalPrice: "",
-      icon: <MessageCircle className="h-8 w-8 text-neutral-400" />,
-      description: "Asesoría personalizada 24/7 con IA",
-      features: [
-        "Curso completo en video",
-        "Chatbot entrenado por Rolando",
-        "Respuestas personalizadas 24/7",
-        "Seguimiento automático de progreso",
-        "Alertas y recordatorios",
-        "Comunidad privada de estudiantes"
-      ],
-      popular: false,
-      comingSoon: true
     }
   ];
 
@@ -188,23 +135,7 @@ export default function ProductsSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-2xl p-8 max-w-4xl mx-auto">
-            <h3 className="heading-md text-neutral-900 mb-4">
-              ¿No estás seguro cuál elegir?
-            </h3>
-            <p className="text-lg text-neutral-600 mb-6">
-              Comienza con la plantilla gratuita y descubre cómo el sistema IPD® 
-              puede cambiar tu situación financiera en solo 15 minutos.
-            </p>
-            <Link
-              href="/plantilla-gratuita"
-              className="btn-primary inline-flex items-center"
-            >
-              Obtener Diagnóstico Gratuito
-            </Link>
-          </div>
-        </div>
+        
 
         {/* Guarantee */}
         <div className="text-center mt-12">

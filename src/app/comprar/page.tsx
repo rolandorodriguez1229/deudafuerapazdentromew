@@ -5,7 +5,7 @@ import GuaranteeSection from '@/components/GuaranteeSection';
 import FAQSection from '@/components/FAQSection';
 import FinalCTASection from '@/components/FinalCTASection';
 import Footer from '@/components/Footer';
-import { Book, Star, CheckCircle, ArrowRight } from 'lucide-react';
+import { Book, CheckCircle, ArrowRight } from 'lucide-react';
 
 export default function ComprarPage() {
   return (
@@ -25,91 +25,50 @@ export default function ComprarPage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* eBook Digital */}
+            <div className="grid md:grid-cols-1 gap-8">
+              {/* eBook Digital único */}
               <div className="bg-white rounded-2xl shadow-lg p-8 border border-neutral-200">
                 <div className="text-center mb-6">
                   <Book className="h-12 w-12 text-primary-600 mx-auto mb-4" />
                   <h3 className="text-2xl font-bold text-neutral-900 mb-2">eBook Digital</h3>
                   <div className="flex items-center justify-center space-x-2 mb-4">
-                    <span className="text-3xl font-bold text-neutral-900">$19</span>
-                    <span className="text-lg text-neutral-400 line-through">$29</span>
+                    <span className="text-3xl font-bold text-neutral-900">$7.99</span>
+                    <span className="text-lg text-neutral-400 line-through">$19.99</span>
                   </div>
-                  <p className="text-green-600 font-medium">Ahorra $10</p>
+                  <p className="text-green-600 font-medium">Oferta de lanzamiento</p>
                 </div>
 
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">210 páginas de contenido práctico</span>
+                    <span className="text-neutral-700">eBook completo en formato digital</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Sistema IPD® completo</span>
+                    <span className="text-neutral-700">Bono: Plantilla exclusiva IPD (Excel/Sheets)</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Plantillas incluidas</span>
+                    <span className="text-neutral-700">Bono: Checklist 30-60-90 días</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Acceso inmediato</span>
+                    <span className="text-neutral-700">Bono: Scripts de llamada a acreedores (PDF)</span>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-neutral-700">Acceso inmediato en tu cuenta privada</span>
                   </li>
                 </ul>
 
-                <button className="w-full btn-secondary">
-                  Comprar eBook ($19)
+                <button className="w-full btn-primary" onClick={async () => {
+                  const res = await fetch('/api/checkout', { method: 'POST' });
+                  const data = await res.json();
+                  if (data?.url) window.location.href = data.url;
+                }}>
+                  Comprar ahora con garantía
                 </button>
-              </div>
-
-              {/* Paquete Completo */}
-              <div className="bg-white rounded-2xl shadow-xl p-8 border-2 border-accent-500 relative">
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-accent-500 text-white px-4 py-2 rounded-full text-sm font-bold">
-                    MÁS POPULAR
-                  </div>
-                </div>
-
-                <div className="text-center mb-6">
-                  <Star className="h-12 w-12 text-accent-500 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-neutral-900 mb-2">Paquete Completo</h3>
-                  <div className="flex items-center justify-center space-x-2 mb-4">
-                    <span className="text-3xl font-bold text-neutral-900">$47</span>
-                    <span className="text-lg text-neutral-400 line-through">$97</span>
-                  </div>
-                  <p className="text-green-600 font-medium">Ahorra $50</p>
-                </div>
-
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">eBook Digital completo</span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Audiolibro (próximamente)</span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Curso en video (5 horas)</span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Plantillas avanzadas</span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Soporte por email 90 días</span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">Garantía de 30 días</span>
-                  </li>
-                </ul>
-
-                <button className="w-full btn-primary">
-                  Obtener Paquete Completo ($47)
-                </button>
+                <p className="text-xs text-neutral-500 text-center mt-3">Incluye garantía de 30 días • Procesamos reembolsos por el mismo método de pago (Stripe) en 3–5 días hábiles</p>
               </div>
             </div>
 

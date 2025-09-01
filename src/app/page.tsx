@@ -34,12 +34,12 @@ export default function Home() {
       <SolutionSection />
       <TestimonialsSection />
       <AuthorSection />
-      <LeadMagnetSection />
       <MicroCTASection />
       <ProductsSection />
       <GuaranteeSection />
       <FAQSection />
       <FinalCTASection />
+      <LeadMagnetSection />
       <StickyCTA />
       <Footer />
     </main>
