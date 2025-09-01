@@ -23,6 +23,10 @@ const faqs = [
     q: '¿Y si no tengo dinero extra?',
     a: 'El método empieza liberando flujo desde el primer mes con la estrategia Oxígeno Rápido. Ordenamos tus deudas por ROI de flujo para recuperar efectivo sin depender de ganar más.'
   },
+  {
+    q: '¿Puedo leer el libro en mi celular?',
+    a: 'Sí. Tienes acceso desde cualquier dispositivo (celular, tablet o computadora) y puedes descargar los materiales de apoyo.'
+  },
 ];
 
 export default function FAQSection() {

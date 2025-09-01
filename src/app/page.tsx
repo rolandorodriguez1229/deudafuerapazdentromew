@@ -18,10 +18,12 @@ import FAQSection from '@/components/FAQSection';
 import FinalCTASection from '@/components/FinalCTASection';
 import StickyCTA from '@/components/StickyCTA';
 import Footer from '@/components/Footer';
+import ExitIntentModal from '@/components/ExitIntentModal';
 
 export default function Home() {
   return (
     <main>
+      <ExitIntentModal />
       <Header />
       <TrustBar />
       <HeroSection />
