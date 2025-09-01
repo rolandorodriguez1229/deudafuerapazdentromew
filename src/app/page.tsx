@@ -3,6 +3,7 @@ import TrustBar from '@/components/TrustBar';
 import HeroSection from '@/components/HeroSection';
 import GuaranteeStrip from '@/components/GuaranteeStrip';
 import FinalOfferSection from '@/components/FinalOfferSection';
+import TestimonialsHighlightSection from '@/components/TestimonialsHighlightSection';
 import ProblemSection from '@/components/ProblemSection';
 import SolutionSection from '@/components/SolutionSection';
 import StoryTeaserSection from '@/components/StoryTeaserSection';
@@ -29,6 +30,7 @@ export default function Home() {
       <HeroSection />
       <GuaranteeStrip />
       <FinalOfferSection />
+      <TestimonialsHighlightSection />
       <StoryTeaserSection />
       <StoryTimelineSection />
       <BenefitsSection />

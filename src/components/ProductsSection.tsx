@@ -11,9 +11,9 @@ export default function ProductsSection() {
       description: "Oferta de lanzamiento: eBook + bonos incluidos",
       features: [
         "eBook completo en formato digital",
-        "🎁 Plantilla IPD 360° (Excel/Sheets)",
-        "🎁 Checklist 30-60-90 días",
-        "🎁 Scripts para negociar con acreedores (PDF)",
+        "🎁 Plantilla IPD 360° (Valorada en $29.99)",
+        "🎁 Checklist 30-60-90 días (Valorada en $19.99)",
+        "🎁 Scripts para negociar con acreedores (Valorados en $24.99)",
         "Acceso inmediato",
         "Garantía 30 días"
       ],

@@ -46,15 +46,15 @@ export default function ComprarPage() {
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">🎁 Plantilla IPD 360° (Excel/Sheets)</span>
+                    <span className="text-neutral-700">🎁 Plantilla IPD 360° (Valorada en $29.99)</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">🎁 Checklist 30-60-90 días</span>
+                    <span className="text-neutral-700">🎁 Checklist 30-60-90 días (Valorada en $19.99)</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-neutral-700">🎁 Scripts para negociar con acreedores (PDF)</span>
+                    <span className="text-neutral-700">🎁 Scripts para negociar con acreedores (Valorados en $24.99)</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />

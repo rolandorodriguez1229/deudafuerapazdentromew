@@ -63,44 +63,8 @@ export default function TestimonialsSection() {
           <p className="text-neutral-600">Personas como tú ya están saliendo de deudas</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((t) => {
-            const initials = t.name
-              .split(' ')
-              .map((p) => p.charAt(0))
-              .join('')
-              .slice(0, 2)
-              .toUpperCase();
-            return (
-              <div key={t.name} className="bg-white rounded-xl p-6 shadow-lg">
-                <div className="flex items-center gap-3 mb-3">
-                  {t.avatarSrc ? (
-                    <Image
-                      src={t.avatarSrc}
-                      alt={`Foto de ${t.name}`}
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 rounded-full object-cover object-top"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center font-semibold">
-                      {initials}
-                    </div>
-                  )}
-                  <div>
-                    <div className="text-sm font-semibold text-neutral-900">{t.name}{t.location ? `, ${t.location}` : ''}</div>
-                    <div className="flex">
-                      {Array.from({ length: t.rating }).map((_, i) => (
-                        <Star key={i} className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-neutral-700">“{t.text}”</p>
-              </div>
-            );
-          })}
-        </div>
+        {/* Carrusel con animación continua mostrando ~3 tarjetas y recorriendo las 6 */}
+        <CarouselMarquee testimonials={testimonials} />
         <div className="text-center mt-10">
           <div className="flex flex-col items-center gap-1">
             <a href="/checkout" className="btn-urgent">Sí, quiero mi paz financiera – Solo $7.99</a>
@@ -110,6 +74,71 @@ export default function TestimonialsSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+function CarouselMarquee({ testimonials }: { testimonials: Testimonial[] }) {
+  // Duplicamos para un bucle continuo sin cortes. Se verán las 6 y luego repiten.
+  const looped = [...testimonials, ...testimonials];
+
+  return (
+    <div className="overflow-hidden">
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+      <div
+        className="flex gap-6 w-max will-change-transform"
+        style={{ animation: 'marquee 40s linear infinite' }}
+      >
+        {looped.map((t, i) => (
+          <div key={`${t.name}-${i}`} className="shrink-0 w-[280px] sm:w-[320px] lg:w-[360px]">
+            <Card t={t} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Card({ t }: { t: Testimonial }) {
+  return (
+    <div className="bg-white rounded-xl p-6 shadow-lg h-full">
+      <div className="flex items-center gap-3 mb-3">
+        {t.avatarSrc ? (
+          <Image
+            src={t.avatarSrc}
+            alt={`Foto de ${t.name}`}
+            width={48}
+            height={48}
+            className="w-12 h-12 rounded-full object-cover object-top"
+          />
+        ) : (
+          <div className="w-12 h-12 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center font-semibold">
+            {t.name
+              .split(' ')
+              .map((p) => p.charAt(0))
+              .join('')
+              .slice(0, 2)
+              .toUpperCase()}
+          </div>
+        )}
+        <div>
+          <div className="text-sm font-semibold text-neutral-900">
+            {t.name}
+            {t.location ? `, ${t.location}` : ''}
+          </div>
+          <div className="flex">
+            {Array.from({ length: t.rating }).map((_, i) => (
+              <Star key={i} className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+            ))}
+          </div>
+        </div>
+      </div>
+      <p className="text-neutral-700">“{t.text}”</p>
+    </div>
   );
 }
 
