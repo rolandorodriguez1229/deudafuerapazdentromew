@@ -1,4 +1,5 @@
 "use client";
+import PriceX from './PriceX';
 export default function FinalOfferSection() {
   async function handleCheckout() {
     try {
@@ -19,7 +20,7 @@ export default function FinalOfferSection() {
         <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-6 mb-6">
           <div className="flex items-center justify-between">
             <div className="text-neutral-600">Precio normal</div>
-            <div className="line-through text-neutral-400">$19.99</div>
+            <PriceX text="$19.99" />
           </div>
           <div className="flex items-center justify-between mt-2">
             <div className="text-neutral-900 font-semibold">Hoy solo</div>
@@ -38,7 +39,7 @@ export default function FinalOfferSection() {
         </p>
         <div className="text-center">
           <button onClick={handleCheckout} className="btn-urgent text-lg py-4">Sí, quiero mi copia por solo $7.99</button>
-          <div className="text-xs text-neutral-500 mt-2">Antes $19.99 · Hoy $7.99 (lanzamiento)</div>
+          <div className="text-xs text-neutral-500 mt-2">Antes <PriceX text="$19.99" size="sm" /> · Hoy $7.99 (lanzamiento)</div>
           <p className="text-xs text-neutral-500 mt-3">⚡ Oferta de lanzamiento válida hasta el 1 de noviembre o primeras 100 compras.</p>
         </div>
       </div>

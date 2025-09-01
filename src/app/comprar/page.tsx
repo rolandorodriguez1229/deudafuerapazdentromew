@@ -6,6 +6,7 @@ import GuaranteeSection from '@/components/GuaranteeSection';
 import FAQSection from '@/components/FAQSection';
 import FinalCTASection from '@/components/FinalCTASection';
 import Footer from '@/components/Footer';
+import PriceX from '@/components/PriceX';
 import { Book, CheckCircle, ArrowRight } from 'lucide-react';
 
 export default function ComprarPage() {
@@ -34,7 +35,7 @@ export default function ComprarPage() {
                   <h3 className="text-3xl font-bold text-neutral-900 mb-2">eBook Digital</h3>
                   <div className="flex items-center justify-center space-x-3 mb-4">
                     <span className="text-4xl font-bold text-neutral-900">$7.99</span>
-                    <span className="text-xl text-neutral-400 line-through">$19.99</span>
+                    <span className="text-xl"><PriceX text="$19.99" /></span>
                   </div>
                   <p className="text-green-600 font-medium">Oferta de lanzamiento</p>
                 </div>
@@ -65,7 +66,7 @@ export default function ComprarPage() {
                 <a className="w-full btn-primary block text-center" href="/checkout">
                   Comprar ahora con garantía
                 </a>
-                <p className="text-xs text-neutral-500 text-center mt-3">Antes $19.99 · Hoy $7.99 (lanzamiento) • Incluye garantía de 30 días • Reembolsos por Stripe en 3–5 días hábiles</p>
+                <p className="text-xs text-neutral-500 text-center mt-3">Antes <PriceX text="$19.99" size="sm" /> · Hoy $7.99 (lanzamiento) • Incluye garantía de 30 días • Reembolsos por Stripe en 3–5 días hábiles</p>
                 <p className="text-xs text-neutral-500 text-center mt-1"><a className="underline" href="/garantia">Ver política de reembolsos</a></p>
               </div>
             </div>

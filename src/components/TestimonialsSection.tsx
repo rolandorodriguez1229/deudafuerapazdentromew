@@ -1,5 +1,6 @@
 import { Star } from 'lucide-react';
 import Image from 'next/image';
+import Countdown from './Countdown';
 
 type Testimonial = {
   name: string;
@@ -66,9 +67,9 @@ export default function TestimonialsSection() {
         {/* Carrusel con animación continua mostrando ~3 tarjetas y recorriendo las 6 */}
         <CarouselMarquee testimonials={testimonials} />
         <div className="text-center mt-10">
-          <div className="flex flex-col items-center gap-1">
+          <div className="flex flex-col items-center gap-2">
             <a href="/checkout" className="btn-urgent">Sí, quiero mi paz financiera – Solo $7.99</a>
-            <span className="text-xs text-neutral-500">Oferta de lanzamiento válida hasta el 1 de noviembre o primeras 100 compras</span>
+            <Countdown endAt={new Date('2025-11-01T23:59:59-06:00')} size="sm" label="Precio especial disponible hasta:" />
             <span className="text-[11px] text-neutral-500">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</span>
           </div>
         </div>

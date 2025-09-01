@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Book, Headphones, MessageCircle, CheckCircle, Star } from 'lucide-react';
+import PriceX from './PriceX';
 
 export default function ProductsSection() {
   const products = [
@@ -76,8 +77,8 @@ export default function ProductsSection() {
                       {product.price}
                     </span>
                     {product.originalPrice && (
-                      <span className="text-lg text-neutral-400 line-through">
-                        {product.originalPrice}
+                      <span className="text-lg text-neutral-400">
+                        <PriceX text={product.originalPrice} />
                       </span>
                     )}
                   </div>
