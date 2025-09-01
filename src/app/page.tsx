@@ -6,8 +6,10 @@ import FinalOfferSection from '@/components/FinalOfferSection';
 import ProblemSection from '@/components/ProblemSection';
 import SolutionSection from '@/components/SolutionSection';
 import StoryTeaserSection from '@/components/StoryTeaserSection';
+import StoryTimelineSection from '@/components/StoryTimelineSection';
 import BenefitsSection from '@/components/BenefitsSection';
 import WhyDifferentSection from '@/components/WhyDifferentSection';
+import ForWhoSection from '@/components/ForWhoSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import AuthorSection from '@/components/AuthorSection';
 import ProductsSection from '@/components/ProductsSection';
@@ -26,8 +28,10 @@ export default function Home() {
       <GuaranteeStrip />
       <FinalOfferSection />
       <StoryTeaserSection />
+      <StoryTimelineSection />
       <BenefitsSection />
       <WhyDifferentSection />
+      <ForWhoSection />
       <ProblemSection />
       <SolutionSection />
       <TestimonialsSection />

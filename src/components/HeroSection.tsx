@@ -63,6 +63,7 @@ export default function HeroSection() {
             </div>
             <div className="text-sm text-white/80 pt-1">Antes $19.99 · Hoy $7.99 (lanzamiento)</div>
             <div className="text-xs text-white/80 pt-1">Oferta de lanzamiento válida hasta el 1 de noviembre o primeras 100 compras</div>
+            <div className="text-xs text-white/80 pt-1">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</div>
             <div className="text-xs text-white/80 pt-1">
               <Link href="/garantia" className="underline">Ver política de reembolsos</Link>
             </div>
