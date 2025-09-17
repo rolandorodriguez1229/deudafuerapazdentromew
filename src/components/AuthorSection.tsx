@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, Award, Users, TrendingUp } from 'lucide-react';
+import Image from 'next/image';
 
 export default function AuthorSection() {
   const achievements = [
@@ -27,11 +28,15 @@ export default function AuthorSection() {
           {/* Author Image */}
           <div className="relative">
             <div className="bg-gradient-to-br from-primary-100 to-accent-100 rounded-2xl p-8">
-              {/* Placeholder for author photo */}
+              {/* Author photo */}
               <div className="bg-white rounded-xl p-8 shadow-lg">
-                <div className="w-48 h-48 bg-primary-200 rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <span className="text-primary-600 text-6xl font-bold">RR</span>
-                </div>
+                <Image
+                  src="/images/rolando.png"
+                  alt="Foto de Rolando Rodríguez"
+                  width={176}
+                  height={176}
+                  className="w-44 h-44 rounded-full object-contain mx-auto mb-6 ring-1 ring-neutral-200"
+                />
                 <div className="text-center">
                   <h3 className="text-2xl font-bold text-neutral-900 mb-2">
                     Rolando Rodríguez
