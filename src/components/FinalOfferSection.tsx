@@ -6,7 +6,7 @@ export default function FinalOfferSection() {
       const res = await fetch('/api/checkout', { method: 'POST' });
       const data = await res.json();
       if (data?.url) {
-        window.location.href = data.url as string;
+        window.open(data.url as string, '_blank', 'noopener,noreferrer');
       }
     } catch (_) {}
   }

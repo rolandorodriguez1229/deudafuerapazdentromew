@@ -17,8 +17,8 @@ export default function Footer() {
 
   const legal = [
     { name: 'Política de Privacidad', href: '/privacidad' },
-    { name: 'Términos de Uso', href: '/terminos' },
-    { name: 'Política de reembolsos', href: '/garantia' },
+    { name: 'Términos y Condiciones', href: '/terminos' },
+    { name: 'Política de reembolsos', href: '/reembolsos' },
   ];
 
   return (
@@ -135,6 +135,8 @@ export default function Footer() {
               </Link>
               {/* Add more social icons as needed */}
             </div>
+            <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" className="text-blue-300 text-sm underline">Pago seguro con Stripe</a>
+            <a href="/reembolsos" className="text-blue-300 text-sm underline">Garantía 30 días</a>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ export default function GuaranteeSection() {
           <div>
             <h3 className="heading-md text-neutral-900 mb-3">Garantía 30 días — sin riesgo</h3>
             <p className="text-neutral-700 mb-4">Prueba el método durante 30 días. Si no liberas al menos el doble de lo que pagaste por el libro, te devolvemos tu dinero. Sin preguntas.</p>
-            <p className="text-neutral-600">Consulta los detalles en nuestra <a href="/garantia" className="text-primary-600 underline">política de reembolsos</a> o escríbenos a <a href="mailto:contacto@deudafuerapazdentro.com" className="text-primary-600 underline">contacto@deudafuerapazdentro.com</a>.</p>
+            <p className="text-neutral-600">Consulta los detalles en nuestra <a href="/reembolsos" className="text-primary-600 underline">política de reembolsos</a> o escríbenos a <a href="mailto:contacto@deudafuerapazdentro.com" className="text-primary-600 underline">contacto@deudafuerapazdentro.com</a>.</p>
           </div>
         </div>
       </div>

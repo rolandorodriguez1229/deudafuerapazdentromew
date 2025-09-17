@@ -63,11 +63,11 @@ export default function ComprarPage() {
                   </li>
                 </ul>
 
-                <a className="w-full btn-primary block text-center" href="/checkout">
+                <a className="w-full btn-primary block text-center" href="/checkout" target="_blank" rel="noopener noreferrer">
                   Comprar ahora con garantía
                 </a>
                 <p className="text-xs text-neutral-500 text-center mt-3">Antes <PriceX text="$19.99" size="sm" /> · Hoy $7.99 (lanzamiento) • Incluye garantía de 30 días • Reembolsos por Stripe en 3–5 días hábiles</p>
-                <p className="text-xs text-neutral-500 text-center mt-1"><a className="underline" href="/garantia">Ver política de reembolsos</a></p>
+                <p className="text-xs text-neutral-500 text-center mt-1"><a className="underline" href="/reembolsos">Ver política de reembolsos</a></p>
               </div>
             </div>
 

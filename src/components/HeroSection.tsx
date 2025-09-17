@@ -50,6 +50,8 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
                 href="/checkout"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-urgent transform hover:scale-105 inline-flex items-center justify-center group"
               >
                 Sí, quiero mi paz financiera – Solo $7.99
@@ -66,7 +68,7 @@ export default function HeroSection() {
             <div className="text-xs text-white/80 pt-1">Oferta de lanzamiento válida hasta el 1 de noviembre o primeras 100 compras</div>
             <div className="text-xs text-white/80 pt-1">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</div>
             <div className="text-xs text-white/80 pt-1">
-              <Link href="/garantia" className="underline">Ver política de reembolsos</Link>
+              <Link href="/reembolsos" className="underline">Ver política de reembolsos</Link>
             </div>
 
             {/* Conversion bullets */}

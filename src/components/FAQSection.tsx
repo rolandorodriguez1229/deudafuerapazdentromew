@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     q: '¿Puedo leer el libro en mi celular?',
-    a: 'Sí. Tienes acceso desde cualquier dispositivo (celular, tablet o computadora) y puedes descargar los materiales de apoyo.'
+    a: 'Sí. Tienes acceso desde cualquier dispositivo (celular, tablet o computadora) y puedes descargar los materiales de apoyo. Conoce más sobre acceso y reembolsos en la página de garantía.'
   },
 ];
 
@@ -45,7 +45,12 @@ export default function FAQSection() {
                 {f.q}
                 <span className="text-primary-600 group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <div className="mt-2 text-neutral-700">{f.a}</div>
+              <div className="mt-2 text-neutral-700">
+                {f.a}{' '}
+                {(f.q.includes('celular') || f.q.includes('reembolsos')) && (
+                  <a href="/reembolsos" className="text-primary-600 underline">Ver garantía</a>
+                )}
+              </div>
             </details>
           ))}
         </div>
