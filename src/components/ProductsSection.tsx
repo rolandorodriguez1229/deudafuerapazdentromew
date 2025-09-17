@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Book, Headphones, MessageCircle, CheckCircle, Star } from 'lucide-react';
+import { Book, CheckCircle } from 'lucide-react';
 import PriceX from './PriceX';
 
 export default function ProductsSection() {

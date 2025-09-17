@@ -4,7 +4,7 @@ export default function ReembolsosPage() {
       <section className="py-16 bg-white">
         <div className="section-container max-w-3xl">
           <h1 className="heading-lg text-neutral-900 mb-4">Política de Reembolsos</h1>
-          <p className="text-neutral-700 mb-6">Garantía de satisfacción de 30 días para el eBook digital "Deuda Fuera, Paz Dentro".</p>
+          <p className="text-neutral-700 mb-6">Garantía de satisfacción de 30 días para el eBook digital &quot;Deuda Fuera, Paz Dentro&quot;.</p>
 
           <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-6 space-y-4">
             <div>

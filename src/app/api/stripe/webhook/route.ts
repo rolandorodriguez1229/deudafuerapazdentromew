@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   try {
     const rawBody = await request.text();
     event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
-  } catch (err) {
+  } catch {
     return new NextResponse('Invalid signature', { status: 400 });
   }
 
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
       // TODO: fulfill order: save to DB / send email, etc.
       console.log('[stripe] checkout completed', { id: session.id, email: session.customer_details?.email });
     }
-  } catch (err) {
+  } catch {
     return new NextResponse('Webhook handler failed', { status: 500 });
   }
 

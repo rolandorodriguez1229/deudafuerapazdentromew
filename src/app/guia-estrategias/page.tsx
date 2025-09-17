@@ -20,7 +20,7 @@ export default function GuiaEstrategias() {
       });
       if (!res.ok) throw new Error('subscribe_failed');
       setIsSubmitted(true);
-    } catch (_err) {
+    } catch {
       setIsSubmitted(true);
     } finally {
       setIsSubmitting(false);

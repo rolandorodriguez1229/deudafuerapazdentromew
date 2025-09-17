@@ -35,7 +35,7 @@ export async function POST() {
     });
 
     return NextResponse.json({ ok: true, url: session.url });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ ok: false, error: 'checkout_failed' }, { status: 500 });
   }
 }

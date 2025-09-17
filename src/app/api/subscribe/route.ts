@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     console.log('[subscribe] New lead', { name, email });
 
     return NextResponse.json({ ok: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ ok: false, error: 'Unexpected error' }, { status: 500 });
   }
 }

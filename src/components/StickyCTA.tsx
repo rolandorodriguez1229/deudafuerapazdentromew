@@ -1,6 +1,5 @@
 "use client";
 
-import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
 export default function StickyCTA() {
@@ -11,7 +10,7 @@ export default function StickyCTA() {
       if (data?.url) {
         window.open(data.url as string, '_blank', 'noopener,noreferrer');
       }
-    } catch (_) {}
+    } catch {}
   }
   return (
     <>

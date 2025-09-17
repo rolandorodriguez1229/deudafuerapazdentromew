@@ -8,7 +8,7 @@ export default function FinalOfferSection() {
       if (data?.url) {
         window.open(data.url as string, '_blank', 'noopener,noreferrer');
       }
-    } catch (_) {}
+    } catch {}
   }
   return (
     <section className="py-16 bg-white">
