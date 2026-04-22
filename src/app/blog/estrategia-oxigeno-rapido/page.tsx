@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Estrategia Oxígeno Rápido: libera flujo cuando estás al límite',
+  description:
+    'IPD ≥ 0.70: prioriza ROI de flujo para recuperar efectivo mensual y evitar atrasos. Aprende cuándo usar Oxígeno Rápido.',
+  alternates: { canonical: '/blog/estrategia-oxigeno-rapido' },
+};
 
 export default function PostOxigenoRapido() {
   return (

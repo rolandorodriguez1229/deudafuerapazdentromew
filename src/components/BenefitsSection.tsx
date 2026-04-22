@@ -1,3 +1,5 @@
+import { LAUNCH_DEADLINE_COPY } from '@/config/offer';
+
 export default function BenefitsSection() {
   const items = [
     '✅ Recuperarás flujo de efectivo en semanas, no en años.',
@@ -21,7 +23,7 @@ export default function BenefitsSection() {
         <div className="mt-8">
           <div className="flex flex-col items-center gap-1">
             <a href="/checkout" className="btn-primary">Sí, quiero mi paz financiera – Solo $7.99</a>
-            <span className="text-xs text-neutral-500">Oferta de lanzamiento válida hasta el 1 de noviembre o primeras 100 compras</span>
+            <span className="text-xs text-neutral-500">{LAUNCH_DEADLINE_COPY}</span>
             <span className="text-[11px] text-neutral-500">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</span>
           </div>
         </div>

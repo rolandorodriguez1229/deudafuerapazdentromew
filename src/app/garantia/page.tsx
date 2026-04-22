@@ -1,3 +1,12 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Garantía y política de reembolsos',
+  description:
+    'Garantía de 30 días sin riesgo. Si no liberas al menos el doble de lo que pagaste, te devolvemos tu dinero.',
+  alternates: { canonical: '/garantia' },
+};
+
 export default function GarantiaPage() {
   return (
     <main>

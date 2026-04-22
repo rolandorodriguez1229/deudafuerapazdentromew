@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { Mail, BookOpen, MessageCircle, FileText } from 'lucide-react';
+import { Mail, BookOpen, FileText } from 'lucide-react';
 
 export default function Footer() {
+  const year = new Date().getFullYear();
   const quickLinks = [
     { name: 'Inicio', href: '/' },
     { name: 'Sobre Mí', href: '/sobre-mi' },
@@ -121,20 +122,10 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-primary-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-blue-300 text-sm mb-2 md:mb-0">
-            © 2024 Deuda Fuera, Paz Dentro. IPD™ es un método propietario de Rolando Rodríguez. Todos los derechos reservados.
+            © {year} Deuda Fuera, Paz Dentro. IPD® es un método propietario de Rolando Rodríguez. Todos los derechos reservados.
           </p>
           <div className="flex items-center space-x-6">
             <a href="mailto:contacto@deudafuerapazdentro.com" className="text-blue-300 text-sm underline">contacto@deudafuerapazdentro.com</a>
-            <span className="text-blue-300 text-sm">Síguenos:</span>
-            <div className="flex space-x-4">
-              <Link
-                href="#"
-                className="text-blue-300 hover:text-accent-400 transition-colors duration-200"
-              >
-                <MessageCircle className="h-5 w-5" />
-              </Link>
-              {/* Add more social icons as needed */}
-            </div>
           </div>
         </div>
       </div>

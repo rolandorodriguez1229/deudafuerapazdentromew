@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Avalancha: eficiencia matemática cuando ya respiras',
+  description:
+    'IPD < 0.45: reduce el costo total atacando primero las tasas APR más altas. La estrategia óptima cuando tu flujo ya está saneado.',
+  alternates: { canonical: '/blog/estrategia-avalancha' },
+};
 
 export default function PostAvalancha() {
   return (

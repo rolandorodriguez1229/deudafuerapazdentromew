@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Shield, TrendingUp, CheckCircle } from 'lucide-react';
 import PriceX from './PriceX';
+import { LAUNCH_DEADLINE_COPY } from '@/config/offer';
 
 export default function HeroSection() {
   return (
@@ -63,7 +64,7 @@ export default function HeroSection() {
               </Link>
             </div>
             <div className="text-sm text-white/80 pt-1">Antes <PriceX text="$19.99" size="sm" /> · Hoy $7.99 (lanzamiento)</div>
-            <div className="text-xs text-white/80 pt-1">Oferta de lanzamiento válida hasta el 1 de noviembre o primeras 100 compras</div>
+            <div className="text-xs text-white/80 pt-1">{LAUNCH_DEADLINE_COPY}</div>
             <div className="text-xs text-white/80 pt-1">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</div>
             <div className="text-xs text-white/80 pt-1">
               <Link href="/garantia" className="underline">Ver política de reembolsos</Link>
@@ -100,10 +101,11 @@ export default function HeroSection() {
               <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
                 <Image
                   src="/images/Deuda Fuera Paz Dentro Portada Ebook.png"
-                  alt="Portada del libro Deuda Fuera, Paz Dentro"
+                  alt="Portada del libro Deuda Fuera, Paz Dentro de Rolando Rodríguez"
                   width={640}
                   height={800}
                   priority
+                  sizes="(min-width: 1024px) 640px, 100vw"
                   className="w-full h-auto object-cover"
                 />
               </div>

@@ -1,3 +1,5 @@
+import JsonLd from './JsonLd';
+
 const faqs = [
   {
     q: '¿Cómo recibo el libro?',
@@ -29,9 +31,20 @@ const faqs = [
   },
 ];
 
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
 export default function FAQSection() {
   return (
     <section className="py-20 bg-neutral-50">
+      <JsonLd data={faqJsonLd} />
       <div className="section-container">
         <div className="text-center mb-12">
           <h2 className="heading-lg text-neutral-900 mb-4">Preguntas Frecuentes</h2>

@@ -1,9 +1,18 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CheckCircle, FileText, Download } from 'lucide-react';
+import PurchaseTracker from './PurchaseTracker';
+
+export const metadata: Metadata = {
+  title: '¡Gracias por tu compra!',
+  description: 'Confirmación de compra de Deuda Fuera, Paz Dentro.',
+  robots: { index: false, follow: false },
+};
 
 export default function GraciasPage() {
   return (
     <main>
+      <PurchaseTracker />
       <section className="min-h-screen bg-gradient-to-br from-accent-50 to-primary-50 flex items-center">
         <div className="section-container py-16 max-w-3xl">
           <div className="bg-white rounded-2xl shadow-2xl p-10 text-center">

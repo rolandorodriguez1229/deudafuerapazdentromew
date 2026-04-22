@@ -7,7 +7,7 @@ import FAQSection from '@/components/FAQSection';
 import FinalCTASection from '@/components/FinalCTASection';
 import Footer from '@/components/Footer';
 import PriceX from '@/components/PriceX';
-import { Book, CheckCircle, ArrowRight } from 'lucide-react';
+import { Book, CheckCircle } from 'lucide-react';
 
 export default function ComprarPage() {
   return (
@@ -84,24 +84,6 @@ export default function ComprarPage() {
 
             {/* Final CTA */}
             <FinalCTASection />
-
-            {/* Temporary Message */}
-            <div className="mt-16 bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
-              <h3 className="text-lg font-semibold text-yellow-800 mb-2">
-                ¡Sitio en Construcción!
-              </h3>
-              <p className="text-yellow-700 mb-4">
-                Los botones de compra se conectarán pronto a la plataforma de pagos. 
-                Mientras tanto, puedes descargar la plantilla gratuita.
-              </p>
-              <a
-                href="/plantilla-gratuita"
-                className="inline-flex items-center btn-primary"
-              >
-                Obtener Plantilla Gratuita
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
-            </div>
 
             {/* Guarantee */}
             <div className="mt-12 text-center">

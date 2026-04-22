@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Countdown from '@/components/Countdown';
 import { CheckCircle, Download, Clock, Shield, Calculator, ArrowRight } from 'lucide-react';
+import { trackLead } from '@/lib/track';
 
 export default function PlantillaGratuita() {
   const [formData, setFormData] = useState({
@@ -12,10 +13,12 @@ export default function PlantillaGratuita() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMsg('');
 
     try {
       const res = await fetch('/api/subscribe', {
@@ -24,9 +27,10 @@ export default function PlantillaGratuita() {
         body: JSON.stringify({ name: formData.name, email: formData.email }),
       });
       if (!res.ok) throw new Error('subscribe_failed');
+      trackLead(formData.email);
       setIsSubmitted(true);
-    } catch (_err) {
-      setIsSubmitted(true);
+    } catch {
+      setErrorMsg('Hubo un problema al enviar tus datos. Intenta de nuevo en un momento.');
     } finally {
       setIsSubmitting(false);
     }
@@ -205,6 +209,10 @@ export default function PlantillaGratuita() {
                     placeholder="tu@email.com"
                   />
                 </div>
+
+                {errorMsg ? (
+                  <p role="alert" className="text-sm text-red-600 -mt-2">{errorMsg}</p>
+                ) : null}
 
                 <button
                   type="submit"

@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Bola de Nieve: cuándo usar motivación y momentum',
+  description:
+    'IPD entre 0.45 y 0.70: pagar primero las deudas pequeñas dispara tu constancia. Cuándo usar Bola de Nieve y cómo combinarla con Avalancha.',
+  alternates: { canonical: '/blog/estrategia-bola-de-nieve' },
+};
 
 export default function PostBolaDeNieve() {
   return (

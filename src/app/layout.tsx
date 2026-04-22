@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Playfair_Display } from "next/font/google";
+import Analytics from "@/components/Analytics";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -14,17 +15,41 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.deudafuerapazdentro.com";
+
 export const metadata: Metadata = {
-  title: "Deuda Fuera Paz Dentro | Método probado para salir de deudas rápido",
-  description: "Descubre el GPS Anti-Deuda: un plan claro que combina Oxígeno, Bola de Nieve y Avalancha según tu IPD para resultados rápidos y reales.",
-  keywords: "eliminar deudas, finanzas personales, libertad financiera, Rolando Rodríguez, deudas inteligentes",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Deuda Fuera, Paz Dentro | Método probado para salir de deudas",
+    template: "%s | Deuda Fuera, Paz Dentro",
+  },
+  description:
+    "Descubre el GPS Anti-Deuda: un plan claro que combina Oxígeno, Bola de Nieve y Avalancha según tu IPD para resultados rápidos y reales.",
   authors: [{ name: "Rolando Rodríguez" }],
+  alternates: { canonical: "/" },
   openGraph: {
     title: "Deuda Fuera, Paz Dentro",
-    description: "El sistema probado para eliminar deudas de forma inteligente",
+    description: "El sistema probado para eliminar deudas de forma inteligente.",
+    url: SITE_URL,
+    siteName: "Deuda Fuera, Paz Dentro",
     type: "website",
-    locale: "es_ES",
+    locale: "es_US",
+    images: [
+      {
+        url: "/images/Deuda Fuera Paz Dentro Portada Ebook.png",
+        width: 1200,
+        height: 630,
+        alt: "Portada del libro Deuda Fuera, Paz Dentro",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Deuda Fuera, Paz Dentro",
+    description: "El sistema probado para eliminar deudas de forma inteligente.",
+    images: ["/images/Deuda Fuera Paz Dentro Portada Ebook.png"],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -35,6 +60,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${poppins.variable} ${playfair.variable}`}>
       <body className={`${poppins.className} antialiased bg-white text-neutral-800`}>
+        <Analytics />
         {children}
       </body>
     </html>

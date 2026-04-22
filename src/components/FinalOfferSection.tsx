@@ -1,14 +1,17 @@
 "use client";
 import PriceX from './PriceX';
+import { LAUNCH_END_LABEL } from '@/config/offer';
+import { trackInitiateCheckout } from '@/lib/track';
 export default function FinalOfferSection() {
   async function handleCheckout() {
+    trackInitiateCheckout(7.99);
     try {
       const res = await fetch('/api/checkout', { method: 'POST' });
       const data = await res.json();
       if (data?.url) {
         window.location.href = data.url as string;
       }
-    } catch (_) {}
+    } catch {}
   }
   return (
     <section className="py-16 bg-white">
@@ -40,7 +43,7 @@ export default function FinalOfferSection() {
         <div className="text-center">
           <button onClick={handleCheckout} className="btn-urgent text-lg py-4">Sí, quiero mi copia por solo $7.99</button>
           <div className="text-xs text-neutral-500 mt-2">Antes <PriceX text="$19.99" size="sm" /> · Hoy $7.99 (lanzamiento)</div>
-          <p className="text-xs text-neutral-500 mt-3">⚡ Oferta de lanzamiento válida hasta el 1 de noviembre o primeras 100 compras.</p>
+          <p className="text-xs text-neutral-500 mt-3">⚡ Oferta de lanzamiento válida hasta el {LAUNCH_END_LABEL} o primeras 100 compras.</p>
         </div>
       </div>
     </section>

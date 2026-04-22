@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'IPD: cómo calcular tu oxígeno financiero en 15 minutos',
+  description:
+    'El Índice de Presión de Deuda (IPD) te dice si aplicar Oxígeno Rápido, Bola de Nieve o Avalancha. Aprende a calcularlo paso a paso.',
+  alternates: { canonical: '/blog/ipd-oxigeno-financiero' },
+};
 
 export default function PostIPD() {
   return (

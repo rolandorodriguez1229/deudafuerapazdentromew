@@ -1,6 +1,7 @@
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import Countdown from './Countdown';
+import { LAUNCH_END_AT } from '@/config/offer';
 
 type Testimonial = {
   name: string;
@@ -69,7 +70,7 @@ export default function TestimonialsSection() {
         <div className="text-center mt-10">
           <div className="flex flex-col items-center gap-2">
             <a href="/checkout" className="btn-urgent">Sí, quiero mi paz financiera – Solo $7.99</a>
-            <Countdown endAt={new Date('2025-11-01T23:59:59-06:00')} size="sm" label="Precio especial disponible hasta:" />
+            <Countdown endAt={LAUNCH_END_AT} size="sm" label="Precio especial disponible hasta:" />
             <span className="text-[11px] text-neutral-500">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</span>
           </div>
         </div>

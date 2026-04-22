@@ -7,33 +7,21 @@ export default function ExitIntentModal() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // No mostrar en pantallas pequeñas si estorba mucho
     if (typeof window === 'undefined') return;
+    if (!window.matchMedia('(min-width: 768px) and (hover: hover)').matches) return;
     const already = localStorage.getItem('exit_intent_shown');
     if (already === '1') return;
 
     const onMouseOut = (e: MouseEvent) => {
-      if (e.clientY <= 10) {
+      if (e.clientY <= 10 && !e.relatedTarget) {
         setOpen(true);
         localStorage.setItem('exit_intent_shown', '1');
         window.removeEventListener('mouseout', onMouseOut);
       }
     };
 
-    const onVisibility = () => {
-      if (document.visibilityState === 'hidden') {
-        setOpen(true);
-        localStorage.setItem('exit_intent_shown', '1');
-        document.removeEventListener('visibilitychange', onVisibility);
-      }
-    };
-
     window.addEventListener('mouseout', onMouseOut);
-    document.addEventListener('visibilitychange', onVisibility);
-    return () => {
-      window.removeEventListener('mouseout', onMouseOut);
-      document.removeEventListener('visibilitychange', onVisibility);
-    };
+    return () => window.removeEventListener('mouseout', onMouseOut);
   }, []);
 
   if (!open) return null;

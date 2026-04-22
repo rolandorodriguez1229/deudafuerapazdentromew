@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Blog — estrategias para salir de deudas',
+  description:
+    'Artículos sobre IPD, Oxígeno Rápido, Bola de Nieve y Avalancha. Aprende qué estrategia te conviene según tu situación financiera.',
+  alternates: { canonical: '/blog' },
+};
 
 const posts = [
   {

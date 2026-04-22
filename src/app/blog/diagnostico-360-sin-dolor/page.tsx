@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Diagnóstico 360° sin dolor: tu tablero en 30 minutos',
+  description:
+    'Campos mínimos, KPIs (IPD, PCR, ROI) y calendario 7/3/1 para no pagar tarde. Haz tu diagnóstico financiero completo sin frustrarte.',
+  alternates: { canonical: '/blog/diagnostico-360-sin-dolor' },
+};
 
 export default function PostDiagnostico() {
   return (

@@ -2,16 +2,19 @@
 
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { LAUNCH_END_LABEL } from '@/config/offer';
+import { trackInitiateCheckout } from '@/lib/track';
 
 export default function StickyCTA() {
   async function handleCheckout() {
+    trackInitiateCheckout(7.99);
     try {
       const res = await fetch('/api/checkout', { method: 'POST' });
       const data = await res.json();
       if (data?.url) {
         window.location.href = data.url as string;
       }
-    } catch (_) {}
+    } catch {}
   }
   return (
     <>
@@ -28,7 +31,7 @@ export default function StickyCTA() {
                 <button onClick={handleCheckout} className="btn-primary rounded-full py-2 px-4">
                   $7.99 <ArrowRight className="ml-1 h-4 w-4" />
                 </button>
-                <span className="text-[10px] text-neutral-500 pr-1">Hasta el 1 de noviembre</span>
+                <span className="text-[10px] text-neutral-500 pr-1">Hasta el {LAUNCH_END_LABEL}</span>
               </div>
             </div>
           </div>
@@ -40,7 +43,7 @@ export default function StickyCTA() {
         <div className="bg-white border border-neutral-200 shadow-2xl rounded-full p-2 pl-3 items-center gap-3 hidden md:flex">
           <div className="flex flex-col leading-tight">
             <span className="text-sm font-medium text-neutral-800">$7.99 oferta</span>
-            <span className="text-[10px] text-neutral-500">Hasta el 1 de noviembre</span>
+            <span className="text-[10px] text-neutral-500">Hasta el {LAUNCH_END_LABEL}</span>
           </div>
           <button onClick={handleCheckout} className="btn-primary rounded-full py-2 px-4">
             Comprar <ArrowRight className="ml-1 h-4 w-4" />
