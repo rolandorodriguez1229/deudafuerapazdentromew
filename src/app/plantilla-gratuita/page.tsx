@@ -162,8 +162,8 @@ export default function PlantillaGratuita() {
                   <div className="text-xs text-neutral-600">Gratis</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-accent-500">5,000+</div>
-                  <div className="text-xs text-neutral-600">Usuarios</div>
+                  <div className="text-2xl font-bold text-accent-500">30 días</div>
+                  <div className="text-xs text-neutral-600">Garantía</div>
                 </div>
               </div>
             </div>
@@ -248,7 +248,7 @@ export default function PlantillaGratuita() {
               <div className="mt-6 text-center">
                 <div className="flex items-center justify-center space-x-2 text-sm text-neutral-500 mb-3">
                   <Clock className="h-4 w-4" />
-                  <span>Más de 1,000 descargas esta semana</span>
+                  <span>Descarga inmediata · Sin spam</span>
                 </div>
                                  <p className="text-xs text-neutral-400">
                    &quot;Por fin entiendo mis deudas. La plantilla me dio claridad total.&quot; - Ana M.

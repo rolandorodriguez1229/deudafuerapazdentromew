@@ -10,8 +10,8 @@ export default function AuthorSection() {
     },
     {
       icon: <Users className="h-6 w-6 text-accent-500" />,
-      stat: "5,000+",
-      label: "Familias ayudadas"
+      stat: "100s",
+      label: "Lectores aplicando el método"
     },
     {
       icon: <Award className="h-6 w-6 text-accent-500" />,
@@ -88,8 +88,9 @@ export default function AuthorSection() {
               </p>
               
               <p>
-                Desde entonces, he ayudado a más de 5,000 familias hispanas a 
-                recuperar su libertad financiera usando este mismo sistema.
+                Desde entonces, comparto este sistema con familias hispanas que
+                están listas para recuperar su libertad financiera — y cada vez
+                somos más los que dejamos el estrés de las deudas atrás.
               </p>
             </div>
 

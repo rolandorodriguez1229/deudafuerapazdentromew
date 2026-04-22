@@ -36,10 +36,10 @@ export const metadata: Metadata = {
     locale: "es_US",
     images: [
       {
-        url: "/images/Deuda Fuera Paz Dentro Portada Ebook.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Portada del libro Deuda Fuera, Paz Dentro",
+        alt: "Deuda Fuera, Paz Dentro — Método para salir de deudas",
       },
     ],
   },
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Deuda Fuera, Paz Dentro",
     description: "El sistema probado para eliminar deudas de forma inteligente.",
-    images: ["/images/Deuda Fuera Paz Dentro Portada Ebook.png"],
+    images: ["/opengraph-image"],
   },
   robots: { index: true, follow: true },
 };

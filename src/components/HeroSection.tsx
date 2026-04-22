@@ -23,27 +23,27 @@ export default function HeroSection() {
 
             {/* Main Headline */}
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white text-balance">
-              Libérate de tus deudas en <span className="text-yellow-400">15 minutos al día</span> con el método que me sacó de $90,000.
+              Haz tu plan anti-deuda en <span className="text-yellow-400">15 minutos</span> — el mismo que me sacó de $90,000.
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
-              Recupera tu paz financiera sin fórmulas complicadas ni ingresos millonarios.
+              Sin hojas de cálculo complicadas. Sin pedir aumento. Funciona con el salario que ya tienes.
             </p>
 
             {/* Stats */}
             <div className="flex flex-wrap gap-8 py-4">
               <div className="text-center">
                 <div className="text-3xl font-bold text-accent-400">$90K</div>
-                <div className="text-sm text-white/80">Deudas Eliminadas</div>
+                <div className="text-sm text-white/80">Deudas eliminadas</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-accent-400">100%</div>
-                <div className="text-sm text-white/80">Método Probado</div>
+                <div className="text-3xl font-bold text-accent-400">30 días</div>
+                <div className="text-sm text-white/80">Garantía sin preguntas</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-accent-400">15 min</div>
-                <div className="text-sm text-white/80">Para Empezar</div>
+                <div className="text-sm text-white/80">Para tu primer plan</div>
               </div>
             </div>
 
@@ -53,7 +53,7 @@ export default function HeroSection() {
                 href="/checkout"
                 className="btn-urgent transform hover:scale-105 inline-flex items-center justify-center group"
               >
-                Sí, quiero mi paz financiera – Solo $7.99
+                Sí, quiero mi plan — Solo $7.99
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link

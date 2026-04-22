@@ -41,7 +41,7 @@ export default function FinalOfferSection() {
           Piensa en esto: por menos de lo que gastas en dos cafés ☕, tendrás un plan paso a paso para salir de deudas y recuperar tu tranquilidad. Cada día que pospongas esta decisión, sigues pagando intereses a los bancos. Hoy puedes empezar a pagarte a ti mismo.
         </p>
         <div className="text-center">
-          <button onClick={handleCheckout} className="btn-urgent text-lg py-4">Sí, quiero mi copia por solo $7.99</button>
+          <button onClick={handleCheckout} className="btn-urgent text-lg py-4">Sí, quiero mi plan — Solo $7.99</button>
           <div className="text-xs text-neutral-500 mt-2">Antes <PriceX text="$19.99" size="sm" /> · Hoy $7.99 (lanzamiento)</div>
           <p className="text-xs text-neutral-500 mt-3">⚡ Oferta de lanzamiento válida hasta el {LAUNCH_END_LABEL} o primeras 100 compras.</p>
         </div>

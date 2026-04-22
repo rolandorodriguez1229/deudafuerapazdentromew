@@ -69,7 +69,7 @@ export default function TestimonialsSection() {
         <CarouselMarquee testimonials={testimonials} />
         <div className="text-center mt-10">
           <div className="flex flex-col items-center gap-2">
-            <a href="/checkout" className="btn-urgent">Sí, quiero mi paz financiera – Solo $7.99</a>
+            <a href="/checkout" className="btn-urgent">Sí, quiero mi plan — Solo $7.99</a>
             <Countdown endAt={LAUNCH_END_AT} size="sm" label="Precio especial disponible hasta:" />
             <span className="text-[11px] text-neutral-500">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</span>
           </div>
