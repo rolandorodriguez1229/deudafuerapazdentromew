@@ -5,6 +5,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.deudafuerapazd
 const staticRoutes = [
   { path: '/', priority: 1.0, changeFrequency: 'weekly' as const },
   { path: '/comprar', priority: 0.9, changeFrequency: 'weekly' as const },
+  { path: '/diagnostico', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/plantilla-gratuita', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/guia-estrategias', priority: 0.7, changeFrequency: 'monthly' as const },
   { path: '/garantia', priority: 0.4, changeFrequency: 'yearly' as const },

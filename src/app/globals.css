@@ -80,3 +80,27 @@
     background-position: center;
   }
 }
+
+/* GPS Anti-Deuda: animaciones sobrias de celebración y velocímetro */
+@keyframes gps-pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes gps-rise {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@layer utilities {
+  .animate-gps-pop {
+    animation: gps-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-gps-rise {
+    animation: gps-rise 0.5s ease-out 0.3s both;
+  }
+  .gps-needle {
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}

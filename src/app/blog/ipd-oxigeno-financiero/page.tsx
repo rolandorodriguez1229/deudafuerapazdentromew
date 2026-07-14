@@ -23,8 +23,8 @@ export default function PostIPD() {
 
           <section className="prose prose-neutral max-w-none">
             <h2>¿Qué es el IPD?</h2>
-            <p>Es la relación entre tus pagos mínimos y tu ingreso mensual. Mientras más alto, más “ahogado” estás.</p>
-            <pre><code>IPD = Pagos mínimos ÷ Ingreso mensual</code></pre>
+            <p>Es la parte de tu ingreso que ya está comprometida antes de empezar el mes: tus gastos esenciales más los pagos mínimos de tus deudas. Mientras más alto, más “ahogado” estás. Los gastos NO esenciales no entran en el cálculo.</p>
+            <pre><code>IPD = (Gastos esenciales + Pagos mínimos) ÷ Ingreso neto mensual</code></pre>
             <h3>Umbrales y estrategia</h3>
             <ul>
               <li>IPD ≥ 0.70 → Oxígeno Rápido (liberar flujo)</li>
@@ -33,15 +33,15 @@ export default function PostIPD() {
             </ul>
             <h3>Cómo medirlo en 15 minutos</h3>
             <ol>
-              <li>Suma pagos mínimos de todas tus deudas.</li>
-              <li>Toma tu ingreso mensual neto.</li>
-              <li>Divide y compara con los umbrales.</li>
+              <li>Suma tus gastos esenciales del mes (vivienda, comida, transporte, servicios, salud).</li>
+              <li>Suma los pagos mínimos de todas tus deudas.</li>
+              <li>Divide el total entre tu ingreso mensual neto y compara con los umbrales.</li>
             </ol>
             <p>Consejo: recalcula tu IPD cada vez que elimines una deuda; puede que cambie tu estrategia.</p>
           </section>
 
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link href="/plantilla-gratuita" className="btn-primary">Calcular mi IPD ahora</Link>
+            <Link href="/diagnostico" className="btn-primary">Calcular mi IPD ahora</Link>
             <Link href="/comprar" className="btn-secondary">Ver paquetes</Link>
           </div>
         </div>
