@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { EBOOK_SALES_PAUSED, WAITLIST_PATH } from '@/config/sales';
 
 export const runtime = 'nodejs';
 
@@ -9,6 +10,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
 
 export async function POST() {
   try {
+    // Guarda dura, igual que en /checkout. Se responde con la ruta de la lista
+    // de espera para que el cliente sepa a dónde mandar al usuario.
+    if (EBOOK_SALES_PAUSED) {
+      return NextResponse.json(
+        { ok: false, paused: true, url: WAITLIST_PATH },
+        { status: 503 },
+      );
+    }
+
     if (!process.env.STRIPE_SECRET_KEY) {
       return NextResponse.json({ ok: false, error: 'Stripe not configured' }, { status: 500 });
     }

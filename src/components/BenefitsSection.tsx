@@ -1,4 +1,5 @@
 import { LAUNCH_DEADLINE_COPY } from '@/config/offer';
+import { EBOOK_SALES_PAUSED, WAITLIST_CTA_LABEL, WAITLIST_PATH } from '@/config/sales';
 
 export default function BenefitsSection() {
   const items = [
@@ -22,9 +23,18 @@ export default function BenefitsSection() {
         </div>
         <div className="mt-8">
           <div className="flex flex-col items-center gap-1">
-            <a href="/checkout" className="btn-primary">Sí, quiero mi plan — Solo $7.99</a>
-            <span className="text-xs text-neutral-500">{LAUNCH_DEADLINE_COPY}</span>
-            <span className="text-[11px] text-neutral-500">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</span>
+            {EBOOK_SALES_PAUSED ? (
+              <>
+                <a href={WAITLIST_PATH} className="btn-primary">{WAITLIST_CTA_LABEL}</a>
+                <span className="text-xs text-neutral-500">El libro sale pronto · Mientras tanto, calcula tu IPD gratis</span>
+              </>
+            ) : (
+              <>
+                <a href="/checkout" className="btn-primary">Sí, quiero mi plan — Solo $7.99</a>
+                <span className="text-xs text-neutral-500">{LAUNCH_DEADLINE_COPY}</span>
+                <span className="text-[11px] text-neutral-500">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</span>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import FinalCTASection from '@/components/FinalCTASection';
 import Footer from '@/components/Footer';
 import PriceX from '@/components/PriceX';
 import { Book, CheckCircle } from 'lucide-react';
+import { EBOOK_SALES_PAUSED, WAITLIST_CTA_LABEL, WAITLIST_PATH } from '@/config/sales';
 
 export default function ComprarPage() {
   return (
@@ -63,11 +64,25 @@ export default function ComprarPage() {
                   </li>
                 </ul>
 
-                <a className="w-full btn-primary block text-center" href="/checkout">
-                  Comprar ahora con garantía
-                </a>
-                <p className="text-xs text-neutral-500 text-center mt-3">Antes <PriceX text="$19.99" size="sm" /> · Hoy $7.99 (lanzamiento) • Incluye garantía de 30 días • Reembolsos por Stripe en 3–5 días hábiles</p>
-                <p className="text-xs text-neutral-500 text-center mt-1"><a className="underline" href="/garantia">Ver política de reembolsos</a></p>
+                {EBOOK_SALES_PAUSED ? (
+                  <>
+                    <a className="w-full btn-primary block text-center" href={WAITLIST_PATH}>
+                      {WAITLIST_CTA_LABEL}
+                    </a>
+                    <p className="text-xs text-neutral-500 text-center mt-3">
+                      El libro está terminado y en preparación digital. Todavía no está a la venta:
+                      déjame tu correo y te aviso el día que salga.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <a className="w-full btn-primary block text-center" href="/checkout">
+                      Comprar ahora con garantía
+                    </a>
+                    <p className="text-xs text-neutral-500 text-center mt-3">Antes <PriceX text="$19.99" size="sm" /> · Hoy $7.99 (lanzamiento) • Incluye garantía de 30 días • Reembolsos por Stripe en 3–5 días hábiles</p>
+                    <p className="text-xs text-neutral-500 text-center mt-1"><a className="underline" href="/garantia">Ver política de reembolsos</a></p>
+                  </>
+                )}
               </div>
             </div>
 

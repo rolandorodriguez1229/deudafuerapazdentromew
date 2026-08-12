@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { ArrowRight, Shield, TrendingUp, CheckCircle } from 'lucide-react';
 import PriceX from './PriceX';
 import { LAUNCH_DEADLINE_COPY } from '@/config/offer';
+import { EBOOK_SALES_PAUSED, WAITLIST_CTA_LABEL, WAITLIST_PATH } from '@/config/sales';
 
 export default function HeroSection() {
   return (
@@ -50,10 +51,10 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
-                href="/checkout"
+                href={EBOOK_SALES_PAUSED ? WAITLIST_PATH : '/checkout'}
                 className="btn-urgent transform hover:scale-105 inline-flex items-center justify-center group"
               >
-                Sí, quiero mi plan — Solo $7.99
+                {EBOOK_SALES_PAUSED ? WAITLIST_CTA_LABEL : 'Sí, quiero mi plan — Solo $7.99'}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
