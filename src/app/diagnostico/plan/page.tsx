@@ -5,6 +5,7 @@ import GpsNav from '@/components/gps/GpsNav';
 import PlanSelector from '@/components/gps/PlanSelector';
 import { requireUser } from '@/lib/gps/auth';
 import { getEntitlement } from '@/lib/gps/entitlement';
+import { getLocale } from '@/lib/i18n/server';
 
 export const metadata: Metadata = {
   title: 'Plan Full',
@@ -13,16 +14,17 @@ export const metadata: Metadata = {
 };
 
 const FREE_FEATURES = [
-  'Tu IPD con velocímetro y tu zona',
-  'Tu estrategia: Oxígeno Rápido, Bola de Nieve o Avalancha',
+  'Tu IPD con velocímetro y tu fase: Déficit, Oxígeno, Tracción o Eficiencia',
+  'El Panel de Oxígeno completo: las seis palancas, con qué decir y a quién llamar',
   'Tu Número de Paz y tu Meta de Oxígeno',
-  'Registra todas tus deudas',
+  'Diagnóstico de cada deuda con la columna ¿Renegociar?',
 ];
 
 const FULL_FEATURES = [
   'Orden de Ataque completo: tu deuda objetivo y las que siguen',
   'Fecha libre de deudas e intereses que te ahorras',
   'Escenarios: ¿y si pago $100 más? ¿y si negocio el APR?',
+  'La Prueba del Mes 12: si te cae un golpe, ¿sobrevives? (muy pronto)',
   'Alertas 7-3-1 por email antes de cada pago (muy pronto)',
   'Seguimiento mensual: tacha deudas y celebra (muy pronto)',
   'Modo pareja: 2 personas, 1 tablero (muy pronto)',
@@ -38,11 +40,11 @@ export default async function PlanPage({
   const { supabase } = await requireUser('/diagnostico/plan');
   const entitlement = await getEntitlement(supabase);
   if (entitlement === 'full') redirect('/diagnostico/cuenta');
-  const params = await searchParams;
+  const [locale, params] = await Promise.all([getLocale(), searchParams]);
 
   return (
     <div className="section-container py-8 max-w-3xl mx-auto">
-      <GpsNav active="/diagnostico/panel" />
+      <GpsNav active="/diagnostico/panel" locale={locale} />
 
       {params.canceled && (
         <p className="text-sm text-neutral-600 bg-neutral-100 rounded-lg p-3 mb-6 text-center">

@@ -9,6 +9,7 @@ const debts: DebtInput[] = [
   {
     id: 'tarjeta',
     name: 'Tarjeta',
+    type: 'tarjeta',
     balanceCents: 300_000,
     minPaymentCents: 9_000,
     apr: 22,
@@ -16,6 +17,7 @@ const debts: DebtInput[] = [
   {
     id: 'auto',
     name: 'Auto',
+    type: 'prestamo_plazo',
     balanceCents: 800_000,
     minPaymentCents: 25_000,
     apr: 9,

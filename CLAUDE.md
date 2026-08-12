@@ -21,7 +21,7 @@ npx supabase start  # local Supabase (Docker) for the /diagnostico tool; emails 
 - **react-hook-form** + **zod** + **@hookform/resolvers** for form validation
 - **lucide-react** for icons
 - Path alias: `@/*` → `src/*`
-- Language: Spanish (`<html lang="es">`) — copy, routes (`/comprar`, `/gracias`, `/plantilla-gratuita`, `/guia-estrategias`, `/garantia`) and component copy are all in Spanish. Preserve this.
+- Language: Spanish (`<html lang="es">`) — copy, routes (`/comprar`, `/gracias`, `/plantilla-gratuita`, `/guia-estrategias`, `/garantia`) and component copy are all in Spanish. Preserve this. The **GPS tool** (`/diagnostico/*`) is the exception: it is bilingual es/en via a cookie — see the i18n bullet below.
 
 ## Architecture
 
@@ -29,14 +29,26 @@ This is a marketing/sales site for the book *Deuda Fuera, Paz Dentro*, plus the 
 
 ### GPS Anti-Deuda (`/diagnostico`)
 
-Freemium debt calculator that accompanies the book. The printed URL `/diagnostico` must never break — the root page is public and DB-independent; everything stateful lives in `/diagnostico/*` (entrar, inicio, panel, deudas, plan, gracias, cuenta, escenarios).
+Freemium debt calculator that accompanies the book. The printed URL `/diagnostico` must never break — the root page is public and DB-independent; everything stateful lives in `/diagnostico/*` (entrar, inicio, panel, **oxigeno**, deudas, plan, gracias, cuenta, escenarios).
 
 - **Auth**: Supabase magic link for all users (`@supabase/ssr`, cookies). `src/middleware.ts` (matcher: `/diagnostico/*`, `/auth/*`) refreshes sessions; `/auth/confirm` handles both `token_hash` and PKCE `code`. Page guard: `requireUser()` in `src/lib/gps/auth.ts`.
-- **Data**: Supabase Postgres, schema in `supabase/migrations/0001_gps.sql`. All money is **integer cents**; APR is percent (`numeric(6,3)`). Financial data is **household-scoped** (couple mode in Phase 3 = second member joins household). RLS + explicit grants; `subscriptions` is only written by the service-role (Stripe webhook).
-- **Calc engine**: `src/lib/gps/` — pure TS, no I/O, unit-tested (`npm test`). Formulas come from the book and MUST NOT drift: IPD = (esenciales + mínimos) / ingreso; zones DÉFICIT >1.0 / Oxígeno Rápido ≥0.70 / Bola de Nieve ≥0.45 / Avalancha <0.45; override APR ≥30% or utilization >80%; fuga eterna (min ≤ interés mensual); Número de Paz = (esenciales+mínimos)×1.05. All UI copy lives in `src/lib/gps/copy.ts` (never "TAE" → APR; never "money market" → HYSA; disclaimer on every screen).
-- **Freemium gating is server-side only**: Free users' server components never compute/serialize Full data (attack order, projection). Entitlement via `src/lib/gps/entitlement.ts` (Full if any household member has an active/trialing/past_due Stripe subscription).
-- **Stripe**: eBook one-time checkout unchanged; GPS subscription ($6.99/mo, $59/yr) via `/api/gps/checkout` (`mode: 'subscription'`), webhook `src/app/api/stripe/webhook/route.ts` branches on `session.mode` and syncs `customer.subscription.*` into `subscriptions`.
-- Setup/production checklist: `docs/GPS-SETUP.md`. Phase 2 (7-3-1 email alerts, monthly check-in, Test de la Deuda Nueva) and Phase 3 (couple mode, PDF) are designed and have DB tables ready but are not built.
+- **Data**: Supabase Postgres, schema in `supabase/migrations/` (`0001_gps.sql`, then `0002_gps_v2.sql`). All money is **integer cents**; APR is percent (`numeric(6,3)`). Financial data is **household-scoped** (couple mode in Phase 3 = second member joins household). RLS + explicit grants; `subscriptions` is only written by the service-role (Stripe webhook).
+- **Calc engine**: `src/lib/gps/` — pure TS, no I/O, no `Date.now()` (today is always a parameter), unit-tested (`npm test`, incl. `__tests__/libro.test.ts` = the four Chapter 9 examples). Formulas come from the book and MUST NOT drift:
+  - IPD = (esenciales + mínimos) / ingreso neto, **always a decimal** (0.89, never 89%); `null` when income is 0.
+  - **Four phases**: DÉFICIT >1.0 / OXÍGENO ≥0.70 (or free cash flow ≤5% of income) / BOLA DE NIEVE ≥0.45 / AVALANCHA <0.45.
+  - **Order, one criterion per phase**: Déficit and Oxígeno use the **ROI de Flujo** (`pago mínimo × 12 ÷ saldo`, highest first); Bola de Nieve uses **smallest balance**; Avalancha uses **highest APR**.
+  - The ROI de Flujo is NOT the APR in disguise. That equivalence only holds if every issuer used the same minimum-payment formula, and they do not (1% + interest, 2%, 3%, flat floors). Verified across 6,000 mixed-rule portfolios: the two orders coincide ~10% of the time.
+  - **Overrides are phase-scoped** — in Déficit and Oxígeno *nothing* outranks the ROI:
+    - *Fuga eterna* (min ≤ monthly interest) reorders only from Bola de Nieve on. The rule is to call first for a lower APR or a hardship program; if the issuer helps, the debt stops meeting `min ≤ interest` and the override switches itself off — no extra flag needed.
+    - *Atada al empleo* (401(k) or any job-tied loan) reorders only in Avalancha.
+    - APR ≥30% and utilization >80% were **removed** as overrides. Utilization is still shown as a metric.
+  - Card minimums decline month to month in the amortizer using the book's formula (1% of balance + interest, $25 floor); installment loans keep a fixed payment.
+  - Número de Paz = (esenciales+mínimos)×1.05. DTI uses **gross** income and is labeled as the bank's rule, not ours.
+- **Copy + i18n**: `src/lib/gps/copy/es.ts` is the source of truth; `en.ts` must satisfy `typeof es`, so adding a Spanish string without its English twin fails the build. Locale lives in the `gps_lang` cookie (`src/lib/i18n/`), never in the URL — the printed `/diagnostico` must never change. Never "TAE" → APR; never "money market" → HYSA; no blame language; no exclamation marks in alerts; both disclaimers (educational + the regulatory one) on every screen.
+- **Freemium gating is server-side only**: Free users' server components never compute/serialize Full data (attack order, projection). Entitlement via `src/lib/gps/entitlement.ts` (Full if any household member has an active/trialing/past_due Stripe subscription). Free includes the whole Panel de Oxígeno and the per-debt diagnosis table.
+- **Metrics**: `gps_events` + `checkins` (`src/lib/gps/events.ts`), anonymous and household-scoped — never store anything identifying.
+- **Stripe**: eBook one-time checkout unchanged; GPS subscription ($6.99/mo, $79/yr) via `/api/gps/checkout` (`mode: 'subscription'`), webhook `src/app/api/stripe/webhook/route.ts` branches on `session.mode` and syncs `customer.subscription.*` into `subscriptions`. Not selling until the mailing list passes 5,000 subscribers.
+- Setup/production checklist: `docs/GPS-SETUP.md`. La Prueba del Mes 12, Phase 2 (7-3-1 email alerts, monthly check-in, Test de la Deuda Nueva) and Phase 3 (couple mode, PDF) are designed and have DB tables ready but are not built.
 
 ### Homepage composition (`src/app/page.tsx`)
 

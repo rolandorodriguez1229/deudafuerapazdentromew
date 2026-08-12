@@ -9,6 +9,7 @@ function debt(id: string, over: Partial<DebtInput>): DebtInput {
   return {
     id,
     name: id,
+    type: 'prestamo_plazo',
     balanceCents: 120_000,
     minPaymentCents: 10_000,
     apr: 0,
@@ -39,6 +40,15 @@ describe('projectPayoff', () => {
     expect(r.feasible).toBe(true);
     expect(r.totalInterestCents).toBeGreaterThan(0);
     expect(r.months.length).toBeGreaterThan(12);
+  });
+
+  it('tarjeta: el mínimo baja con el saldo, así que solo con mínimos tarda más', () => {
+    const opts = { extraMonthlyCents: 0, start: START, snowballFreedMinimums: false };
+    const card = projectPayoff([debt('card', { type: 'tarjeta' })], ['card'], opts);
+    const loan = projectPayoff([debt('loan', {})], ['loan'], opts);
+    expect(loan.months).toHaveLength(12); // pago fijo: $1,200 / $100
+    expect(card.months.length).toBeGreaterThan(12);
+    expect(card.feasible).toBe(true); // el piso de $25 la termina de liquidar
   });
 
   it('el extra se aplica según el orden de ataque', () => {

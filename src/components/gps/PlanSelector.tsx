@@ -12,7 +12,7 @@ export default function PlanSelector() {
     setLoading(interval);
     setError(null);
     trackEvent('gps_initiate_checkout', {
-      value: interval === 'year' ? 59 : 6.99,
+      value: interval === 'year' ? 79 : 6.99,
       currency: 'USD',
       plan: interval,
     });
@@ -56,14 +56,14 @@ export default function PlanSelector() {
 
         <div className="bg-white rounded-2xl border-2 border-green-500 p-6 flex flex-col relative">
           <span className="absolute -top-3 left-6 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-            2 MESES GRATIS
+            MEJOR PRECIO
           </span>
           <div className="text-sm font-medium text-neutral-500">Anual</div>
           <div className="text-3xl font-bold text-primary-900 mt-1">
-            $59<span className="text-base font-normal text-neutral-500">/año</span>
+            $79<span className="text-base font-normal text-neutral-500">/año</span>
           </div>
           <p className="text-sm text-neutral-500 mt-2 flex-1">
-            Menos de $5 al mes — el precio de un café por tu paz mental.
+            $6.58 al mes, pagado de una sola vez.
           </p>
           <button
             onClick={() => goToCheckout('year')}

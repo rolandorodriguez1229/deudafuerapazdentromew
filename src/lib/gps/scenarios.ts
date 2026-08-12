@@ -9,7 +9,7 @@ import type {
   FinanceInput,
   ProjectionResult,
   YearMonth,
-  Zone,
+  Phase,
 } from './types';
 
 export type ScenarioMod =
@@ -39,19 +39,19 @@ export function compareProjections(
 }
 
 /**
- * Corre un escenario contra el plan actual. La zona no cambia (los mínimos
+ * Corre un escenario contra el plan actual. La fase no cambia (los mínimos
  * y el ingreso no se tocan), pero el orden se recalcula porque una reducción
  * de APR puede sacar una deuda del override.
  */
 export function runScenario(
   f: FinanceInput,
   debts: DebtInput[],
-  zone: Zone,
+  phase: Phase,
   start: YearMonth,
   mod: ScenarioMod,
 ): ScenarioComparison {
   const baseExtra = Math.max(0, freeCashFlowCents(f, debts));
-  const base = buildFullProjection(f, debts, buildAttackOrder(debts, zone), start).plan;
+  const base = buildFullProjection(f, debts, buildAttackOrder(debts, phase), start).plan;
 
   let modDebts = debts;
   let extraMonthlyCents = baseExtra;
@@ -67,7 +67,7 @@ export function runScenario(
     );
   }
 
-  const order = buildAttackOrder(modDebts, zone).map((d) => d.id);
+  const order = buildAttackOrder(modDebts, phase).map((d) => d.id);
   const result = projectPayoff(modDebts, order, {
     extraMonthlyCents,
     lumpSumCents,

@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, LogOut } from 'lucide-react';
 import { signOut } from '@/app/diagnostico/actions';
+import DeleteAccount from '@/components/gps/DeleteAccount';
 import GpsNav from '@/components/gps/GpsNav';
 import PortalButton from '@/components/gps/PortalButton';
 import { requireUser } from '@/lib/gps/auth';
 import { getEntitlement } from '@/lib/gps/entitlement';
+import { getLocale } from '@/lib/i18n/server';
 
 export const metadata: Metadata = {
   title: 'Tu cuenta',
@@ -26,7 +28,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function CuentaPage() {
   const { supabase, user } = await requireUser('/diagnostico/cuenta');
-  const entitlement = await getEntitlement(supabase);
+  const [locale, entitlement] = await Promise.all([getLocale(), getEntitlement(supabase)]);
 
   const { data: sub } = await supabase
     .from('subscriptions')
@@ -36,7 +38,7 @@ export default async function CuentaPage() {
 
   return (
     <div className="section-container py-8 max-w-3xl mx-auto">
-      <GpsNav active="/diagnostico/cuenta" />
+      <GpsNav active="/diagnostico/cuenta" locale={locale} />
 
       <div className="space-y-6">
         <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6">
@@ -101,13 +103,17 @@ export default async function CuentaPage() {
           </form>
         </div>
 
-        <p className="text-xs text-neutral-400">
-          Tus datos financieros son privados: nunca los vendemos ni compartimos. Escríbenos a{' '}
-          <a href="mailto:contacto@deudafuerapazdentro.com" className="underline">
-            contacto@deudafuerapazdentro.com
-          </a>{' '}
-          para cualquier duda o para borrar tu cuenta.
-        </p>
+        <div className="border-t border-neutral-200 pt-6 space-y-3">
+          <p className="text-xs text-neutral-400">
+            Tus datos financieros son privados: nunca los vendemos, los compartimos ni los usamos
+            para publicidad. Se guardan cifrados. Escríbenos a{' '}
+            <a href="mailto:contacto@deudafuerapazdentro.com" className="underline">
+              contacto@deudafuerapazdentro.com
+            </a>{' '}
+            para cualquier duda.
+          </p>
+          <DeleteAccount locale={locale} />
+        </div>
       </div>
     </div>
   );

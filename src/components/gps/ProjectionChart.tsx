@@ -1,5 +1,7 @@
+import { getCopy } from '@/lib/gps/copy';
 import { formatCentsWhole, formatMonthYear } from '@/lib/gps/format';
 import type { MonthRow } from '@/lib/gps/types';
+import type { Locale } from '@/lib/i18n';
 
 const W = 320;
 const H = 150;
@@ -9,9 +11,11 @@ const PAD = { top: 10, right: 8, bottom: 22, left: 8 };
 export default function ProjectionChart({
   months,
   startBalanceCents,
+  locale,
 }: {
   months: MonthRow[];
   startBalanceCents: number;
+  locale: Locale;
 }) {
   if (months.length === 0) return null;
 
@@ -45,7 +49,7 @@ export default function ProjectionChart({
           hoy · {formatCentsWhole(startBalanceCents)}
         </text>
         <text x={W - PAD.right} y={H - 6} fontSize={10} fill="#16a34a" textAnchor="end" fontWeight={600}>
-          {formatMonthYear(last.date)} · $0
+          {formatMonthYear(last.date, getCopy(locale))} · $0
         </text>
       </svg>
     </div>

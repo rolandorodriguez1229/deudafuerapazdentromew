@@ -3,9 +3,10 @@ import { redirect } from 'next/navigation';
 import EscenariosClient from '@/components/gps/EscenariosClient';
 import GpsNav from '@/components/gps/GpsNav';
 import { requireUser } from '@/lib/gps/auth';
-import { classifyZone } from '@/lib/gps/calc';
+import { classifyPhase } from '@/lib/gps/calc';
 import { loadGpsData } from '@/lib/gps/data';
 import { getEntitlement } from '@/lib/gps/entitlement';
+import { getLocale } from '@/lib/i18n/server';
 
 export const metadata: Metadata = {
   title: 'Escenarios',
@@ -22,18 +23,18 @@ export default async function EscenariosPage() {
   const entitlement = await getEntitlement(supabase);
   if (entitlement !== 'full') redirect('/diagnostico/plan');
 
-  const data = await loadGpsData(supabase, householdId);
+  const [locale, data] = await Promise.all([getLocale(), loadGpsData(supabase, householdId)]);
   if (!data.finances) redirect('/diagnostico/inicio');
   if (data.debts.length === 0) redirect('/diagnostico/panel');
 
-  const zone = classifyZone(data.finances, data.debts);
-  if (zone === 'DEFICIT') redirect('/diagnostico/panel');
+  const phase = classifyPhase(data.finances, data.debts);
+  if (phase === 'DEFICIT' || phase === 'SIN_INGRESO') redirect('/diagnostico/panel');
 
   const now = new Date();
 
   return (
     <div className="section-container py-8 max-w-3xl mx-auto">
-      <GpsNav active="/diagnostico/escenarios" />
+      <GpsNav active="/diagnostico/escenarios" locale={locale} />
       <div className="mb-6">
         <h1 className="heading-md text-primary-900">Escenarios: ¿qué pasa si…?</h1>
         <p className="text-neutral-600 text-sm mt-1">
@@ -41,9 +42,10 @@ export default async function EscenariosPage() {
         </p>
       </div>
       <EscenariosClient
+        locale={locale}
         finances={data.finances}
         debts={data.debts}
-        zone={zone}
+        phase={phase}
         start={{ year: now.getFullYear(), month: now.getMonth() + 1 }}
       />
     </div>

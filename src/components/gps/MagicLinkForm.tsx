@@ -3,17 +3,22 @@
 import { useActionState } from 'react';
 import { Loader2, MailCheck } from 'lucide-react';
 import { sendMagicLink, type MagicLinkState } from '@/app/diagnostico/actions';
+import { getCopy } from '@/lib/gps/copy';
+import type { Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/track';
 
 const initialState: MagicLinkState = { status: 'idle' };
 
 export default function MagicLinkForm({
+  locale,
   next,
   urlError,
 }: {
+  locale: Locale;
   next: string;
   urlError?: string;
 }) {
+  const c = getCopy(locale);
   const [state, formAction, pending] = useActionState(
     async (prev: MagicLinkState, formData: FormData) => {
       const result = await sendMagicLink(prev, formData);
@@ -27,13 +32,9 @@ export default function MagicLinkForm({
     return (
       <div className="text-center py-8">
         <MailCheck className="w-12 h-12 text-green-600 mx-auto mb-4" />
-        <h2 className="heading-md text-primary-900 mb-2">Revisa tu correo</h2>
-        <p className="text-neutral-600">
-          Te enviamos un enlace mágico para entrar. Ábrelo desde este mismo dispositivo.
-        </p>
-        <p className="text-sm text-neutral-400 mt-4">
-          ¿No llega? Revisa tu carpeta de spam o promociones.
-        </p>
+        <h2 className="heading-md text-primary-900 mb-2">{c.auth.sentTitle}</h2>
+        <p className="text-neutral-600">{c.auth.sentBody}</p>
+        <p className="text-sm text-neutral-400 mt-4">{c.auth.sentSpam}</p>
       </div>
     );
   }
@@ -42,13 +43,13 @@ export default function MagicLinkForm({
     <form action={formAction} className="space-y-4">
       {urlError === 'enlace_expirado' && (
         <p className="text-sm text-orange-700 bg-orange-50 border border-orange-200 rounded-lg p-3">
-          Ese enlace ya expiró. Pide uno nuevo aquí abajo.
+          {c.auth.expired}
         </p>
       )}
       <input type="hidden" name="next" value={next} />
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1">
-          Tu correo electrónico
+          {c.auth.emailLabel}
         </label>
         <input
           id="email"
@@ -67,10 +68,10 @@ export default function MagicLinkForm({
       <button type="submit" disabled={pending} className="btn-primary w-full disabled:opacity-60">
         {pending ? (
           <>
-            <Loader2 className="w-5 h-5 mr-2 animate-spin" /> Enviando…
+            <Loader2 className="w-5 h-5 mr-2 animate-spin" /> {c.auth.sending}
           </>
         ) : (
-          'Enviarme el enlace'
+          c.auth.submit
         )}
       </button>
       <p className="text-xs text-neutral-400 text-center">

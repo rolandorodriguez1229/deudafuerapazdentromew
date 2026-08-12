@@ -1,16 +1,37 @@
-// Orden de Ataque: prioriza las deudas según la zona del GPS Anti-Deuda,
-// con los overrides del libro siempre activos.
+// Orden de Ataque: prioriza las deudas según la FASE del GPS Anti-Deuda.
+//
+// El criterio de cada fase (ver `orderStrategyFor`):
+//   Déficit y Oxígeno → ROI de Flujo, de mayor a menor
+//   Bola de Nieve     → saldo menor
+//   Avalancha         → APR más alta
+//
+// Sobre los overrides: en Déficit y en Oxígeno NINGUNO manda sobre el ROI.
+// Cuando el mes no cierra, lo único que cuenta es liberar el mayor pago
+// mensual con el menor capital posible; una deuda que crece despacio es un
+// problema de mañana y una fuga eterna, a ese nivel de ingreso, no se puede
+// out-pagar — se resuelve con una llamada, no con un abono. Por eso ahí
+// aparecen como aviso y no reordenan nada.
+//
+// Los dos overrides que sí reordenan lo hacen más adelante:
+//   · Fuga eterna → en Bola de Nieve. La regla del libro es llamar primero
+//     para pedir una APR menor o un plan de dificultad; si el banco ayuda, la
+//     deuda deja de cumplir `mínimo ≤ interés` por sí sola y este override se
+//     apaga sin que nadie tenga que declararlo. Si no ayuda, va primero.
+//   · Atada al empleo → en Avalancha, antes del orden por APR.
+//
+// Se quitaron a propósito los overrides de APR ≥ 30% y de utilización > 80%:
+// el primero porque una tarjeta cara que no es fuga eterna igual va bajando y
+// la Avalancha la caza cuando toca; el segundo porque es un problema de score,
+// y aquí el buen crédito es consecuencia de salir de deudas, no el objetivo.
 
-import {
-  isFugaEterna,
-  isOverride,
-  monthlyInterestCents,
-  roiDeFlujo,
-  utilization,
-} from './calc';
-import type { DebtInput, RankedDebt, Zone } from './types';
+import { isFugaEterna, orderStrategyFor, roiDeFlujo, utilization } from './calc';
+import type { DebtInput, OrderStrategy, Phase, RankedDebt } from './types';
 
-function toRanked(d: DebtInput, tier: 1 | 2 | 3, reason: RankedDebt['reason']): RankedDebt {
+function toRanked(
+  d: DebtInput,
+  tier: RankedDebt['tier'],
+  reason: RankedDebt['reason'],
+): RankedDebt {
   return {
     ...d,
     tier,
@@ -19,39 +40,50 @@ function toRanked(d: DebtInput, tier: 1 | 2 | 3, reason: RankedDebt['reason']): 
   };
 }
 
-/**
- * Tier 1: override (APR ≥ 30% o utilización > 80%), por APR descendente.
- * Tier 2: fuga eterna (mínimo ≤ interés mensual), por brecha de interés descendente.
- * Tier 3: según la zona — Oxígeno Rápido: ROI de Flujo desc · Bola de Nieve: saldo asc · Avalancha: APR desc.
- * En DÉFICIT o SIN_DEUDAS no hay orden de ataque.
- */
-export function buildAttackOrder(debts: DebtInput[], zone: Zone): RankedDebt[] {
-  if (zone === 'DEFICIT' || zone === 'SIN_DEUDAS') return [];
+/** Comparador de la fase. Los desempates dejan el orden determinista. */
+function comparator(strategy: OrderStrategy): (a: DebtInput, b: DebtInput) => number {
+  if (strategy === 'roi_flujo') {
+    return (a, b) =>
+      roiDeFlujo(b) - roiDeFlujo(a) || a.balanceCents - b.balanceCents || a.id.localeCompare(b.id);
+  }
+  if (strategy === 'saldo_menor') {
+    return (a, b) =>
+      a.balanceCents - b.balanceCents || b.apr - a.apr || a.id.localeCompare(b.id);
+  }
+  return (a, b) => b.apr - a.apr || a.balanceCents - b.balanceCents || a.id.localeCompare(b.id);
+}
 
+export function buildAttackOrder(debts: DebtInput[], phase: Phase): RankedDebt[] {
+  const strategy = orderStrategyFor(phase);
+  if (strategy === null) return [];
+
+  const cmp = comparator(strategy);
   const active = debts.filter((d) => d.balanceCents > 0);
-  const tier1 = active.filter(isOverride);
-  const tier2 = active.filter((d) => !isOverride(d) && isFugaEterna(d));
-  const tier3 = active.filter((d) => !isOverride(d) && !isFugaEterna(d));
 
-  tier1.sort((a, b) => b.apr - a.apr);
-  tier2.sort(
-    (a, b) =>
-      monthlyInterestCents(b) - b.minPaymentCents - (monthlyInterestCents(a) - a.minPaymentCents),
-  );
-
-  if (zone === 'OXIGENO_RAPIDO') {
-    tier3.sort((a, b) => roiDeFlujo(b) - roiDeFlujo(a));
-  } else if (zone === 'BOLA_DE_NIEVE') {
-    tier3.sort((a, b) => a.balanceCents - b.balanceCents);
-  } else {
-    tier3.sort((a, b) => b.apr - a.apr);
+  // Déficit y Oxígeno: el ROI manda solo, sin excepciones.
+  if (strategy === 'roi_flujo') {
+    return [...active].sort(cmp).map((d) => toRanked(d, 3, 'fase'));
   }
 
+  const fugaPrimero = phase === 'BOLA_DE_NIEVE' || phase === 'AVALANCHA';
+  const empleoPrimero = phase === 'AVALANCHA';
+
+  const tier1 = (fugaPrimero ? active.filter(isFugaEterna) : []).sort(cmp);
+  const resto = active.filter((d) => !tier1.includes(d));
+  const tier2 = (empleoPrimero ? resto.filter((d) => d.employmentTied) : []).sort(cmp);
+  const tier3 = resto.filter((d) => !tier2.includes(d)).sort(cmp);
+
   return [
-    ...tier1.map((d) =>
-      toRanked(d, 1, d.apr >= 30 ? 'override_apr' : 'override_utilizacion'),
-    ),
-    ...tier2.map((d) => toRanked(d, 2, 'fuga_eterna')),
-    ...tier3.map((d) => toRanked(d, 3, 'zona')),
+    ...tier1.map((d) => toRanked(d, 1, 'fuga_eterna')),
+    ...tier2.map((d) => toRanked(d, 2, 'atada_al_empleo')),
+    ...tier3.map((d) => toRanked(d, 3, 'fase')),
   ];
+}
+
+/**
+ * Regla de concentración: mínimo a todas, todo el extra a UNA sola deuda.
+ * La interfaz muestra esta deuda grande y destacada, y las demás en gris.
+ */
+export function targetDebt(order: RankedDebt[]): RankedDebt | null {
+  return order[0] ?? null;
 }

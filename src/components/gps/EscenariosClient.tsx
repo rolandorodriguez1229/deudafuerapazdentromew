@@ -6,9 +6,11 @@
 
 import { useMemo, useState } from 'react';
 import { CalendarCheck, TrendingDown, Zap } from 'lucide-react';
+import { getCopy } from '@/lib/gps/copy';
 import { formatCents, formatCentsWhole, formatMonthYear } from '@/lib/gps/format';
 import { runScenario, type ScenarioMod } from '@/lib/gps/scenarios';
-import type { DebtInput, FinanceInput, YearMonth, Zone } from '@/lib/gps/types';
+import type { DebtInput, FinanceInput, YearMonth, Phase } from '@/lib/gps/types';
+import type { Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/track';
 
 type Tab = 'extra' | 'unico' | 'apr';
@@ -16,13 +18,15 @@ type Tab = 'extra' | 'unico' | 'apr';
 export default function EscenariosClient({
   finances,
   debts,
-  zone,
+  phase,
   start,
+  locale,
 }: {
   finances: FinanceInput;
   debts: DebtInput[];
-  zone: Zone;
+  phase: Phase;
   start: YearMonth;
+  locale: Locale;
 }) {
   const [tab, setTab] = useState<Tab>('extra');
   const [extraAmount, setExtraAmount] = useState('100');
@@ -34,11 +38,11 @@ export default function EscenariosClient({
   const comparison = useMemo(() => {
     if (!mod) return null;
     try {
-      return runScenario(finances, debts, zone, start, mod);
+      return runScenario(finances, debts, phase, start, mod);
     } catch {
       return null;
     }
-  }, [mod, finances, debts, zone, start]);
+  }, [mod, finances, debts, phase, start]);
 
   function simulate() {
     let next: ScenarioMod | null = null;
@@ -192,11 +196,11 @@ export default function EscenariosClient({
               <div>
                 <div className="text-sm text-neutral-500">Nueva fecha libre de deudas</div>
                 <div className="text-lg font-bold text-green-700">
-                  {formatMonthYear(comparison.result.debtFreeDate)}
+                  {formatMonthYear(comparison.result.debtFreeDate, getCopy(locale))}
                 </div>
                 {comparison.base.debtFreeDate && (
                   <div className="text-xs text-neutral-400">
-                    antes: {formatMonthYear(comparison.base.debtFreeDate)}
+                    antes: {formatMonthYear(comparison.base.debtFreeDate, getCopy(locale))}
                   </div>
                 )}
               </div>

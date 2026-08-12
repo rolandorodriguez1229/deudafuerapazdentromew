@@ -1,9 +1,10 @@
 // Proyección de libertad: amortización mes a mes con cascada (los mínimos
 // liberados y el extra se vierten en la primera deuda del orden de ataque).
 
-import { freeCashFlowCents, isFugaEterna } from './calc';
+import { estimateCardMinPaymentCents, freeCashFlowCents, isFugaEterna } from './calc';
 import type {
   DebtInput,
+  DebtType,
   FinanceInput,
   MonthRow,
   ProjectionOptions,
@@ -30,6 +31,7 @@ function promoYearMonth(d: DebtInput): YearMonth | null {
 
 interface SimDebt {
   id: string;
+  type: DebtType;
   minPaymentCents: number;
   apr: number;
   promo: YearMonth | null;
@@ -38,6 +40,21 @@ interface SimDebt {
 }
 
 const DEFAULT_MAX_MONTHS = 600;
+
+/**
+ * Mínimo del mes. Las tarjetas lo recalculan cada mes con la fórmula del libro
+ * (1% del saldo + el interés del mes, piso de $25), así que baja conforme baja
+ * el saldo. Los préstamos a plazo tienen pago fijo, y "otro" se trata como fijo
+ * por prudencia.
+ *
+ * Se topa con el mínimo que capturó el usuario: si él dijo que paga más que la
+ * fórmula, ese excedente no desaparece — el presupuesto mensual es constante,
+ * así que se va al ataque. Y si dijo menos, le creemos a él y no a la fórmula.
+ */
+function minimumForMonth(d: SimDebt): number {
+  if (d.type !== 'tarjeta') return d.minPaymentCents;
+  return Math.min(d.minPaymentCents, estimateCardMinPaymentCents(d.balance, d.apr));
+}
 
 /**
  * Simula la amortización. `order` son los ids en prioridad de ataque.
@@ -55,6 +72,7 @@ export function projectPayoff(
     .filter((d) => d.balanceCents > 0)
     .map((d) => ({
       id: d.id,
+      type: d.type,
       minPaymentCents: d.minPaymentCents,
       apr: d.apr,
       promo: promoYearMonth(d),
@@ -70,7 +88,10 @@ export function projectPayoff(
 
   const months: MonthRow[] = [];
   let totalInterest = 0;
-  let freedMins = 0;
+  // Presupuesto mensual de partida: la suma de los mínimos de hoy. Se mantiene
+  // constante, así que todo lo que se libera —una deuda saldada o el mínimo de
+  // una tarjeta que baja— vuelve al ataque sin tener que rastrearlo aparte.
+  const baseBudget = sim.reduce((s, d) => s + d.minPaymentCents, 0);
   let prevTotal = sim.reduce((s, d) => s + d.balance, 0);
   let risingStreak = 0;
   let feasible = true;
@@ -91,18 +112,20 @@ export function projectPayoff(
       }
     }
 
-    // 2) Pagar el mínimo de cada deuda activa
+    // 2) Pagar el mínimo del mes de cada deuda activa
     let paidThisMonth = 0;
+    let minsPaid = 0;
     for (const d of remaining) {
-      const pay = Math.min(d.minPaymentCents, d.balance);
+      const pay = Math.min(minimumForMonth(d), d.balance);
       d.balance -= pay;
       paidThisMonth += pay;
+      minsPaid += pay;
     }
 
-    // 3) Verter extra + mínimos liberados en cascada según el orden de ataque
+    // 3) Verter extra + lo liberado del presupuesto, en cascada según el orden
     let extraPool =
       opts.extraMonthlyCents +
-      (snowball ? freedMins : 0) +
+      (snowball ? Math.max(0, baseBudget - minsPaid) : 0) +
       (m === 0 ? (opts.lumpSumCents ?? 0) : 0);
     for (const id of attackSequence) {
       if (extraPool <= 0) break;
@@ -119,7 +142,6 @@ export function projectPayoff(
     for (const d of remaining) {
       if (d.balance <= 0 && d.payoffDate === null) {
         d.payoffDate = cur;
-        freedMins += d.minPaymentCents;
         paidOffIds.push(d.id);
       }
     }
@@ -154,8 +176,9 @@ export function projectPayoff(
     isFugaEterna({
       id: d.id,
       name: '',
+      type: d.type,
       balanceCents: d.balance,
-      minPaymentCents: d.minPaymentCents,
+      minPaymentCents: minimumForMonth(d),
       apr: d.apr,
       isPromoZero: false,
     }),

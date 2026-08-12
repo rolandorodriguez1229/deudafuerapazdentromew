@@ -1,4 +1,6 @@
+import { getCopy } from '@/lib/gps/copy';
 import { formatIpd } from '@/lib/gps/format';
+import type { Locale } from '@/lib/i18n';
 
 const MAX_DISPLAY = 1.2;
 const CX = 110;
@@ -22,20 +24,32 @@ function arcPath(fromValue: number, toValue: number) {
 }
 
 const SEGMENTS: { from: number; to: number; color: string }[] = [
-  { from: 0, to: 0.45, color: '#16a34a' }, // verde: Avalancha
-  { from: 0.45, to: 0.7, color: '#f59e0b' }, // amarillo: Bola de Nieve
-  { from: 0.7, to: MAX_DISPLAY, color: '#dc2626' }, // rojo: Oxígeno Rápido / Déficit
+  { from: 0, to: 0.45, color: '#16a34a' }, // verde: Eficiencia
+  { from: 0.45, to: 0.7, color: '#f59e0b' }, // amarillo: Tracción
+  { from: 0.7, to: MAX_DISPLAY, color: '#dc2626' }, // rojo: Oxígeno / Déficit
 ];
 
 /** Velocímetro del IPD. Sin hooks: sirve en Server y Client Components. */
-export default function IpdGauge({ ipd }: { ipd: number }) {
-  const deg = valueToDeg(Number.isFinite(ipd) ? ipd : MAX_DISPLAY);
-  const needleColor =
-    ipd >= 0.7 ? '#dc2626' : ipd >= 0.45 ? '#f59e0b' : '#16a34a';
+export default function IpdGauge({ ipd, locale }: { ipd: number | null; locale: Locale }) {
+  const c = getCopy(locale);
+  const known = ipd !== null && Number.isFinite(ipd);
+  const deg = valueToDeg(known ? ipd! : MAX_DISPLAY);
+  const needleColor = !known
+    ? '#94a3b8'
+    : ipd! >= 0.7
+      ? '#dc2626'
+      : ipd! >= 0.45
+        ? '#f59e0b'
+        : '#16a34a';
 
   return (
     <div className="flex flex-col items-center">
-      <svg viewBox="0 0 220 132" className="w-full max-w-xs" role="img" aria-label={`IPD ${formatIpd(ipd)}`}>
+      <svg
+        viewBox="0 0 220 132"
+        className="w-full max-w-xs"
+        role="img"
+        aria-label={`${c.panel.ipd} ${formatIpd(ipd)}`}
+      >
         {SEGMENTS.map((s) => (
           <path
             key={s.color}
@@ -70,7 +84,8 @@ export default function IpdGauge({ ipd }: { ipd: number }) {
         <div className="text-4xl font-bold" style={{ color: needleColor }}>
           {formatIpd(ipd)}
         </div>
-        <div className="text-sm text-neutral-500">Tu Índice de Presión de Deuda (IPD)</div>
+        <div className="text-sm text-neutral-500">{c.panel.ipd}</div>
+        <div className="text-xs text-neutral-400 max-w-xs mx-auto mt-1">{c.panel.ipdHelp}</div>
       </div>
     </div>
   );

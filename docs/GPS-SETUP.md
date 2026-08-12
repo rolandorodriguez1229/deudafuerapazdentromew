@@ -6,8 +6,8 @@ El código ya está listo; esto es lo que tú (Rolando) tienes que crear en cada
 ## 1. Supabase (cuentas + base de datos)
 
 1. Crea un proyecto en [supabase.com](https://supabase.com) (plan Free alcanza para empezar).
-2. **SQL**: en el editor SQL, pega y ejecuta el contenido completo de
-   `supabase/migrations/0001_gps.sql`.
+2. **SQL**: en el editor SQL, ejecuta las migraciones **en orden**:
+   `supabase/migrations/0001_gps.sql` y después `supabase/migrations/0002_gps_v2.sql`.
 3. **Auth → URL Configuration**:
    - Site URL: `https://www.deudafuerapazdentro.com`
    - Redirect URLs: agrega `https://www.deudafuerapazdentro.com/**`
@@ -28,10 +28,15 @@ El código ya está listo; esto es lo que tú (Rolando) tienes que crear en cada
 
 ## 2. Stripe (suscripción Full)
 
+La suscripción no se activa hasta que la lista de correo pase los 5,000 suscriptores;
+esto queda listo de antemano.
+
 1. **Products → Add product**: "GPS Anti-Deuda — Plan Full", con DOS precios recurrentes:
    - $6.99 USD / mes
-   - $59 USD / año
-   Copia los dos `price_...` IDs.
+   - $79 USD / año
+   Copia los dos `price_...` IDs. **Estos precios tienen que coincidir con los que muestra
+   `src/components/gps/PlanSelector.tsx`** — Stripe cobra lo que dice el Price ID, no la
+   pantalla, y si se separan el usuario ve un precio y paga otro.
 2. **Webhook**: en el endpoint existente (`/api/stripe/webhook`) agrega estos eventos:
    - `checkout.session.completed` (ya estaba)
    - `customer.subscription.created`
@@ -55,7 +60,9 @@ Agrega a las existentes (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
 ## 4. Prueba en producción (10 min)
 
 1. Entra a `/diagnostico` → "Calcula tu IPD gratis" → recibe el magic link → completa el wizard.
-2. Verifica el panel Free (fila "Tu deuda objetivo: 🔒").
+2. Verifica el panel Free: tu fase, el Panel de Oxígeno, la tabla ¿Renegociar? y la fila
+   "Tu deuda objetivo: 🔒". Marca una deuda como atada al empleo (préstamo del 401k) y
+   confirma que aparece su aviso de riesgo.
 3. Con [tarjeta de prueba](https://stripe.com/docs/testing) en modo test (o una compra real
    de $6.99): `/diagnostico/plan` → checkout → `/diagnostico/gracias` debe decir
    "¡Listo! Ya tienes el GPS completo" y el panel debe mostrar el Orden de Ataque.
@@ -70,10 +77,31 @@ npm run dev                 # el .env.local ya apunta al Supabase local
 npm test                    # tests del motor de cálculo (fórmulas del libro)
 ```
 
+## Métricas del método
+
+`gps_events` (anónima, por hogar) + `checkins` (snapshot mensual) responden hoy:
+
+| Pregunta | De dónde sale |
+|---|---|
+| IPD inicial y a los 30/60/90 días | `checkins` (una fila por hogar y mes) |
+| Fase inicial y cambios de fase | `checkins.zone` + evento `fase_cambiada` |
+| Palancas intentadas y aire promedio | `lever_results` + evento `palanca_registrada` |
+| Deudas registradas y su perfil | evento `deuda_agregada` |
+| Abandono a 30/90/365 días | `profiles.last_seen_at` |
+
+Aquí NUNCA se guarda email, nombre ni nada identificable — solo `household_id` y números.
+
+Quedan atadas a Full: **tasa de concentración** y **meses hasta la primera deuda
+liquidada** necesitan el seguimiento mensual (marcar deudas pagadas), que es Fase 2.
+
 ## Fases pendientes (ya diseñadas, no construidas)
 
 - **Fase 2**: alertas 7-3-1 por email (cron diario + tabla `sent_alerts` ya creada),
-  check-in mensual con celebración y migración de estrategia (tabla `checkins` lista),
-  Test de la Deuda Nueva, alertas de fin de promo 0% (60/30/7 días).
+  check-in mensual con celebración y migración de fase (tabla `checkins` lista),
+  Test de la Deuda Nueva, alertas de fin de promo 0% (60/30/7 días — el cálculo ya
+  existe en `promoAlert()` y se muestra en la tabla de diagnóstico; falta el envío).
 - **Fase 3**: modo pareja (tabla `household_invites` lista — el modelo de datos ya es
-  por hogar) y export a PDF.
+  por hogar), export a PDF y la versión imprimible para el refrigerador.
+- **La Prueba del Mes 12** (Full): el motor de amortización ya recalcula el mínimo de
+  tarjeta mes a mes y respeta el pago fijo de los préstamos a plazo, que es lo que la
+  simulación necesita. Falta la pantalla y la comparación de las tres estrategias.
