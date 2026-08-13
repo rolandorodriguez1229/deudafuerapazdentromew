@@ -1,0 +1,86 @@
+name: Supabase — actividad diaria y respaldo
+
+# El plan gratuito de Supabase PAUSA el proyecto tras 7 días sin actividad, y un
+# proyecto pausado deja el sitio sin lista de correo, sin GPS y sin descargas.
+# Además sus respaldos son limitados y viven dentro del mismo Supabase.
+#
+# Este flujo resuelve las dos cosas en una sola pasada diaria:
+#   1. Toca la base con una consulta trivial → cuenta como actividad.
+#   2. Vuelca esquema y datos → se guarda como artefacto del repositorio, que es
+#      almacenamiento distinto al de Supabase. Si el proyecto se perdiera, el
+#      respaldo sobrevive.
+#
+# Ambas cosas caben de sobra en la cuota gratuita de GitHub Actions.
+
+on:
+  schedule:
+    # 09:12 UTC. Minuto raro a propósito: en las horas en punto GitHub encola
+    # millones de trabajos y los retrasa.
+    - cron: "12 9 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: supabase-mantenimiento
+  cancel-in-progress: false
+
+jobs:
+  mantener:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Enlazar el proyecto
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+
+      - name: Actividad — tocar la base
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          echo "select now() as visto, confirmed_leads_count() as suscriptores;" > /tmp/latido.sql
+          supabase db query --linked --file /tmp/latido.sql
+
+      - name: Respaldo — esquema y datos
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          mkdir -p respaldo
+          supabase db dump --linked -f respaldo/esquema.sql
+          supabase db dump --linked --data-only -f respaldo/datos.sql
+          # Los roles no vienen en los dos anteriores y hacen falta para restaurar.
+          supabase db dump --linked --role-only -f respaldo/roles.sql || true
+          ls -la respaldo/
+          # Un volcado vacío significaría que algo falló en silencio.
+          test -s respaldo/esquema.sql || { echo "El volcado de esquema salió vacío"; exit 1; }
+
+      - name: Guardar el respaldo fuera de Supabase
+        uses: actions/upload-artifact@v4
+        with:
+          name: respaldo-${{ github.run_number }}
+          path: respaldo/
+          # 90 días es el tope de la cuota gratuita y sobra para recuperar de un
+          # borrado accidental.
+          retention-days: 90
+
+      - name: Resumen
+        if: always()
+        run: |
+          {
+            echo "### Supabase — mantenimiento diario"
+            echo ""
+            echo "- Proyecto tocado: el contador de 7 días se reinicia hoy."
+            echo "- Respaldo guardado como artefacto \`respaldo-${{ github.run_number }}\` (90 días)."
+            echo ""
+            echo "Si este flujo falla varios días seguidos, el proyecto se pausará"
+            echo "y el sitio se quedará sin lista de correo, sin GPS y sin descargas."
+          } >> "$GITHUB_STEP_SUMMARY"

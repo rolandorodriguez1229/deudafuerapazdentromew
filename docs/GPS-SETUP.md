@@ -137,6 +137,29 @@ al proyecto real antes de correr el script de subida.
 > listar devuelve `[]`, y cambiarle la ruta a una firma válida también da 400
 > — la firma va atada al archivo, así que un lead no puede pedir el libro.
 
+## 3-quater. Que el proyecto no se duerma, y respaldos fuera de Supabase
+
+El plan gratuito **pausa el proyecto tras 7 días sin actividad**. Un proyecto
+pausado deja el sitio sin lista de correo, sin GPS y sin descargas.
+
+`.github/workflows/mantener-vivo-y-respaldar.yml` corre a diario y hace dos
+cosas en la misma pasada: toca la base con una consulta trivial (reinicia el
+contador de 7 días) y vuelca esquema, datos y roles, que se guardan como
+artefacto del repositorio — almacenamiento distinto al de Supabase, con 90 días
+de retención. Todo dentro de la cuota gratuita de GitHub Actions.
+
+Necesita tres secretos en **Settings → Secrets and variables → Actions**:
+
+| Secreto | De dónde sale |
+|---|---|
+| `SUPABASE_PROJECT_REF` | el ref del proyecto (está en `supabase/.temp/project-ref`) |
+| `SUPABASE_DB_PASSWORD` | la contraseña de la base (está en `.env.produccion.local`) |
+| `SUPABASE_ACCESS_TOKEN` | token personal desde supabase.com/dashboard/account/tokens |
+
+Los dos primeros ya existen en el servidor; el tercero hay que generarlo una vez.
+Se puede lanzar a mano desde la pestaña Actions para comprobar que funciona antes
+de esperar al primer cron.
+
 ## 4. Prueba en producción (10 min)
 
 1. Entra a `/diagnostico` → "Calcula tu IPD gratis" → recibe el magic link → completa el wizard.
