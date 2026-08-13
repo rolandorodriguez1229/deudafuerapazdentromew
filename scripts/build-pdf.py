@@ -66,6 +66,10 @@ nav.indice { page-break-before: always; break-before: page; }
 nav.indice ol { list-style: none; padding-left: 0; }
 nav.indice li { margin-bottom: 0.3em; text-align: left; }
 nav.indice li.parte { font-weight: bold; margin-top: 0.8em; }
+/* Portada a sangre: se anulan los márgenes de @page para esa página */
+section.portada { page-break-after: always; break-after: page;
+                  margin: -0.75in -0.7in 0 -0.7in; }
+section.portada img { display: block; width: 6in; height: 9in; object-fit: cover; }
 """
 
 PIE = """
@@ -83,6 +87,7 @@ def main() -> int:
         return 1
 
     caps, stats = _be.construir(ruta)
+    portada = stats.get("portada")
 
     # Índice navegable propio: el del .docx es un campo de Word que aquí no sirve.
     entradas = []
@@ -90,7 +95,18 @@ def main() -> int:
         clase = ' class="parte"' if c.nivel == 1 else ""
         entradas.append(f'<li{clase}><a href="#c{i}">{_be.esc(c.titulo)}</a></li>')
 
-    secciones = [f'<section id="c0">{"".join(caps[0].cuerpo)}</section>']
+    # La portada, como primera página a sangre completa. Va incrustada en base64
+    # para que el HTML temporal sea autocontenido y Chromium no dependa de rutas.
+    secciones = []
+    if portada:
+        import base64
+        datos, tipo = portada
+        b64 = base64.b64encode(datos).decode()
+        secciones.append(
+            f'<section class="portada"><img src="data:image/{tipo};base64,{b64}" '
+            f'alt="Deuda Fuera, Paz Dentro"/></section>'
+        )
+    secciones.append(f'<section id="c0">{"".join(caps[0].cuerpo)}</section>')
     secciones.append(
         '<nav class="indice"><h1>Índice</h1><ol>' + "".join(entradas) + "</ol></nav>"
     )

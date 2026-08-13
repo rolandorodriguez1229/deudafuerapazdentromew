@@ -30,6 +30,27 @@ RAIZ = Path(__file__).resolve().parent.parent
 DOCX_POR_DEFECTO = RAIZ / "src/book/Deuda Fuera Paz Dentro v3.7.docx"
 SALIDA = RAIZ / "build/epub"
 
+
+def extraer_portada(doc) -> tuple[bytes, str] | None:
+    """Saca la portada del propio manuscrito: es la imagen de la primera página.
+
+    Se toma de ahí y no de public/images/ a propósito. En public hay dos
+    archivos parecidos y uno es un mockup 3D con el lomo dibujado —material de
+    marketing, no una portada— así que tomarla del .docx elimina la posibilidad
+    de empaquetar la equivocada. Además garantiza que el libro y su portada
+    salgan siempre de la misma fuente.
+    """
+    R = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
+    for p in doc.paragraphs[:10]:
+        for blip in p._p.iter("{http://schemas.openxmlformats.org/drawingml/2006/main}blip"):
+            rid = blip.get(R + "embed")
+            if not rid or rid not in doc.part.rels:
+                continue
+            part = doc.part.rels[rid].target_part
+            ext = str(part.partname).rsplit(".", 1)[-1].lower()
+            return part.blob, ("jpeg" if ext in ("jpg", "jpeg") else "png")
+    return None
+
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 R = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
 
@@ -142,6 +163,7 @@ class Capitulo:
 
 def construir(ruta_docx: Path) -> tuple[list[Capitulo], dict]:
     doc = docx.Document(str(ruta_docx))
+    portada = extraer_portada(doc)
     rels = doc.part.rels
     # Los párrafos en orden, indexables por su elemento XML
     por_elemento = {p._p: p for p in doc.paragraphs}
@@ -209,6 +231,11 @@ def construir(ruta_docx: Path) -> tuple[list[Capitulo], dict]:
             cerrar_lista()
             continue
 
+        if len(caps) == 1 and portadilla == 0 and el.find(".//" + W + "drawing") is not None:
+            # La imagen de portada va al principio del EPUB como página propia,
+            # no repetida dentro de los créditos.
+            continue
+
         contenido = render_runs(p, rels)
         if not contenido.strip():
             continue
@@ -259,6 +286,7 @@ def construir(ruta_docx: Path) -> tuple[list[Capitulo], dict]:
 
     cerrar_lista()
     caps = [c for c in caps if c.cuerpo]
+    stats['portada'] = portada
     return caps, stats
 
 
@@ -290,6 +318,15 @@ th { background: #f0f0f0; font-weight: bold; }
 a { color: #14524b; }
 """
 
+PORTADA_XHTML = """<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="{idioma}" xml:lang="{idioma}">
+<head><meta charset="utf-8"/><title>Portada</title>
+<style>html,body{{margin:0;padding:0;height:100%;text-align:center}}
+img{{max-width:100%;max-height:100%;object-fit:contain}}</style></head>
+<body epub:type="cover"><div><img src="{img}" alt="Deuda Fuera, Paz Dentro"/></div></body></html>
+"""
+
 PAGINA = """<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="{idioma}" xml:lang="{idioma}">
@@ -301,9 +338,31 @@ PAGINA = """<?xml version="1.0" encoding="utf-8"?>
 """
 
 
-def escribir_epub(caps: list[Capitulo], destino: Path) -> Path:
+def escribir_epub(caps: list[Capitulo], destino: Path,
+                  portada: tuple[bytes, str] | None = None) -> Path:
     destino.mkdir(parents=True, exist_ok=True)
     archivo = destino / "deuda-fuera-paz-dentro.epub"
+
+    # ── Portada ───────────────────────────────────────────────────────
+    # Tres piezas, porque los lectores no se ponen de acuerdo:
+    #   1. la imagen con properties="cover-image"  → EPUB 3
+    #   2. <meta name="cover">                     → Kindle y lectores viejos
+    #   3. una página XHTML al principio del spine → para que se vea al abrir
+    cover_manifest, cover_meta, cover_spine, cover_files = "", "", "", {}
+    if portada:
+        datos, tipo = portada
+        img = f"portada.{'jpg' if tipo == 'jpeg' else 'png'}"
+        cover_files[f"OEBPS/{img}"] = datos
+        cover_files["OEBPS/portada.xhtml"] = PORTADA_XHTML.format(
+            idioma=META["idioma"], img=img
+        ).encode("utf-8")
+        cover_manifest = (
+            f'<item id="cover-image" href="{img}" media-type="image/{tipo}" '
+            f'properties="cover-image"/>\n    '
+            f'<item id="cover" href="portada.xhtml" media-type="application/xhtml+xml"/>'
+        )
+        cover_meta = '<meta name="cover" content="cover-image"/>'
+        cover_spine = '<itemref idref="cover" linear="yes"/>'
 
     manifest, spine, navpoints, ncxpoints = [], [], [], []
     for i, c in enumerate(caps):
@@ -333,14 +392,17 @@ def escribir_epub(caps: list[Capitulo], destino: Path) -> Path:
     <dc:date>{META['fecha']}</dc:date>
     <dc:rights>© 2025 {esc(META['autor'])}. Todos los derechos reservados.</dc:rights>
     <meta property="dcterms:modified">2026-08-13T00:00:00Z</meta>
+    {cover_meta}
   </metadata>
   <manifest>
+    {cover_manifest}
     <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
     <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
     <item id="css" href="estilo.css" media-type="text/css"/>
     {chr(10).join('    ' + m for m in manifest).strip()}
   </manifest>
   <spine toc="ncx">
+    {cover_spine}
     {chr(10).join('    ' + s for s in spine).strip()}
   </spine>
 </package>
@@ -386,6 +448,11 @@ def escribir_epub(caps: list[Capitulo], destino: Path) -> Path:
         z.writestr("OEBPS/nav.xhtml", nav, zipfile.ZIP_DEFLATED)
         z.writestr("OEBPS/toc.ncx", ncx, zipfile.ZIP_DEFLATED)
         z.writestr("OEBPS/estilo.css", CSS, zipfile.ZIP_DEFLATED)
+        for nombre, datos in cover_files.items():
+            # La imagen ya viene comprimida (PNG/JPEG): re-comprimirla no gana
+            # nada y hace el empaquetado más lento.
+            comp = zipfile.ZIP_STORED if nombre.endswith((".png", ".jpg")) else zipfile.ZIP_DEFLATED
+            z.writestr(nombre, datos, comp)
         for c in caps:
             z.writestr(
                 f"OEBPS/{c.archivo}",
@@ -405,7 +472,7 @@ def main() -> int:
         print(f"No encuentro el manuscrito: {ruta}", file=sys.stderr)
         return 1
     caps, stats = construir(ruta)
-    archivo = escribir_epub(caps, SALIDA)
+    archivo = escribir_epub(caps, SALIDA, stats.get('portada'))
     kb = archivo.stat().st_size / 1024
     print(f"EPUB: {archivo}  ({kb:.0f} KB)")
     print(f"  {len(caps)} archivos · {stats['parrafos']} párrafos · "

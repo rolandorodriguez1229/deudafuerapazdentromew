@@ -173,8 +173,34 @@ def main() -> int:
     print("\n== otros ==")
     nav = etree.fromstring(z.read("OEBPS/nav.xhtml"))
     entradas = nav.findall(".//{http://www.w3.org/1999/xhtml}li")
-    check(len(entradas) == len(xhtmls) - 1, f"el índice tiene {len(entradas)} entradas, "
+    # nav.xhtml y portada.xhtml no son capítulos: el índice no se indexa a sí
+    # mismo y la portada no va en el índice de ningún libro.
+    contenido = [x for x in xhtmls if not x.endswith(("nav.xhtml", "portada.xhtml"))]
+    check(len(entradas) == len(contenido), f"el índice tiene {len(entradas)} entradas, "
           f"una por archivo de contenido")
+
+    # ── Portada ───────────────────────────────────────────────────────
+    print("\n== portada ==")
+    opf_txt = z.read("OEBPS/content.opf").decode()
+    tiene = "OEBPS/portada.xhtml" in nombres
+    check(tiene, "hay página de portada")
+    if tiene:
+        img = next((n for n in nombres if n.startswith("OEBPS/portada.") and not n.endswith(".xhtml")), None)
+        check(img is not None, "la imagen está empaquetada", img or "")
+        check('properties="cover-image"' in opf_txt, 'el manifest la marca como cover-image (EPUB 3)')
+        check('<meta name="cover"' in opf_txt, 'lleva <meta name="cover"> (Kindle y lectores viejos)')
+        check(opf_txt.index('idref="cover"') < opf_txt.index('idref="c000"'),
+              "la portada abre el libro")
+        if img:
+            datos = z.read(img)
+            # La portada del manuscrito, para comprobar que es la misma
+            doc_img = None
+            for part in docx.Document(str(DOCX)).part.package.parts:
+                if "image" in str(part.content_type) and len(part.blob) == len(datos):
+                    doc_img = part.blob
+                    break
+            check(doc_img == datos, "es exactamente la imagen del manuscrito",
+                  f"{len(datos) / 1024:.0f} KB")
     if "OEBPS/toc.ncx" in nombres:
         print("  [ok ] incluye toc.ncx (compatibilidad con lectores viejos)")
     if not re.search(r"ISBN|isbn", z.read("OEBPS/content.opf").decode()):
