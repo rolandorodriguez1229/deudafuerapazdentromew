@@ -24,7 +24,7 @@ export default function PlantillaGratuita() {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: formData.name, email: formData.email }),
+        body: JSON.stringify({ name: formData.name, email: formData.email, source: 'plantilla' }),
       });
       if (!res.ok) throw new Error('subscribe_failed');
       trackLead(formData.email);
@@ -54,14 +54,18 @@ export default function PlantillaGratuita() {
               <CheckCircle className="h-10 w-10 text-green-600" />
             </div>
             <h1 className="heading-lg text-neutral-900 mb-3">
-              ¡Listo! Te lo mandé por correo
+              Revisa tu correo
             </h1>
-            <p className="text-neutral-600 mb-6">
-              Te enviamos el enlace a tu GPS Anti-Deuda. Revisa tu bandeja — o entra directo aquí abajo.
+            <p className="text-neutral-600 mb-2">
+              Te mandé un correo con un botón de confirmación. Un clic y quedas dentro.
+            </p>
+            <p className="text-sm text-neutral-500 mb-6">
+              Lo pido para asegurarme de que el correo es tuyo y de que lo que te mande te llegue de
+              verdad. Si no aparece en unos minutos, mira en spam.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/diagnostico" className="btn-primary inline-flex items-center justify-center">
-                Calcular mi IPD ahora
+                Mientras tanto, entra al GPS
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link href="/" className="btn-secondary">
@@ -236,7 +240,7 @@ export default function PlantillaGratuita() {
                   <Shield className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                   <div className="text-sm text-neutral-600">
                     <p className="font-medium text-neutral-900 mb-1">Tu privacidad está protegida</p>
-                    <p>No compartimos tu información. Puedes cancelar la suscripción cuando quieras.</p>
+                    <p>Acepto recibir correos de Deuda Fuera, Paz Dentro. No compartimos tu información y puedes darte de baja cuando quieras. <a href="/privacidad" className="underline">Política de privacidad</a>.</p>
                   </div>
                 </div>
               </div>

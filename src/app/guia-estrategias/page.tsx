@@ -19,7 +19,7 @@ export default function GuiaEstrategias() {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: formData.name, email: formData.email }),
+        body: JSON.stringify({ name: formData.name, email: formData.email, source: 'guia-estrategias' }),
       });
       if (!res.ok) throw new Error('subscribe_failed');
       trackLead(formData.email);
@@ -42,14 +42,17 @@ export default function GuiaEstrategias() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
-              <h1 className="heading-lg text-neutral-900 mb-2">¡Listo! Te lo mandé por correo</h1>
-              <p className="text-neutral-600 mb-6">
+              <h1 className="heading-lg text-neutral-900 mb-2">Revisa tu correo</h1>
+              <p className="text-neutral-600 mb-2">
+                Te mandé un correo con un botón de confirmación. Un clic y quedas dentro.
+              </p>
+              <p className="text-sm text-neutral-500 mb-6">
                 En vez de un PDF que se queda viejo, te doy la herramienta que hace los cálculos por
-                ti y te dice qué hacer con el resultado. Entra ahora, son 15 minutos.
+                ti. Si el correo no aparece en unos minutos, mira en spam.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link href="/diagnostico" className="btn-primary inline-flex items-center justify-center">
-                  Calcular mi IPD gratis <ArrowRight className="ml-2 h-5 w-5" />
+                  Mientras tanto, entra al GPS <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
                 <Link href="/" className="btn-secondary">
                   Volver al inicio
@@ -94,7 +97,7 @@ export default function GuiaEstrategias() {
             <button type="submit" disabled={isSubmitting} className="mt-6 w-full btn-primary py-4 disabled:opacity-50 disabled:cursor-not-allowed">
               {isSubmitting ? 'Enviando...' : 'Quiero la guía'}
             </button>
-            <p className="text-xs text-neutral-500 mt-3 text-center">Te llega por correo. Puedes cancelar la suscripción cuando quieras.</p>
+            <p className="text-xs text-neutral-500 mt-3 text-center">Acepto recibir correos de Deuda Fuera, Paz Dentro. Puedo darme de baja cuando quiera. <a href="/privacidad" className="underline">Política de privacidad</a>.</p>
           </form>
         </div>
       </section>

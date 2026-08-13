@@ -56,6 +56,35 @@ Agrega a las existentes (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
 | `SUPABASE_SERVICE_ROLE_KEY` | service_role key (¡secreta!) |
 | `STRIPE_PRICE_GPS_MONTHLY` | price_... del plan mensual |
 | `STRIPE_PRICE_GPS_YEARLY` | price_... del plan anual |
+| `EMAIL_POSTAL_ADDRESS` | **Obligatoria.** Dirección postal física, la exige CAN-SPAM en todo correo de marketing. Sin ella el pie del correo sale incompleto y el servidor lo avisa en el log. |
+| `LEAD_NOTIFY_EMAIL` | Opcional. A dónde llega el aviso de cada lead confirmado. Si falta, usa `EMAIL_FROM`. Es un puente hasta que haya un ESP conectado. |
+
+## 3-bis. La lista de correo
+
+La migración `0003_leads.sql` crea la tabla `leads`, que es **la lista**. Hay que
+correrla junto con las otras dos.
+
+Cómo funciona, en corto: un alta entra como `pending` y solo pasa a `confirmed`
+cuando la persona hace clic en el enlace del correo (doble opt-in). Nada se
+entrega antes de ese clic.
+
+Por qué importa para el negocio: **la regla de los 5,000 suscriptores cuenta solo
+confirmados.** Un contador inflado con correos falsos dispararía el lanzamiento
+del GPS Full sobre datos falsos.
+
+Para consultar la cifra en cualquier momento, desde el SQL editor de Supabase:
+
+```sql
+select confirmed_leads_count();
+```
+
+La tabla es PII: tiene RLS activa y cero políticas, así que `anon` y
+`authenticated` no la leen ni por accidente. Solo el service-role la toca.
+
+Cumplimiento ya cubierto en el código: registro de consentimiento con el texto
+literal que aceptó cada persona (GDPR), baja en un clic sin login que sigue
+funcionando indefinidamente (CASL pide 60 días), enlaces de confirmación que
+vencen a las 48 h y tope de 3 reenvíos por hora.
 
 ## 4. Prueba en producción (10 min)
 

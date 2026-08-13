@@ -38,10 +38,11 @@ export default function ListaDeEspera() {
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle className="h-8 w-8 text-green-600" aria-hidden />
           </div>
-          <h1 className="heading-md text-neutral-900 mb-3">Quedaste en la lista</h1>
+          <h1 className="heading-md text-neutral-900 mb-3">Revisa tu correo</h1>
           <p className="text-neutral-600 mb-6">
-            Te escribo en cuanto el libro esté listo. Mientras tanto, la herramienta del libro ya
-            funciona y es gratis — es el mismo método, sin esperar.
+            Te mandé un correo con un botón de confirmación. Un clic y quedas en la lista; sin
+            eso no te aviso del lanzamiento. Mientras tanto, la herramienta del libro ya funciona y
+            es gratis.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/diagnostico" className="btn-primary inline-flex items-center justify-center">
@@ -118,7 +119,7 @@ export default function ListaDeEspera() {
               {sending ? 'Guardando…' : 'Avísame cuando salga'}
             </button>
             <p className="text-xs text-neutral-500 text-center">
-              Solo para avisarte del lanzamiento. Puedes darte de baja cuando quieras.{' '}
+              Acepto recibir correos de Deuda Fuera, Paz Dentro. Puedo darme de baja cuando quiera.{' '}
               <Link href="/privacidad" className="underline">
                 Política de privacidad
               </Link>
