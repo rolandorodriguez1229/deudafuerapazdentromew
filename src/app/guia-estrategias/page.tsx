@@ -3,15 +3,18 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FileText, CheckCircle, ArrowRight } from 'lucide-react';
+import { trackLead } from '@/lib/track';
 
 export default function GuiaEstrategias() {
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMsg('');
     try {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
@@ -19,9 +22,12 @@ export default function GuiaEstrategias() {
         body: JSON.stringify({ name: formData.name, email: formData.email }),
       });
       if (!res.ok) throw new Error('subscribe_failed');
+      trackLead(formData.email);
       setIsSubmitted(true);
-    } catch (_err) {
-      setIsSubmitted(true);
+    } catch {
+      // Antes esto marcaba éxito igual: el usuario veía "¡Listo!" con su correo
+      // perdido y sin forma de saberlo.
+      setErrorMsg('Hubo un problema al guardar tu correo. Intenta de nuevo en un momento.');
     } finally {
       setIsSubmitting(false);
     }
@@ -36,14 +42,17 @@ export default function GuiaEstrategias() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
-              <h1 className="heading-lg text-neutral-900 mb-2">¡Listo! Descarga tu Guía</h1>
-              <p className="text-neutral-600 mb-6">Te enviamos un email de confirmación. Mientras tanto, puedes descargar la guía ahora.</p>
+              <h1 className="heading-lg text-neutral-900 mb-2">¡Listo! Te lo mandé por correo</h1>
+              <p className="text-neutral-600 mb-6">
+                En vez de un PDF que se queda viejo, te doy la herramienta que hace los cálculos por
+                ti y te dice qué hacer con el resultado. Entra ahora, son 15 minutos.
+              </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <a href="/downloads/guia-estrategias.pdf" className="btn-primary" download>
-                  Descargar Guía PDF
-                </a>
-                <Link href="/comprar" className="btn-urgent">
-                  Ver Paquete Completo <ArrowRight className="ml-2 h-5 w-5" />
+                <Link href="/diagnostico" className="btn-primary inline-flex items-center justify-center">
+                  Calcular mi IPD gratis <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+                <Link href="/" className="btn-secondary">
+                  Volver al inicio
                 </Link>
               </div>
             </div>
@@ -60,10 +69,10 @@ export default function GuiaEstrategias() {
           <div className="text-center mb-10">
             <div className="inline-flex items-center space-x-2 bg-accent-500 text-white px-4 py-2 rounded-full mb-6">
               <FileText className="h-4 w-4" />
-              <span className="text-sm font-medium">Guía PDF</span>
+              <span className="text-sm font-medium">Guía gratuita</span>
             </div>
-            <h1 className="heading-lg text-neutral-900 mb-3">Guía de Estrategias: Oxígeno, Nieve y Avalancha</h1>
-            <p className="text-neutral-600">Descarga un resumen práctico para saber qué hacer según tu IPD y cuándo cambiar de estrategia.</p>
+            <h1 className="heading-lg text-neutral-900 mb-3">Guía de Estrategias: las cuatro fases del Selector</h1>
+            <p className="text-neutral-600">Déficit, Oxígeno, Bola de Nieve y Avalancha: en cuál estás, con qué criterio pagar en cada una y cuándo te toca cambiar.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="bg-neutral-50 rounded-2xl p-8 border border-neutral-200">
@@ -77,10 +86,15 @@ export default function GuiaEstrategias() {
                 <input id="email" type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent" placeholder="tu@email.com" />
               </div>
             </div>
+            {errorMsg && (
+              <p role="alert" className="mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                {errorMsg}
+              </p>
+            )}
             <button type="submit" disabled={isSubmitting} className="mt-6 w-full btn-primary py-4 disabled:opacity-50 disabled:cursor-not-allowed">
-              {isSubmitting ? 'Enviando...' : 'Quiero la Guía PDF'}
+              {isSubmitting ? 'Enviando...' : 'Quiero la guía'}
             </button>
-            <p className="text-xs text-neutral-500 mt-3 text-center">Recibirás la guía por email. Puedes cancelar la suscripción cuando quieras.</p>
+            <p className="text-xs text-neutral-500 mt-3 text-center">Te llega por correo. Puedes cancelar la suscripción cuando quieras.</p>
           </form>
         </div>
       </section>

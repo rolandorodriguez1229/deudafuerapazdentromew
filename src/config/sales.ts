@@ -12,10 +12,20 @@
  * el mismo archivo que se regala en `/plantilla-gratuita`. No existe todavía el
  * EPUB del manuscrito v3.7.
  *
- * Cómo volver a encender: poner esto en `false` cuando estén las tres cosas de
- * la Fase 1 de la ruta de lanzamiento — EPUB maquetado, PDF de lectura y
- * entrega con enlaces firmados que caduquen. Es un solo cambio de línea; no
- * hay nada más que revertir.
+ * ANTES DE PONER ESTO EN `false`, revisar los tres caminos que hoy siguen
+ * apuntando a placeholders. Están dormidos porque no se puede comprar, y se
+ * despiertan solos en cuanto se reactive el cobro:
+ *
+ *   1. `src/app/api/stripe/webhook/route.ts` — el correo de compra enlaza
+ *      `/downloads/guia-estrategias.pdf` (946 bytes) y `scripts-negociacion.pdf`
+ *      (482 bytes, dice "placeholder"). Tiene que entregar el EPUB real con
+ *      enlaces firmados que caduquen, no archivos en `/public`.
+ *   2. `src/app/gracias/page.tsx` — los mismos dos archivos, como descarga
+ *      directa después de pagar.
+ *   3. `/public/downloads/` — mientras esos archivos existan ahí, cualquiera
+ *      los baja sin pagar. La entrega tiene que salir de Supabase Storage.
+ *
+ * Y las tres cosas de la Fase 1: EPUB maquetado, PDF de lectura y portada.
  */
 export const EBOOK_SALES_PAUSED = true;
 
