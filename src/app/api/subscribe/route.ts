@@ -25,24 +25,27 @@ const WRAP = (inner: string) =>
   `<div style="font-family:system-ui,Arial,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1f2937">${inner}</div>`;
 
 /**
- * OJO: este correo sigue entregando `/downloads/guia-estrategias.pdf`, que es un
- * placeholder de 946 bytes. No se toca aquí porque cambiar qué se regala es una
- * decisión de producto, no parte de apagar el cobro. Está anotado como pendiente
- * en la ruta de lanzamiento.
+ * El regalo es el GPS Anti-Deuda, no un archivo.
+ *
+ * Antes esto entregaba `/downloads/guia-estrategias.pdf`, un placeholder de 946
+ * bytes que además era el mismo archivo que recibía quien pagaba $7.99. La
+ * herramienta hace de verdad lo que la plantilla prometía —calcular el IPD sola
+ * y decirte qué hacer con el resultado—, así que se entrega eso.
  */
 function plantillaEmail(name: string) {
   return {
-    subject: 'Tu Plantilla IPD 360° está lista',
+    subject: 'Tu GPS Anti-Deuda está listo',
     html: WRAP(`
       <h1 style="color:#1e3a8a">¡Hola, ${name}!</h1>
-      <p>Gracias por descargar la <strong>Plantilla IPD 360°</strong>. Usa el enlace de abajo para descargarla.</p>
+      <p>Aquí tienes tu <strong>GPS Anti-Deuda</strong>. No hay nada que descargar ni fórmulas que pelear: entra, pon tus números y en 15 minutos tienes tu diagnóstico.</p>
       <p>
-        <a href="${SITE_URL}/downloads/guia-estrategias.pdf"
+        <a href="${SITE_URL}/diagnostico"
            style="display:inline-block;background:#16a34a;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none">
-          Descargar mi plantilla
+          Calcular mi IPD gratis
         </a>
       </p>
-      <p>En los próximos días te enviaré las mejores estrategias para salir de deudas.</p>
+      <p>Te va a decir en cuál de las cuatro fases estás —Déficit, Oxígeno, Bola de Nieve o Avalancha— y con qué criterio pagar en la tuya. También te diagnostica deuda por deuda: cuál te está asfixiando y cuál conviene renegociar antes que pagar.</p>
+      <p>En los próximos días te escribo con las estrategias que mejor funcionan en cada fase.</p>
       <p>— Rolando Rodríguez</p>
     `),
   };

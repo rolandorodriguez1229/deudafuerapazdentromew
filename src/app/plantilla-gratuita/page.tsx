@@ -38,11 +38,11 @@ export default function PlantillaGratuita() {
 
   const benefits = [
     "Calcula tu Índice de Presión de Deuda (IPD) automáticamente",
-    "Descubre al instante si necesitas aplicar la estrategia Oxígeno Rápido, Bola de Nieve o Avalancha",
+    "Descubre en cuál de las cuatro fases estás: Déficit, Oxígeno, Bola de Nieve o Avalancha",
+    "Te dice con qué criterio pagar en tu fase, y por qué ese y no otro",
+    "Diagnostica deuda por deuda: cuál te está asfixiando y cuál conviene renegociar",
     "Obtén la misma claridad que me ayudó a eliminar $90,000 en deudas",
-    "Plan mes a mes personalizado para tu situación específica",
-    "Hojas de seguimiento de progreso incluidas",
-    "Fórmulas automáticas que hacen los cálculos por ti"
+    "Sin descargar nada ni pelearte con fórmulas: funciona en el navegador"
   ];
 
   if (isSubmitted) {
@@ -54,18 +54,15 @@ export default function PlantillaGratuita() {
               <CheckCircle className="h-10 w-10 text-green-600" />
             </div>
             <h1 className="heading-lg text-neutral-900 mb-3">
-              ¡Perfecto! Confirma tu Correo
+              ¡Listo! Te lo mandé por correo
             </h1>
             <p className="text-neutral-600 mb-6">
-              Te enviamos la Plantilla de Diagnóstico 360°. Revisa tu bandeja y confirma tu email.
+              Te enviamos el enlace a tu GPS Anti-Deuda. Revisa tu bandeja — o entra directo aquí abajo.
             </p>
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8 inline-flex items-center gap-3">
-              <Countdown durationSeconds={10 * 60} size="sm" />
-              <span className="text-sm text-yellow-800">Oferta del paquete completo activa mientras dure el contador.</span>
-            </div>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/comprar" className="btn-urgent">
-                Ver Paquete Completo con Descuento
+              <Link href="/diagnostico" className="btn-primary inline-flex items-center justify-center">
+                Calcular mi IPD ahora
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link href="/" className="btn-secondary">
                 Volver al Inicio
@@ -94,7 +91,7 @@ export default function PlantillaGratuita() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center space-x-2 bg-accent-500 text-white px-4 py-2 rounded-full mb-6">
               <Download className="h-4 w-4" />
-              <span className="text-sm font-medium">Descarga Gratuita</span>
+              <span className="text-sm font-medium">Herramienta Gratuita</span>
             </div>
             
             <h1 className="heading-xl text-neutral-900 mb-6 text-balance">
@@ -112,7 +109,7 @@ export default function PlantillaGratuita() {
             <div className="space-y-8">
               <div>
                 <h2 className="heading-md text-neutral-900 mb-6">
-                  Con esta plantilla podrás:
+                  Con la herramienta podrás:
                 </h2>
                 
                 <div className="space-y-4">
@@ -129,7 +126,7 @@ export default function PlantillaGratuita() {
               <div className="bg-white rounded-xl shadow-lg p-6">
                 <h3 className="font-semibold text-neutral-900 mb-4 flex items-center">
                   <Calculator className="h-5 w-5 text-accent-500 mr-2" />
-                  Vista Previa de la Plantilla
+                  Lo que vas a ver
                 </h3>
                 <div className="space-y-3">
                   <div className="bg-neutral-50 p-3 rounded">
@@ -172,10 +169,10 @@ export default function PlantillaGratuita() {
             <div className="bg-white rounded-2xl shadow-2xl p-8">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-neutral-900 mb-2">
-                  Obtén Tu Plantilla Ahora
+                  Entra Gratis Ahora
                 </h3>
                 <p className="text-neutral-600">
-                  Descarga inmediata • Sin spam • 100% gratuita
+                  Acceso inmediato • Sin spam • 100% gratuita
                 </p>
               </div>
 
@@ -226,7 +223,7 @@ export default function PlantillaGratuita() {
                     </>
                   ) : (
                     <>
-                      ¡Quiero mi Plantilla Gratis!
+                      ¡Quiero calcular mi IPD!
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </>
                   )}
@@ -248,10 +245,10 @@ export default function PlantillaGratuita() {
               <div className="mt-6 text-center">
                 <div className="flex items-center justify-center space-x-2 text-sm text-neutral-500 mb-3">
                   <Clock className="h-4 w-4" />
-                  <span>Descarga inmediata · Sin spam</span>
+                  <span>Acceso inmediato · Sin spam</span>
                 </div>
                                  <p className="text-xs text-neutral-400">
-                   &quot;Por fin entiendo mis deudas. La plantilla me dio claridad total.&quot; - Ana M.
+                   &quot;Por fin entiendo mis deudas. En 15 minutos tuve claridad total.&quot; - Ana M.
                  </p>
               </div>
             </div>
