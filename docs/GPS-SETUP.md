@@ -59,6 +59,26 @@ Agrega a las existentes (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
 | `EMAIL_POSTAL_ADDRESS` | **Obligatoria.** Dirección postal física, la exige CAN-SPAM en todo correo de marketing. Sin ella el pie del correo sale incompleto y el servidor lo avisa en el log. |
 | `LEAD_NOTIFY_EMAIL` | Opcional. A dónde llega el aviso de cada lead confirmado. Si falta, usa `EMAIL_FROM`. Es un puente hasta que haya un ESP conectado. |
 
+## 2-bis. Provisión automática (un solo comando)
+
+Todo lo de las secciones 1 a 3 está automatizado en `scripts/provisionar-produccion.py`:
+crea el proyecto de Supabase (plan gratuito, `us-east-1`, que es la región pegada
+al `iad1` donde corre el despliegue), aplica y verifica las cuatro migraciones,
+configura las variables en Vercel y sube los entregables al bucket privado.
+
+Requiere una única acción humana previa, que Supabase no permite automatizar:
+
+```bash
+npx supabase login                              # abre el navegador
+python3 scripts/provisionar-produccion.py --dry-run   # enseña el plan, no toca nada
+python3 scripts/provisionar-produccion.py             # lo hace
+```
+
+Se detiene solo si la organización ya tiene 2 proyectos activos (el tope del
+plan gratuito), en vez de escalar a un plan de pago. La contraseña de la base se
+genera dentro del script, se guarda en `.env.produccion.local` con permisos 600
+y nunca se imprime.
+
 ## 3-bis. La lista de correo
 
 La migración `0003_leads.sql` crea la tabla `leads`, que es **la lista**. Hay que
