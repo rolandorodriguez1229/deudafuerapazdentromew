@@ -142,21 +142,39 @@ al proyecto real antes de correr el script de subida.
 El plan gratuito **pausa el proyecto tras 7 días sin actividad**. Un proyecto
 pausado deja el sitio sin lista de correo, sin GPS y sin descargas.
 
-`.github/workflows/mantener-vivo-y-respaldar.yml` corre a diario y hace dos
-cosas en la misma pasada: toca la base con una consulta trivial (reinicia el
-contador de 7 días) y vuelca esquema, datos y roles, que se guardan como
-artefacto del repositorio — almacenamiento distinto al de Supabase, con 90 días
-de retención. Todo dentro de la cuota gratuita de GitHub Actions.
+`.github/workflows/mantener-vivo-y-respaldar.yml` corre a diario y hace dos cosas
+en la misma pasada: se conecta a la base y lee (lo que reinicia el contador de 7
+días) y vuelca roles, esquema y datos, que se guardan como artefacto del
+repositorio — almacenamiento distinto al de Supabase, con 90 días de retención.
+Todo dentro de la cuota gratuita de GitHub Actions.
 
-Necesita tres secretos en **Settings → Secrets and variables → Actions**:
+Necesita **un solo secreto** en **Settings → Secrets and variables → Actions**:
 
 | Secreto | De dónde sale |
 |---|---|
-| `SUPABASE_PROJECT_REF` | el ref del proyecto (está en `supabase/.temp/project-ref`) |
-| `SUPABASE_DB_PASSWORD` | la contraseña de la base (está en `.env.produccion.local`) |
-| `SUPABASE_ACCESS_TOKEN` | token personal desde supabase.com/dashboard/account/tokens |
+| `SUPABASE_DB_URL` | URL Postgres del session pooler del proyecto dedicado, con `sslmode=require`; se guarda únicamente como GitHub Actions Secret. |
 
-Los dos primeros ya existen en el servidor; el tercero hay que generarlo una vez.
+No se guarda `SUPABASE_ACCESS_TOKEN`: tiene los privilegios de la cuenta entera
+—crear y borrar proyectos, leer todas las bases— y no hace ninguna falta para
+respaldar una sola base. El flujo usa `supabase db dump --db-url`, que es lo que
+recomienda la guía oficial de respaldos de Supabase. Si esa URL se filtrara, el
+alcance del daño se limita a esta base; un token de cuenta comprometería todo.
+
+Por la misma razón el flujo está acotado:
+
+- `permissions: contents: read` — no puede escribir en el repositorio.
+- **Nunca corre en pull requests**, solo por cron y a mano. Un PR desde una rama
+  ajena no puede provocar una ejecución con acceso al secreto.
+- Las acciones van fijadas por SHA inmutable, no por etiqueta: `actions/checkout`
+  y `actions/upload-artifact` no pueden cambiar bajo nuestros pies.
+- La versión del CLI está clavada (`supabase@2.114.0`), no `latest`.
+- La URL nunca se imprime: se pasa por variable de entorno y los volcados van a
+  archivo, no a la salida estándar.
+- `if-no-files-found: error` — un artefacto vacío falla en vez de aparentar éxito.
+
+`scripts/verificar-workflow-supabase.mjs` comprueba todo lo anterior de forma
+estática; si alguien relaja el flujo, ese script se pone rojo.
+
 Se puede lanzar a mano desde la pestaña Actions para comprobar que funciona antes
 de esperar al primer cron.
 
