@@ -43,3 +43,7 @@ next-env.d.ts
 # supabase (CLI local)
 /supabase/.temp
 /supabase/.branches
+
+# python (scripts de construcción del libro)
+__pycache__/
+*.pyc
