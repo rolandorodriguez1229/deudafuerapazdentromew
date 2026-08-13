@@ -86,6 +86,37 @@ literal que aceptó cada persona (GDPR), baja en un clic sin login que sigue
 funcionando indefinidamente (CASL pide 60 días), enlaces de confirmación que
 vencen a las 48 h y tope de 3 reenvíos por hora.
 
+## 3-ter. Entrega protegida de los archivos
+
+Los entregables (EPUB, PDF y los tres anexos) **ya no viven en `public/`**. Están
+en un bucket privado de Supabase Storage llamado `entregas`, que crea la
+migración `0004_entregas.sql`.
+
+Cómo funciona: cada persona autorizada tiene un permiso en `download_grants` con
+un token. La página `/descargas?t=<token>` valida el permiso contra la base y
+recién entonces pide a Supabase una URL firmada que vive **15 minutos**. Esa URL
+no se guarda: se genera en cada visita.
+
+Dos niveles: `lead` (quien confirmó su correo) recibe solo la Guía de
+Estrategias; `compra` recibe el libro completo y los tres anexos. Un lead que
+compra sube de nivel y conserva su mismo enlace.
+
+Para subir los archivos al bucket:
+
+```bash
+python3 scripts/build-epub.py && python3 scripts/build-pdf.py && python3 scripts/build-anexos.py
+python3 scripts/subir-entregables.py            # usa .env.local
+python3 scripts/subir-entregables.py --listar   # ver qué hay
+```
+
+En producción, apunta `NEXT_PUBLIC_SUPABASE_URL` y `SUPABASE_SERVICE_ROLE_KEY`
+al proyecto real antes de correr el script de subida.
+
+> El bucket es privado y `storage.objects` no tiene políticas para `anon` ni
+> `authenticated`. Verificado: sin firma da 400, con la clave anon da 400,
+> listar devuelve `[]`, y cambiarle la ruta a una firma válida también da 400
+> — la firma va atada al archivo, así que un lead no puede pedir el libro.
+
 ## 4. Prueba en producción (10 min)
 
 1. Entra a `/diagnostico` → "Calcula tu IPD gratis" → recibe el magic link → completa el wizard.

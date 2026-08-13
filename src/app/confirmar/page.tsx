@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, CheckCircle, XCircle } from 'lucide-react';
 import { sendEmail } from '@/lib/email';
 import { leadNotifyEmail, welcomeEmail } from '@/lib/emails';
+import { hasEntregas, otorgarGrant } from '@/lib/entregas';
 import { confirmLead } from '@/lib/leads';
 
 export const metadata: Metadata = {
@@ -30,8 +31,20 @@ export default async function ConfirmarPage({
   const { t } = await searchParams;
   const lead = t ? await confirmLead(t) : null;
 
+  let tokenDescarga: string | null = null;
+  if (lead && hasEntregas()) {
+    // Confirmar da derecho a la guía. El permiso se crea aquí, no al pedir el
+    // alta: antes del clic no hay consentimiento verificado y no se entrega nada.
+    try {
+      const grant = await otorgarGrant({ email: lead.email, tipo: 'lead' });
+      tokenDescarga = grant.token;
+    } catch (err) {
+      console.error('[confirmar] no se pudo crear el permiso de descarga', err);
+    }
+  }
+
   if (lead) {
-    const { subject, html } = welcomeEmail(lead.name, lead.unsubscribeToken);
+    const { subject, html } = welcomeEmail(lead.name, lead.unsubscribeToken, tokenDescarga);
     // Si el correo falla, el lead YA quedó confirmado: es lo que importa. No se
     // le muestra un error por algo que puede reintentarse desde el enlace.
     try {
@@ -55,13 +68,19 @@ export default async function ConfirmarPage({
             </div>
             <h1 className="heading-md text-neutral-900 mb-3">Correo confirmado</h1>
             <p className="text-neutral-600 mb-6">
-              Ya estás dentro. Te mandé el acceso por correo, pero no hace falta que lo esperes:
-              entra ahora y en 15 minutos tienes tu diagnóstico.
+              Ya estás dentro. Te mandé todo por correo, pero no hace falta que lo esperes.
             </p>
-            <Link href="/diagnostico" className="btn-primary inline-flex items-center justify-center">
-              Calcular mi IPD gratis
-              <ArrowRight className="ml-2 h-5 w-5" aria-hidden />
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/diagnostico" className="btn-primary inline-flex items-center justify-center">
+                Calcular mi IPD gratis
+                <ArrowRight className="ml-2 h-5 w-5" aria-hidden />
+              </Link>
+              {tokenDescarga && (
+                <Link href={`/descargas?t=${tokenDescarga}`} className="btn-secondary">
+                  Descargar mi guía
+                </Link>
+              )}
+            </div>
           </>
         ) : (
           <>

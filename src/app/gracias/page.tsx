@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { CheckCircle, FileText, Download } from 'lucide-react';
+import { CheckCircle, FileText } from 'lucide-react';
 import PurchaseTracker from './PurchaseTracker';
 
 export const metadata: Metadata = {
@@ -20,14 +20,19 @@ export default function GraciasPage() {
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
             <h1 className="heading-lg text-neutral-900 mb-2">¡Pago confirmado!</h1>
-            <p className="text-neutral-600 mb-6">Gracias por tu compra. Te enviamos un correo con tu recibo y enlaces de descarga.</p>
-            <div className="grid sm:grid-cols-2 gap-3 mb-6">
-              <a href="/downloads/guia-estrategias.pdf" className="btn-primary inline-flex items-center justify-center" download>
-                <FileText className="mr-2 h-5 w-5" /> Descargar Guía
-              </a>
-              <a href="/downloads/scripts-negociacion.txt" className="btn-secondary inline-flex items-center justify-center" download>
-                <Download className="mr-2 h-5 w-5" /> Scripts de negociación
-              </a>
+            <p className="text-neutral-600 mb-2">
+              Gracias por tu compra. Te enviamos un correo con tu recibo y el enlace a tus
+              descargas.
+            </p>
+            <p className="text-sm text-neutral-500 mb-6">
+              Los archivos no se sirven desde esta página: viven en un área protegida y el enlace
+              del correo es el que te da acceso. Si no te llega en unos minutos, mira en spam o
+              respóndeme y lo resuelvo.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+              <Link href="/diagnostico" className="btn-primary inline-flex items-center justify-center">
+                <FileText className="mr-2 h-5 w-5" /> Empieza: calcula tu IPD
+              </Link>
             </div>
             <Link href="/" className="text-primary-600 font-semibold">Volver al inicio</Link>
           </div>

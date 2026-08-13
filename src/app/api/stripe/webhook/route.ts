@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { sendEmail } from '@/lib/email';
+import { compraEmail } from '@/lib/emails';
+import { otorgarGrant } from '@/lib/entregas';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.deudafuerapazdentro.com';
 
 /** Sincroniza una suscripción de Stripe → tabla `subscriptions` (upsert idempotente). */
 async function syncSubscription(sub: Stripe.Subscription) {
@@ -66,31 +67,25 @@ export async function POST(request: Request) {
           user: session.client_reference_id,
         });
       } else {
-        // eBook — flujo original intacto
+        // eBook. La entrega ya no son enlaces a /public: se crea un permiso y
+        // el comprador descarga desde /descargas, que firma URLs de vida corta
+        // contra el bucket privado.
         const email = session.customer_details?.email;
-        const name = session.customer_details?.name || 'lector';
+        const name = session.customer_details?.name || null;
 
         if (email) {
-          await sendEmail({
-            to: email,
-            subject: 'Tu acceso a Deuda Fuera, Paz Dentro',
-            html: `
-              <div style="font-family:system-ui,Arial,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1f2937">
-                <h1 style="color:#1e3a8a">¡Gracias por tu compra, ${name}!</h1>
-                <p>Aquí están tus enlaces de descarga:</p>
-                <ul>
-                  <li><a href="${SITE_URL}/downloads/guia-estrategias.pdf">eBook — Deuda Fuera, Paz Dentro</a></li>
-                  <li><a href="${SITE_URL}/downloads/scripts-negociacion.pdf">Scripts para negociar con acreedores</a></li>
-                  <li><a href="${SITE_URL}/downloads/calendario-7-3-1.ics">Calendario 7/3/1</a></li>
-                </ul>
-                <p>Si tienes cualquier duda, responde este correo y te ayudo personalmente.</p>
-                <p>— Rolando</p>
-              </div>
-            `,
+          const grant = await otorgarGrant({
+            email,
+            tipo: 'compra',
+            stripeSessionId: session.id,
           });
+          const { subject, html } = compraEmail(name, grant.token);
+          await sendEmail({ to: email, subject, html });
+          console.log('[stripe] compra entregada', { id: session.id, grant: grant.id });
+        } else {
+          // Sin correo no hay a quién entregarle. Es raro pero no imposible.
+          console.error('[stripe] compra sin correo del cliente', session.id);
         }
-
-        console.log('[stripe] checkout completed', { id: session.id, email });
       }
     }
 

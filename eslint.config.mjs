@@ -17,6 +17,8 @@ const eslintConfig = [
       ".next/**",
       "out/**",
       "build/**",
+      // Generado por el CLI de Supabase al levantar el entorno local
+      "supabase/.temp/**",
       "next-env.d.ts",
     ],
   },

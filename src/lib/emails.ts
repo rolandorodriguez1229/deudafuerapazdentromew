@@ -70,21 +70,58 @@ export function confirmEmail(name: string | null, confirmUrl: string) {
   };
 }
 
+export function descargasUrl(token: string): string {
+  return `${SITE_URL}/descargas?t=${token}`;
+}
+
 /** Paso 2: ya confirmó. Esto sí es marketing. */
-export function welcomeEmail(name: string | null, unsubToken: string) {
+export function welcomeEmail(
+  name: string | null,
+  unsubToken: string,
+  tokenDescarga?: string | null,
+) {
   const saludo = name ? `Listo, ${name}` : 'Listo';
+  const guia = tokenDescarga
+    ? `<h2 style="font-size:16px;color:#111827;margin:0 0 8px">Tu Guía de Estrategias</h2>
+       <p style="margin:0 0 14px">Las cuatro fases y las reglas de decisión, en un documento para tener a la mano:</p>
+       <p style="margin:0 0 20px"><a href="${descargasUrl(tokenDescarga)}" style="${BOTON}">Descargar mi guía</a></p>`
+    : '';
   return {
     subject: 'Tu GPS Anti-Deuda está listo',
     html: shell(
       'Tu GPS Anti-Deuda',
       `<h1 style="color:#1e3a8a;font-size:22px;margin:0 0 12px">${saludo}</h1>
-       <p style="margin:0 0 16px">Aquí tienes tu <strong>GPS Anti-Deuda</strong>. No hay nada que descargar: entra, pon tus números y en 15 minutos tienes tu diagnóstico.</p>
+       <p style="margin:0 0 16px">Aquí tienes tu <strong>GPS Anti-Deuda</strong>. No hay nada que instalar: entra, pon tus números y en 15 minutos tienes tu diagnóstico.</p>
        <p style="margin:0 0 20px"><a href="${SITE_URL}/diagnostico" style="${BOTON}">Calcular mi IPD gratis</a></p>
+       ${guia}
        <h2 style="font-size:16px;color:#111827;margin:0 0 8px">Qué vas a ver</h2>
        <p style="margin:0 0 16px">En cuál de las cuatro fases estás —Déficit, Oxígeno, Bola de Nieve o Avalancha— y con qué criterio pagar en la tuya. Y un diagnóstico deuda por deuda: cuál te está asfixiando y cuál conviene renegociar antes que pagar.</p>
        <p style="margin:0">En los próximos días te escribo con las estrategias que mejor funcionan en cada fase.</p>
        <p style="margin:16px 0 0">— Rolando</p>
        ${marketingFooter(unsubToken)}`,
+    ),
+  };
+}
+
+/**
+ * Correo de compra. Es transaccional —cumple un contrato— así que no lleva pie
+ * de marketing ni enlace de baja: quien compró tiene derecho a recibir lo que
+ * pagó aunque no esté suscrito a nada.
+ */
+export function compraEmail(name: string | null, tokenDescarga: string) {
+  const saludo = name ? `Gracias, ${name}` : 'Gracias por tu compra';
+  return {
+    subject: 'Tu libro está listo para descargar',
+    html: shell(
+      'Tu compra',
+      `<h1 style="color:#1e3a8a;font-size:22px;margin:0 0 12px">${saludo}</h1>
+       <p style="margin:0 0 16px">Aquí está <strong>Deuda Fuera, Paz Dentro</strong> en EPUB y en PDF, más los tres anexos:</p>
+       <p style="margin:0 0 20px"><a href="${descargasUrl(tokenDescarga)}" style="${BOTON}">Ir a mis descargas</a></p>
+       <p style="font-size:14px;color:#4b5563;margin:0 0 16px">Guarda este correo: el enlace es tuyo y funciona durante un año. Los archivos se descargan desde una página protegida, así que si alguna vez cambias de dispositivo puedes volver a bajarlos.</p>
+       <h2 style="font-size:16px;color:#111827;margin:0 0 8px">Por dónde empezar</h2>
+       <p style="margin:0 0 16px">El Capítulo 3 te pide tus números. El GPS Anti-Deuda los calcula por ti, gratis: <a href="${SITE_URL}/diagnostico">deudafuerapazdentro.com/diagnostico</a></p>
+       <p style="margin:0">Si algo no funciona, responde a este correo y te ayudo personalmente.</p>
+       <p style="margin:16px 0 0">— Rolando</p>`,
     ),
   };
 }

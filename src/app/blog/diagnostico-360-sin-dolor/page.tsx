@@ -34,7 +34,7 @@ export default function PostDiagnostico() {
 
           <div className="mt-10 flex flex-wrap gap-3">
             <Link href="/plantilla-gratuita" className="btn-primary">Descargar plantilla</Link>
-            <Link href="/downloads/calendario-7-3-1.ics" className="btn-secondary">Descargar calendario 7/3/1</Link>
+            <Link href="/plantilla-gratuita" className="btn-secondary">Recibir el calendario 7/3/1</Link>
           </div>
         </div>
       </article>
