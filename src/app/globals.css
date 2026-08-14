@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-family-sans: var(--font-poppins), system-ui, sans-serif;
-  --font-family-serif: var(--font-playfair), serif;
+  /* El espacio de nombres de Tailwind v4 es --font-*, no --font-family-*.
+     Con el nombre viejo estas dos líneas no generaban nada: font-serif caía
+     en el Georgia por defecto y Playfair se descargaba sin usarse nunca. */
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
 
   /* Primary color scale (blue) */
   --color-primary-50: #eff6ff;
@@ -48,16 +51,19 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  /* focus-visible, no focus: el anillo sale al navegar con teclado, no al
+     hacer clic con el ratón. El offset lo separa del propio botón para que
+     se vea también sobre fondos oscuros. */
   .btn-primary {
-    @apply bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl;
+    @apply bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700;
   }
 
   .btn-secondary {
-    @apply bg-transparent border-2 border-primary-600 text-primary-700 hover:bg-primary-600 hover:text-white font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center transition-all duration-300;
+    @apply bg-transparent border-2 border-primary-600 text-primary-700 hover:bg-primary-600 hover:text-white font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700;
   }
 
   .btn-urgent {
-    @apply bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl;
+    @apply bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-700;
   }
 
   .heading-xl {
