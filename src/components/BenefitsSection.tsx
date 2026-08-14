@@ -1,13 +1,16 @@
+import { CheckCircle } from 'lucide-react';
 import { LAUNCH_DEADLINE_COPY } from '@/config/offer';
 import { EBOOK_SALES_PAUSED, WAITLIST_CTA_LABEL, WAITLIST_PATH } from '@/config/sales';
 
 export default function BenefitsSection() {
+  // Sin ✅ en el texto: la marca la pone el icono. Antes el emoji estaba en
+  // los dos sitios y salía duplicado en cada tarjeta.
   const items = [
-    '✅ Recuperarás flujo de efectivo en semanas, no en años.',
-    '✅ Dormirás tranquilo con un plan claro y realista.',
-    '✅ Sabrás exactamente qué deuda pagar primero y por qué.',
-    '✅ Evitarás errores que cuestan miles en intereses.',
-    '✅ Usarás el dinero como herramienta, no como cadena.',
+    'Recuperarás flujo de efectivo en semanas, no en años.',
+    'Dormirás tranquilo con un plan claro y realista.',
+    'Sabrás exactamente qué deuda pagar primero y por qué.',
+    'Evitarás errores que cuestan miles en intereses.',
+    'Usarás el dinero como herramienta, no como cadena.',
   ];
   return (
     <section className="py-16 bg-neutral-50">
@@ -15,8 +18,8 @@ export default function BenefitsSection() {
         <h2 className="heading-lg text-neutral-900 mb-8">Beneficios claros</h2>
         <div className="grid md:grid-cols-2 gap-6">
           {items.map((t) => (
-            <div key={t} className="bg-white rounded-xl p-5 border border-neutral-200">
-              <div className="text-green-600 font-semibold mb-1">✅</div>
+            <div key={t} className="bg-white rounded-xl p-5 border border-neutral-200 flex items-start space-x-3">
+              <CheckCircle className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
               <p className="text-neutral-700">{t}</p>
             </div>
           ))}
