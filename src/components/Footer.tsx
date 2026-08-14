@@ -34,10 +34,10 @@ export default function Footer() {
                 <div className="font-serif font-bold text-xl">
                   Deuda Fuera, Paz Dentro
                 </div>
-                <div className="text-xs text-blue-300">por Rolando Rodríguez</div>
+                <div className="text-xs text-primary-300">por Rolando Rodríguez</div>
               </div>
             </Link>
-            <p className="text-blue-200 leading-relaxed mb-6">
+            <p className="text-primary-200 leading-relaxed mb-6">
               El sistema probado para eliminar deudas que ha ayudado a miles de 
               familias hispanas a recuperar su paz financiera.
             </p>
@@ -55,7 +55,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-blue-200 hover:text-accent-400 transition-colors duration-200"
+                    className="text-primary-200 hover:text-accent-400 transition-colors duration-200"
                   >
                     {link.name}
                   </Link>
@@ -72,7 +72,7 @@ export default function Footer() {
                 <li key={product.name}>
                   <Link
                     href={product.href}
-                    className="text-blue-200 hover:text-accent-400 transition-colors duration-200"
+                    className="text-primary-200 hover:text-accent-400 transition-colors duration-200"
                   >
                     {product.name}
                   </Link>
@@ -89,7 +89,7 @@ export default function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-blue-200 hover:text-accent-400 transition-colors duration-200"
+                    className="text-primary-200 hover:text-accent-400 transition-colors duration-200"
                   >
                     {item.name}
                   </Link>
@@ -105,7 +105,7 @@ export default function Footer() {
             <h3 className="text-2xl font-bold mb-4">
               ¿Listo para Recuperar tu Paz Financiera?
             </h3>
-            <p className="text-blue-200 mb-6 max-w-2xl mx-auto">
+            <p className="text-primary-200 mb-6 max-w-2xl mx-auto">
               Descarga la plantilla gratuita y calcula tu IPD® en 15 minutos. 
               Es el primer paso hacia tu libertad financiera.
             </p>
@@ -121,11 +121,11 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="border-t border-primary-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-blue-300 text-sm mb-2 md:mb-0">
+          <p className="text-primary-300 text-sm mb-2 md:mb-0">
             © {year} Deuda Fuera, Paz Dentro. IPD® es un método propietario de Rolando Rodríguez. Todos los derechos reservados.
           </p>
           <div className="flex items-center space-x-6">
-            <a href="mailto:contacto@deudafuerapazdentro.com" className="text-blue-300 text-sm underline">contacto@deudafuerapazdentro.com</a>
+            <a href="mailto:contacto@deudafuerapazdentro.com" className="text-primary-300 text-sm underline">contacto@deudafuerapazdentro.com</a>
           </div>
         </div>
       </div>

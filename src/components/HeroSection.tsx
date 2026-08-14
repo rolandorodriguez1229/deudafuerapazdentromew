@@ -59,7 +59,7 @@ export default function HeroSection() {
               </Link>
               <Link
                 href="#por-que-diferente"
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 font-semibold py-4 px-8 rounded-lg transition-all duration-300"
+                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-900 font-semibold py-4 px-8 rounded-lg transition-all duration-300"
               >
                 Ver cómo funciona
               </Link>

@@ -42,7 +42,7 @@ export default function Header() {
             ))}
             <Link
               href="/plantilla-gratuita"
-              className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300"
+              className="bg-yellow-500 hover:bg-yellow-600 text-neutral-900 font-semibold py-2 px-4 rounded-lg transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-700"
             >
               Plantilla Gratuita
             </Link>
@@ -77,7 +77,7 @@ export default function Header() {
               ))}
               <Link
                 href="/plantilla-gratuita"
-                className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 text-center mt-4"
+                className="bg-yellow-500 hover:bg-yellow-600 text-neutral-900 font-semibold py-4 px-8 rounded-lg transition-all duration-300 text-center mt-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-700"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Plantilla Gratuita
