@@ -98,7 +98,7 @@ export default function HeroSection() {
 
           {/* Hero Image/Book Cover */}
           <div className="relative">
-            <div className="relative z-10 bg-gradient-to-br from-white to-neutral-100 rounded-2xl shadow-2xl p-3 sm:p-4 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+            <div className="relative z-10 bg-gradient-to-br from-white to-neutral-100 rounded-xl shadow-2xl p-3 sm:p-4 transform rotate-3 hover:rotate-0 transition-transform duration-500">
               <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
                 <Image
                   src="/images/Deuda Fuera Paz Dentro Portada Ebook.png"

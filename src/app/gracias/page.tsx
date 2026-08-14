@@ -15,7 +15,7 @@ export default function GraciasPage() {
       <PurchaseTracker />
       <section className="min-h-screen bg-gradient-to-br from-accent-50 to-primary-50 flex items-center">
         <div className="section-container py-16 max-w-3xl">
-          <div className="bg-white rounded-2xl shadow-2xl p-10 text-center">
+          <div className="bg-white rounded-xl shadow-2xl p-10 text-center">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>

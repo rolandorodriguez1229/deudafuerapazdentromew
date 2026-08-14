@@ -94,7 +94,7 @@ export default function OxygenPanel({
 
   return (
     <section className="space-y-4">
-      <header className="bg-primary-50 border border-primary-100 rounded-2xl p-5">
+      <header className="bg-primary-50 border border-primary-100 rounded-xl p-5">
         <div className="flex items-start gap-3">
           <Wind className="w-5 h-5 text-primary-700 shrink-0 mt-0.5" aria-hidden />
           <div>
@@ -105,7 +105,7 @@ export default function OxygenPanel({
       </header>
 
       {airCents > 0 && (
-        <div className="bg-green-50 border border-green-200 rounded-2xl p-5 space-y-2">
+        <div className="bg-green-50 border border-green-200 rounded-xl p-5 space-y-2">
           <p className="font-semibold text-green-900">
             {c.oxygenPanel.airGained(formatCents(airCents), formatCentsWhole(airCents * 12))}
           </p>
@@ -130,7 +130,7 @@ export default function OxygenPanel({
                   "lograda" cerraría el panel justo cuando el usuario va a
                   escribir el resultado. */}
               <details
-                className="group bg-white rounded-2xl border border-neutral-200 overflow-hidden"
+                className="group bg-white rounded-xl border border-neutral-200 overflow-hidden"
                 open={index === 0 && initial[id].status === 'pendiente'}
               >
                 <summary className="cursor-pointer list-none p-4 flex items-start gap-3">

@@ -63,7 +63,7 @@ export default async function DiagnosticoPage() {
               </Link>
               <p className="text-sm text-primary-200 mt-3">{c.landing.ctaNote}</p>
             </div>
-            <div className="bg-white rounded-2xl p-6 shadow-2xl">
+            <div className="bg-white rounded-xl p-6 shadow-2xl">
               <IpdGauge ipd={0.62} locale={locale} />
               <p className="text-center text-sm text-neutral-500 mt-2">
                 {c.landing.gaugeExample(c.phase.BOLA_DE_NIEVE.name)}
@@ -82,7 +82,7 @@ export default async function DiagnosticoPage() {
             return (
               <div
                 key={step.title}
-                className="bg-white rounded-2xl border border-neutral-200 p-6 text-center"
+                className="bg-white rounded-xl border border-neutral-200 p-6 text-center"
               >
                 <Icon className="w-8 h-8 text-primary-600 mx-auto mb-3" aria-hidden />
                 <h3 className="font-bold text-neutral-800 mb-2">{step.title}</h3>
@@ -105,7 +105,7 @@ export default async function DiagnosticoPage() {
               const style = PHASE_STYLE[key];
               const card = c.landing.phaseCards[key];
               return (
-                <div key={key} className={`rounded-2xl border p-5 ${style.card}`}>
+                <div key={key} className={`rounded-xl border p-5 ${style.card}`}>
                   <div className="flex items-center gap-2 text-sm font-semibold mb-2">
                     <span className={`w-2.5 h-2.5 rounded-full ${style.dot}`} aria-hidden />
                     {c.phase[key].name} · {card.range}

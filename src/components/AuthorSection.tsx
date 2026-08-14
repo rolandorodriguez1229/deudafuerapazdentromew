@@ -26,7 +26,7 @@ export default function AuthorSection() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Author Image */}
           <div className="relative">
-            <div className="bg-gradient-to-br from-primary-100 to-accent-100 rounded-2xl p-8">
+            <div className="bg-gradient-to-br from-primary-100 to-accent-100 rounded-xl p-8">
               {/* Placeholder for author photo */}
               <div className="bg-white rounded-xl p-8 shadow-lg">
                 <div className="w-48 h-48 bg-primary-200 rounded-full mx-auto mb-6 flex items-center justify-center">
@@ -43,7 +43,7 @@ export default function AuthorSection() {
               </div>
               
               {/* Quote */}
-              <div className="bg-white rounded-lg p-6 shadow-lg mt-6 relative">
+              <div className="bg-white rounded-xl p-6 shadow-lg mt-6 relative">
                 <div className="text-6xl text-accent-200 absolute -top-4 -left-2">&quot;</div>
                 <p className="text-neutral-700 italic relative z-10">
                   Si yo pude salir de $90,000 en deudas con un salario normal, 

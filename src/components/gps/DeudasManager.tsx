@@ -84,7 +84,7 @@ export default function DeudasManager({
       {/* Ingreso y gastos */}
       <form
         onSubmit={submitFinances}
-        className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6 space-y-4"
+        className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6 space-y-4"
       >
         <h2 className="heading-md text-primary-900">{c.onboarding.incomeTitle}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

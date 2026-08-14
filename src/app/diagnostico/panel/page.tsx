@@ -84,7 +84,7 @@ export default async function PanelPage() {
   const oxygenCard = (
     <Link
       href="/diagnostico/oxigeno"
-      className={`block rounded-2xl border p-5 transition-colors ${
+      className={`block rounded-xl border p-5 transition-colors ${
         oxygenFirst
           ? 'border-primary-300 bg-primary-50 hover:bg-primary-100'
           : 'border-neutral-200 bg-white hover:border-primary-300'
@@ -125,7 +125,7 @@ export default async function PanelPage() {
     return (
       <div className="section-container py-8 max-w-3xl mx-auto">
         <GpsNav active="/diagnostico/panel" locale={locale} />
-        <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6 sm:p-8 text-center space-y-4">
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6 sm:p-8 text-center space-y-4">
           <Sparkles className="w-10 h-10 text-green-600 mx-auto" aria-hidden />
           <h1 className="heading-md text-primary-900">{phase.headline}</h1>
           <p className="text-neutral-600 max-w-md mx-auto">{phase.message}</p>
@@ -155,7 +155,7 @@ export default async function PanelPage() {
 
       <div className="space-y-6">
         {/* Velocímetro + fase */}
-        <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6 sm:p-8">
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6 sm:p-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
             <IpdGauge ipd={summary.ipd} locale={locale} />
             <div>
@@ -184,7 +184,7 @@ export default async function PanelPage() {
 
         {/* Número de Paz, Meta de Oxígeno y las métricas del mes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white rounded-2xl border border-neutral-200 p-5">
+          <div className="bg-white rounded-xl border border-neutral-200 p-5">
             <div className="text-sm text-neutral-500 flex items-center gap-1">
               <Wind className="w-4 h-4" aria-hidden /> {c.panel.numeroDePaz}
             </div>
@@ -193,7 +193,7 @@ export default async function PanelPage() {
             </div>
             <p className="text-xs text-neutral-500 mt-1">{c.panel.numeroDePazHelp}</p>
           </div>
-          <div className="bg-white rounded-2xl border border-neutral-200 p-5">
+          <div className="bg-white rounded-xl border border-neutral-200 p-5">
             <div className="text-sm text-neutral-500">{c.panel.metaDeOxigeno}</div>
             {summary.metaDeOxigeno ? (
               <>
@@ -223,7 +223,7 @@ export default async function PanelPage() {
               </>
             )}
           </div>
-          <div className="bg-white rounded-2xl border border-neutral-200 p-5">
+          <div className="bg-white rounded-xl border border-neutral-200 p-5">
             <div className="text-sm text-neutral-500">{c.panel.freeCashFlow}</div>
             <div
               className={`text-2xl font-bold ${
@@ -236,7 +236,7 @@ export default async function PanelPage() {
               {c.panel.totalDebt}: {formatCentsWhole(summary.totalDebtCents)}
             </p>
           </div>
-          <div className="bg-white rounded-2xl border border-neutral-200 p-5">
+          <div className="bg-white rounded-xl border border-neutral-200 p-5">
             <div className="text-sm text-neutral-500">{c.panel.dti}</div>
             <div className="text-2xl font-bold text-neutral-900">
               {summary.dti === null ? '—' : formatRatio(summary.dti)}
@@ -252,7 +252,7 @@ export default async function PanelPage() {
           <section className="space-y-3">
             {entitlement === 'full' && target ? (
               <>
-                <div className="rounded-2xl border-2 border-primary-400 bg-white p-5">
+                <div className="rounded-xl border-2 border-primary-400 bg-white p-5">
                   <div className="flex items-center gap-2 text-sm text-primary-700 font-medium">
                     <Target className="w-4 h-4" aria-hidden /> {c.panel.targetDebt}
                   </div>
@@ -314,7 +314,7 @@ async function FullProjectionBlock({
 
   if (!projection.plan.feasible || !projection.plan.debtFreeDate) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-2xl p-5">
+      <div className="bg-red-50 border border-red-200 rounded-xl p-5">
         <div className="flex items-start gap-3">
           <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" aria-hidden />
           <div>
@@ -329,7 +329,7 @@ async function FullProjectionBlock({
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-neutral-200 p-5 space-y-4">
+    <div className="bg-white rounded-xl border border-neutral-200 p-5 space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <div className="text-sm text-neutral-500 flex items-center gap-1">

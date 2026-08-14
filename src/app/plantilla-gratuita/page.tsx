@@ -49,7 +49,7 @@ export default function PlantillaGratuita() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-accent-50 to-primary-50 flex items-center justify-center p-4">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="bg-white rounded-2xl shadow-2xl p-12">
+          <div className="bg-white rounded-xl shadow-2xl p-12">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="h-10 w-10 text-green-600" />
             </div>
@@ -170,7 +170,7 @@ export default function PlantillaGratuita() {
             </div>
 
             {/* Form */}
-            <div className="bg-white rounded-2xl shadow-2xl p-8">
+            <div className="bg-white rounded-xl shadow-2xl p-8">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-neutral-900 mb-2">
                   Entra Gratis Ahora

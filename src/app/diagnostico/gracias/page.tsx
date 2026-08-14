@@ -20,7 +20,7 @@ export default async function GraciasGpsPage({
 
   return (
     <div className="section-container py-16 max-w-lg mx-auto">
-      <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-8">
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-8">
         <GraciasPoller
           plan={params.plan === 'year' ? 'year' : 'month'}
           sessionId={params.session_id}

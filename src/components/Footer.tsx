@@ -101,7 +101,7 @@ export default function Footer() {
 
         {/* CTA Section */}
         <div className="border-t border-primary-800 mt-12 pt-12">
-          <div className="bg-gradient-to-r from-primary-800 to-primary-900 rounded-2xl p-8 text-center">
+          <div className="bg-gradient-to-r from-primary-800 to-primary-900 rounded-xl p-8 text-center">
             <h3 className="text-2xl font-bold mb-4">
               ¿Listo para Recuperar tu Paz Financiera?
             </h3>

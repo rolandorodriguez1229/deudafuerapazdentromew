@@ -12,7 +12,7 @@ export default function ForWhoSection() {
         <h2 className="heading-lg text-neutral-900 mb-6">Esto es para ti si…</h2>
         <div className="grid gap-3">
           {bullets.map((b) => (
-            <div key={b} className="bg-white border border-neutral-200 rounded-lg p-4 text-neutral-800">
+            <div key={b} className="bg-white border border-neutral-200 rounded-xl p-4 text-neutral-800">
               {b}
             </div>
           ))}

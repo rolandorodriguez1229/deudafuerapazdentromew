@@ -54,6 +54,14 @@
 /* Reglas del sistema, documentadas porque el código ya las cumple y conviene
    no romperlas sin querer:
 
+   RADIOS — antes había tres compitiendo para el mismo tipo de tarjeta
+   (lg 40, xl 23, 2xl 22, sin regla). Ahora:
+     rounded-lg    botones, inputs, alertas en línea, chips y recuadros
+                   pequeños dentro de otro bloque
+     rounded-xl    tarjetas: bloque propio con fondo, borde o sombra
+     rounded-full  píldoras, avatares e indicadores redondos
+   No usar rounded-2xl: se unificó a xl y no debería reaparecer.
+
    DURACIONES — hay tres y sí tienen criterio:
      duration-200  cambios solo de color (enlaces del header y del footer, inputs)
      duration-300  botones y tarjetas (transition-all: sombra y fondo)

@@ -77,7 +77,7 @@ export default function SolutionSection() {
         </div>
 
         {/* IPD System Explanation */}
-        <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-8 md:p-12 mb-20">
+        <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-xl p-8 md:p-12 mb-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="heading-md text-neutral-900 mb-6">

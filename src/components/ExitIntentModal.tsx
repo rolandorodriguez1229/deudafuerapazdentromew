@@ -28,7 +28,7 @@ export default function ExitIntentModal() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-4">
-      <div className="bg-white max-w-lg w-full rounded-2xl shadow-2xl p-6">
+      <div className="bg-white max-w-lg w-full rounded-xl shadow-2xl p-6">
         <div className="text-center mb-4">
           <h3 className="heading-md text-neutral-900 mb-2">¿Te vas? Llévate esto GRATIS</h3>
           <p className="text-neutral-700">Descarga la Plantilla IPD 360° y descubre tu estrategia ideal en 15 minutos.</p>

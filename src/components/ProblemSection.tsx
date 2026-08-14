@@ -56,7 +56,7 @@ export default function ProblemSection() {
         </div>
 
         {/* The Cycle Visualization */}
-        <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-8 md:p-12">
+        <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-8 md:p-12">
           <div className="text-center mb-8">
             <h3 className="heading-md text-neutral-900 mb-4">
               El Ciclo Que Mantiene a las Familias Atrapadas
@@ -98,7 +98,7 @@ export default function ProblemSection() {
             
             <div className="text-center md:col-span-4 mt-6">
               <div className="text-2xl text-red-400 mb-4">↓</div>
-              <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+              <div className="bg-white p-6 rounded-xl shadow-md max-w-md mx-auto">
                 <h4 className="font-semibold text-red-600 mb-2">Resultado:</h4>
                 <p className="text-neutral-700">
                   Menos dinero disponible el próximo mes, lo que te obliga a repetir el ciclo

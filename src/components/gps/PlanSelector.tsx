@@ -37,7 +37,7 @@ export default function PlanSelector() {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="bg-white rounded-2xl border border-neutral-200 p-6 flex flex-col">
+        <div className="bg-white rounded-xl border border-neutral-200 p-6 flex flex-col">
           <div className="text-sm font-medium text-neutral-500">Mensual</div>
           <div className="text-3xl font-bold text-primary-900 mt-1">
             $6.99<span className="text-base font-normal text-neutral-500">/mes</span>
@@ -54,7 +54,7 @@ export default function PlanSelector() {
           </button>
         </div>
 
-        <div className="bg-white rounded-2xl border-2 border-green-500 p-6 flex flex-col relative">
+        <div className="bg-white rounded-xl border-2 border-green-500 p-6 flex flex-col relative">
           <span className="absolute -top-3 left-6 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">
             MEJOR PRECIO
           </span>

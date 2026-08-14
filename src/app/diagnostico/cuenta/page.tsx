@@ -41,7 +41,7 @@ export default async function CuentaPage() {
       <GpsNav active="/diagnostico/cuenta" locale={locale} />
 
       <div className="space-y-6">
-        <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6">
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6">
           <h1 className="heading-md text-primary-900 mb-4">Tu cuenta</h1>
           <dl className="space-y-3 text-sm">
             <div className="flex justify-between gap-4 flex-wrap">

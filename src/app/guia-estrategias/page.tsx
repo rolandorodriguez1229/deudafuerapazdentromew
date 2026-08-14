@@ -38,7 +38,7 @@ export default function GuiaEstrategias() {
       <main>
         <section className="min-h-screen bg-gradient-to-br from-accent-50 to-primary-50 flex items-center">
           <div className="section-container py-12 max-w-3xl">
-            <div className="bg-white rounded-2xl shadow-2xl p-10 text-center">
+            <div className="bg-white rounded-xl shadow-2xl p-10 text-center">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
@@ -78,7 +78,7 @@ export default function GuiaEstrategias() {
             <p className="text-neutral-600">Déficit, Oxígeno, Bola de Nieve y Avalancha: en cuál estás, con qué criterio pagar en cada una y cuándo te toca cambiar.</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-neutral-50 rounded-2xl p-8 border border-neutral-200">
+          <form onSubmit={handleSubmit} className="bg-neutral-50 rounded-xl p-8 border border-neutral-200">
             <div className="grid sm:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-2">Tu Nombre *</label>

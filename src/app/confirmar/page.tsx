@@ -60,7 +60,7 @@ export default async function ConfirmarPage({
 
   return (
     <main className="min-h-screen bg-neutral-50 flex items-center justify-center p-4">
-      <div className="max-w-xl w-full bg-white rounded-2xl shadow-xl p-8 sm:p-10 text-center">
+      <div className="max-w-xl w-full bg-white rounded-xl shadow-xl p-8 sm:p-10 text-center">
         {lead ? (
           <>
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">

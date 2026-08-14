@@ -92,7 +92,7 @@ export default function EscenariosClient({
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6 space-y-4">
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6 space-y-4">
         {tab === 'extra' && (
           <>
             <h2 className="font-bold text-primary-900">
@@ -189,7 +189,7 @@ export default function EscenariosClient({
       </div>
 
       {comparison && (
-        <div className="bg-white rounded-2xl border-2 border-green-500 p-6 animate-gps-pop">
+        <div className="bg-white rounded-xl border-2 border-green-500 p-6 animate-gps-pop">
           <h3 className="font-bold text-primary-900 mb-4">Resultado del escenario</h3>
           {comparison.result.feasible && comparison.result.debtFreeDate ? (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

@@ -26,7 +26,7 @@ export default async function DescargasPage({
   if (!grant) {
     return (
       <main className="min-h-screen bg-neutral-50 flex items-center justify-center p-4">
-        <div className="max-w-xl w-full bg-white rounded-2xl shadow-xl p-8 sm:p-10 text-center">
+        <div className="max-w-xl w-full bg-white rounded-xl shadow-xl p-8 sm:p-10 text-center">
           <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-5">
             <XCircle className="h-8 w-8 text-amber-600" aria-hidden />
           </div>
@@ -48,7 +48,7 @@ export default async function DescargasPage({
   return (
     <main className="min-h-screen bg-neutral-50 py-14 px-4">
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-xl p-8 sm:p-10">
+        <div className="bg-white rounded-xl shadow-xl p-8 sm:p-10">
           <div className="inline-flex items-center gap-2 text-xs font-medium text-primary-700 bg-primary-50 rounded-full px-3 py-1 mb-5">
             <Download className="h-3.5 w-3.5" aria-hidden />
             {esCompra ? 'Tu compra' : 'Tu descarga'}
@@ -90,7 +90,7 @@ export default async function DescargasPage({
           </p>
         </div>
 
-        <div className="mt-6 bg-white rounded-2xl border border-neutral-200 p-6 sm:p-7">
+        <div className="mt-6 bg-white rounded-xl border border-neutral-200 p-6 sm:p-7">
           <h2 className="font-semibold text-neutral-900 mb-1">
             {esCompra ? 'Empieza por aquí' : 'La herramienta del libro es gratis'}
           </h2>

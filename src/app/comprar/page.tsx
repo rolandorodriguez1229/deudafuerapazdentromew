@@ -30,7 +30,7 @@ export default function ComprarPage() {
 
             <div className="grid md:grid-cols-1 gap-8 place-items-center">
               {/* eBook Digital único */}
-              <div className="bg-white rounded-2xl shadow-lg p-10 border border-neutral-200 w-full max-w-2xl">
+              <div className="bg-white rounded-xl shadow-lg p-10 border border-neutral-200 w-full max-w-2xl">
                 <div className="text-center mb-6">
                   <Book className="h-14 w-14 text-primary-600 mx-auto mb-4" />
                   <h3 className="text-3xl font-bold text-neutral-900 mb-2">eBook Digital</h3>

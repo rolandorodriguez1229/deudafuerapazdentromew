@@ -4,7 +4,7 @@ export default function GuaranteeSection() {
   return (
     <section className="py-16 bg-white">
       <div className="section-container">
-        <div className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center md:items-start gap-8">
+        <div className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl p-8 md:p-12 flex flex-col md:flex-row items-center md:items-start gap-8">
           <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
             <ShieldCheck className="h-8 w-8 text-green-600" />
           </div>

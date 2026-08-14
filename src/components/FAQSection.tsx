@@ -53,7 +53,7 @@ export default function FAQSection() {
 
         <div className="max-w-4xl mx-auto space-y-4">
           {faqs.map((f) => (
-            <details key={f.q} className="group bg-white rounded-lg border border-neutral-200 p-6">
+            <details key={f.q} className="group bg-white rounded-xl border border-neutral-200 p-6">
               <summary className="cursor-pointer font-semibold text-neutral-900 marker:hidden flex items-center justify-between">
                 {f.q}
                 <span className="text-primary-600 group-open:rotate-45 transition-transform">+</span>

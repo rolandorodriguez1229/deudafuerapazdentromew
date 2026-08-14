@@ -45,7 +45,7 @@ export default function ProductsSection() {
 
         <div className="grid grid-cols-1 gap-8 place-items-center">
           {products.map((product, index) => (
-            <div key={index} className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${product.popular ? 'ring-2 ring-accent-500' : 'border border-neutral-200'} w-full max-w-2xl`}>
+            <div key={index} className={`relative bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${product.popular ? 'ring-2 ring-accent-500' : 'border border-neutral-200'} w-full max-w-2xl`}>
               {/* Popular badge removed per request */}
               
               {product.comingSoon && (

@@ -33,9 +33,9 @@ export default function FinalOfferSection() {
           </div>
           <div className="mt-3 text-sm font-medium text-neutral-800">Hoy $7.99 e incluye estos 3 bonos de regalo:</div>
           <div className="mt-3 grid sm:grid-cols-3 gap-2 text-sm">
-            <div className="bg-white border border-neutral-200 rounded-lg p-3">🎁 Plantilla IPD 360° (Valorada en $29.99)</div>
-            <div className="bg-white border border-neutral-200 rounded-lg p-3">🎁 Checklist 30-60-90 días (Valorada en $19.99)</div>
-            <div className="bg-white border border-neutral-200 rounded-lg p-3">🎁 Scripts para negociar con acreedores (Valorados en $24.99)</div>
+            <div className="bg-white border border-neutral-200 rounded-xl p-3">🎁 Plantilla IPD 360° (Valorada en $29.99)</div>
+            <div className="bg-white border border-neutral-200 rounded-xl p-3">🎁 Checklist 30-60-90 días (Valorada en $19.99)</div>
+            <div className="bg-white border border-neutral-200 rounded-xl p-3">🎁 Scripts para negociar con acreedores (Valorados en $24.99)</div>
           </div>
           <div className="mt-2 text-xs text-neutral-600">Valor de los bonos: $74.97 — ¡Llévate el libro y más de $75 en bonos por solo $7.99!</div>
         </div>

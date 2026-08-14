@@ -142,7 +142,7 @@ export default function OnboardingWizard({
       {step === 1 && (
         <form
           onSubmit={submitIncome}
-          className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6 sm:p-8 space-y-4"
+          className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6 sm:p-8 space-y-4"
         >
           <h1 className="heading-md text-primary-900">{c.onboarding.steps.incomeQuestion}</h1>
           <p className="text-neutral-600">{c.onboarding.steps.incomeIntro}</p>
@@ -195,7 +195,7 @@ export default function OnboardingWizard({
       {step === 2 && (
         <form
           onSubmit={submitExpenses}
-          className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6 sm:p-8 space-y-4"
+          className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6 sm:p-8 space-y-4"
         >
           <h1 className="heading-md text-primary-900">{c.onboarding.steps.expensesQuestion}</h1>
           <p className="text-neutral-600">{c.onboarding.steps.expensesIntro}</p>
@@ -276,7 +276,7 @@ export default function OnboardingWizard({
       )}
 
       {step === 3 && (
-        <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6 sm:p-8 space-y-5">
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6 sm:p-8 space-y-5">
           <h1 className="heading-md text-primary-900">{c.onboarding.steps.debtsQuestion}</h1>
           <p className="text-neutral-600">{c.onboarding.steps.debtsIntro}</p>
 
@@ -386,7 +386,7 @@ function ResultStep({
   const phase = c.phase[summary.phase];
 
   return (
-    <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6 sm:p-8 text-center space-y-5">
+    <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6 sm:p-8 text-center space-y-5">
       <div className="animate-gps-pop">
         <PartyPopper className="w-10 h-10 text-green-600 mx-auto mb-3" aria-hidden />
         <h1 className="heading-md text-primary-900">{c.common.firstVictory}</h1>

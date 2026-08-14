@@ -65,7 +65,7 @@ export default async function PlanPage({
       <PlanSelector />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-        <div className="bg-neutral-100 rounded-2xl p-5">
+        <div className="bg-neutral-100 rounded-xl p-5">
           <h2 className="font-bold text-neutral-700 mb-3">Gratis (lo que ya tienes)</h2>
           <ul className="space-y-2">
             {FREE_FEATURES.map((f) => (
@@ -75,7 +75,7 @@ export default async function PlanPage({
             ))}
           </ul>
         </div>
-        <div className="bg-white rounded-2xl border-2 border-green-500 p-5">
+        <div className="bg-white rounded-xl border-2 border-green-500 p-5">
           <h2 className="font-bold text-green-800 mb-3 flex items-center gap-2">
             <Lock className="w-4 h-4" /> Full (lo que desbloqueas)
           </h2>
