@@ -63,7 +63,10 @@ export default function ProblemSection() {
             </h3>
           </div>
           
-          <div className="grid md:grid-cols-4 gap-6 items-center">
+          {/* 5 columnas, no 4: los tres pasos y las dos flechas que los unen
+              van en una sola fila. Con 4 el tercer paso caía a la fila de
+              abajo y la última flecha quedaba apuntando al vacío. */}
+          <div className="grid md:grid-cols-5 gap-6 items-center">
             <div className="text-center">
               <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold text-xl">1</span>
@@ -72,7 +75,7 @@ export default function ProblemSection() {
               <p className="text-sm text-neutral-600">Por necesidad o emergencias inesperadas</p>
             </div>
             
-            <div className="hidden md:block text-center">
+            <div className="hidden md:block text-center" aria-hidden="true">
               <div className="text-3xl text-red-400">→</div>
             </div>
             
@@ -81,10 +84,10 @@ export default function ProblemSection() {
                 <span className="text-white font-bold text-xl">2</span>
               </div>
               <h4 className="font-semibold text-neutral-900 mb-2">Usas Crédito</h4>
-                              <p className="text-sm text-neutral-600">Tarjetas, préstamos, &quot;compra ahora, paga después&quot;</p>
+              <p className="text-sm text-neutral-600">Tarjetas, préstamos, &quot;compra ahora, paga después&quot;</p>
             </div>
             
-            <div className="hidden md:block text-center">
+            <div className="hidden md:block text-center" aria-hidden="true">
               <div className="text-3xl text-red-400">→</div>
             </div>
             
@@ -96,8 +99,8 @@ export default function ProblemSection() {
               <p className="text-sm text-neutral-600">Que reducen aún más tu dinero disponible</p>
             </div>
             
-            <div className="text-center md:col-span-4 mt-6">
-              <div className="text-2xl text-red-400 mb-4">↓</div>
+            <div className="text-center md:col-span-5 mt-6">
+              <div className="text-2xl text-red-400 mb-4" aria-hidden="true">↓</div>
               <div className="bg-white p-6 rounded-xl shadow-md max-w-md mx-auto">
                 <h4 className="font-semibold text-red-600 mb-2">Resultado:</h4>
                 <p className="text-neutral-700">
