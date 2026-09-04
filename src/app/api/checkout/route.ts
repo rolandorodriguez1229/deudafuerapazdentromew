@@ -45,6 +45,9 @@ export async function POST() {
 
     return NextResponse.json({ ok: true, url: session.url });
   } catch (error) {
+    // Sin esto, un checkout caído en producción no deja rastro y solo se nota
+    // por las ventas que no llegan.
+    console.error('[checkout] no se pudo crear la sesión de Stripe', error);
     return NextResponse.json({ ok: false, error: 'checkout_failed' }, { status: 500 });
   }
 }

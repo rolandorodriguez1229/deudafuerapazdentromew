@@ -1,5 +1,5 @@
 import { CheckCircle } from 'lucide-react';
-import { LAUNCH_DEADLINE_COPY } from '@/config/offer';
+import { LAUNCH_DEADLINE_COPY, lanzamientoVigente } from '@/config/offer';
 import { EBOOK_SALES_PAUSED, WAITLIST_CTA_LABEL, WAITLIST_PATH } from '@/config/sales';
 
 export default function BenefitsSection() {
@@ -34,7 +34,9 @@ export default function BenefitsSection() {
             ) : (
               <>
                 <a href="/checkout" className="btn-primary">Sí, quiero mi plan — Solo $7.99</a>
-                <span className="text-xs text-neutral-500">{LAUNCH_DEADLINE_COPY}</span>
+                {lanzamientoVigente() && (
+                  <span className="text-xs text-neutral-500">{LAUNCH_DEADLINE_COPY}</span>
+                )}
                 <span className="text-[11px] text-neutral-500">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</span>
               </>
             )}

@@ -1,7 +1,7 @@
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import Countdown from './Countdown';
-import { LAUNCH_END_AT } from '@/config/offer';
+import { LAUNCH_END_AT, lanzamientoVigente } from '@/config/offer';
 import { EBOOK_SALES_PAUSED, WAITLIST_CTA_LABEL, WAITLIST_PATH } from '@/config/sales';
 
 type Testimonial = {
@@ -78,7 +78,9 @@ export default function TestimonialsSection() {
             ) : (
               <>
                 <a href="/checkout" className="btn-urgent">Sí, quiero mi plan — Solo $7.99</a>
-                <Countdown endAt={LAUNCH_END_AT} size="sm" label="Precio especial disponible hasta:" />
+                {lanzamientoVigente() && (
+                  <Countdown endAt={LAUNCH_END_AT} size="sm" label="Precio especial disponible hasta:" />
+                )}
                 <span className="text-[11px] text-neutral-500">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</span>
               </>
             )}

@@ -49,6 +49,11 @@ export default function Countdown({ durationSeconds = 15 * 60, endAt, size = 'md
     return () => clearInterval(interval);
   }, [durationSeconds, endAt]);
 
+  // Una cuenta atrás parada en 00:00:00 dice "esta oferta lleva meses
+  // caducada". Mejor desaparecer: quien la pone decide si hay urgencia, y si
+  // se pasó la fecha, no la hay.
+  if (remaining <= 0) return null;
+
   const base = 'inline-flex items-center rounded-full font-semibold';
   const variant =
     size === 'sm'

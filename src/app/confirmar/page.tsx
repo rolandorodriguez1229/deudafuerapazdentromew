@@ -32,6 +32,9 @@ export default async function ConfirmarPage({
   const lead = t ? await confirmLead(t) : null;
 
   let tokenDescarga: string | null = null;
+  // Para no prometer un correo que quizá no salió: la página funciona igual con
+  // los enlaces de abajo, pero el texto tiene que decir la verdad.
+  let correoEnviado = false;
   if (lead && hasEntregas()) {
     // Confirmar da derecho a la guía. El permiso se crea aquí, no al pedir el
     // alta: antes del clic no hay consentimiento verificado y no se entrega nada.
@@ -48,7 +51,13 @@ export default async function ConfirmarPage({
     // Si el correo falla, el lead YA quedó confirmado: es lo que importa. No se
     // le muestra un error por algo que puede reintentarse desde el enlace.
     try {
-      await sendEmail({ to: lead.email, subject, html });
+      const envio = await sendEmail({ to: lead.email, subject, html });
+      correoEnviado = envio.ok;
+      if (!envio.ok) {
+        console.error('[confirmar] confirmado pero el correo no salió', {
+          motivo: envio.skipped ? 'falta RESEND_API_KEY' : `resend respondió ${envio.status}`,
+        });
+      }
       if (NOTIFY_TO) {
         const aviso = leadNotifyEmail(lead.name, lead.email, lead.source);
         await sendEmail({ to: NOTIFY_TO, replyTo: lead.email, ...aviso });
@@ -68,7 +77,9 @@ export default async function ConfirmarPage({
             </div>
             <h1 className="heading-md text-neutral-900 mb-3">Correo confirmado</h1>
             <p className="text-neutral-600 mb-6">
-              Ya estás dentro. Te mandé todo por correo, pero no hace falta que lo esperes.
+              {correoEnviado
+                ? 'Ya estás dentro. Te mandé todo por correo, pero no hace falta que lo esperes.'
+                : 'Ya estás dentro. Todo lo que necesitas está aquí abajo.'}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/diagnostico" className="btn-primary inline-flex items-center justify-center">

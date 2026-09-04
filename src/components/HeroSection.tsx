@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Shield, TrendingUp, CheckCircle } from 'lucide-react';
 import PriceX from './PriceX';
-import { LAUNCH_DEADLINE_COPY } from '@/config/offer';
+import { LAUNCH_DEADLINE_COPY, lanzamientoVigente } from '@/config/offer';
 import { EBOOK_SALES_PAUSED, WAITLIST_CTA_LABEL, WAITLIST_PATH } from '@/config/sales';
 
 export default function HeroSection() {
@@ -65,7 +65,9 @@ export default function HeroSection() {
               </Link>
             </div>
             <div className="text-sm text-white/80 pt-1">Antes <PriceX text="$19.99" size="sm" /> · Hoy $7.99 (lanzamiento)</div>
-            <div className="text-xs text-white/80 pt-1">{LAUNCH_DEADLINE_COPY}</div>
+            {lanzamientoVigente() && (
+              <div className="text-xs text-white/80 pt-1">{LAUNCH_DEADLINE_COPY}</div>
+            )}
             <div className="text-xs text-white/80 pt-1">Pago 100% seguro con Stripe · Acceso inmediato · Garantía de 30 días</div>
             <div className="text-xs text-white/80 pt-1">
               <Link href="/garantia" className="underline">Ver política de reembolsos</Link>

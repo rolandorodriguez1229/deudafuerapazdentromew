@@ -6,7 +6,20 @@ type SendEmailInput = {
   replyTo?: string;
 };
 
-export async function sendEmail({ to, subject, html, from, replyTo }: SendEmailInput) {
+/**
+ * `skipped` significa que no había API key, no que el envío fallara: es un
+ * problema de configuración, no de Resend. Quien llame debe distinguirlos para
+ * poder decir la verdad en el log.
+ */
+export type SendEmailResult = { ok: true } | { ok: false; skipped?: boolean; status?: number };
+
+export async function sendEmail({
+  to,
+  subject,
+  html,
+  from,
+  replyTo,
+}: SendEmailInput): Promise<SendEmailResult> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     console.warn('[email] RESEND_API_KEY not set — skipping send', { to, subject });

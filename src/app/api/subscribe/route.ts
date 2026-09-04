@@ -68,7 +68,29 @@ export async function POST(request: Request) {
     if (confirmToken) {
       const url = `${SITE_URL}/confirmar?t=${confirmToken}`;
       const { subject, html } = confirmEmail(name, url);
-      await sendEmail({ to: email, subject, html });
+      const envio = await sendEmail({ to: email, subject, html });
+
+      if (!envio.ok) {
+        // El lead ya quedó guardado, pero sin este correo nadie puede confirmar
+        // — y sin confirmar no recibe nada. Devolver ok:true aquí pinta un
+        // "revisa tu correo" sobre un correo que nunca salió, y el embudo se
+        // rompe sin que nadie lo note. Mejor fallar fuerte, como arriba.
+        console.error('[subscribe] el correo de confirmación no salió', {
+          motivo: envio.skipped ? 'falta RESEND_API_KEY' : `resend respondió ${envio.status}`,
+          // Solo el dominio: el correo completo no tiene por qué vivir en un log.
+          dominio: email.slice(email.indexOf('@')),
+          origen: source,
+        });
+        return NextResponse.json(
+          {
+            ok: false,
+            error:
+              'Guardamos tu registro, pero no pudimos enviarte el correo de confirmación. ' +
+              'Inténtalo otra vez en un minuto; si sigue igual, escríbenos a contacto@deudafuerapazdentro.com.',
+          },
+          { status: 502 },
+        );
+      }
     }
 
     // `limite` y `ya_confirmado` también devuelven ok: el usuario ve la misma

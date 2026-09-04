@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Book, Headphones, MessageCircle, CheckCircle, Star } from 'lucide-react';
+import { Book, Headphones, MonitorPlay, CheckCircle } from 'lucide-react';
+import { EBOOK_SALES_PAUSED, WAITLIST_CTA_LABEL, WAITLIST_PATH } from '@/config/sales';
 import PriceX from './PriceX';
 
 export default function ProductsSection() {
@@ -20,6 +21,34 @@ export default function ProductsSection() {
       ],
       popular: true,
       comingSoon: false
+    },
+    {
+      name: "Audiolibro",
+      price: "",
+      originalPrice: "",
+      icon: <Headphones className="h-8 w-8 text-primary-600" />,
+      description: "El método completo, narrado por el autor",
+      features: [
+        "Las 6 partes del libro en audio",
+        "Se escucha dentro de la app, desde el móvil",
+        "Avanza donde lo dejaste, en cualquier dispositivo"
+      ],
+      popular: false,
+      comingSoon: true
+    },
+    {
+      name: "Videocurso",
+      price: "",
+      originalPrice: "",
+      icon: <MonitorPlay className="h-8 w-8 text-primary-600" />,
+      description: "El Selector de Estrategia, paso a paso en pantalla",
+      features: [
+        "Cómo calcular tu IPD y leer tu fase",
+        "Casos reales resueltos en vivo",
+        "Guiones de negociación, con las llamadas comentadas"
+      ],
+      popular: false,
+      comingSoon: true
     }
   ];
 
@@ -38,14 +67,14 @@ export default function ProductsSection() {
           </h2>
           
           <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-            Desde el eBook básico hasta el paquete completo con curso y chatbot IA. 
-            Todos incluyen el mismo sistema probado que me ayudó a eliminar $90,000 en deudas.
+            El eBook está listo hoy. El audiolibro y el videocurso llegan después.
+            Los tres enseñan el mismo sistema con el que eliminé $90,000 en deudas.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 place-items-center">
+        <div className="grid gap-8 md:grid-cols-3 items-stretch">
           {products.map((product, index) => (
-            <div key={index} className={`relative bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${product.popular ? 'ring-2 ring-accent-500' : 'border border-neutral-200'} w-full max-w-2xl`}>
+            <div key={index} className={`relative flex flex-col bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${product.popular ? 'ring-2 ring-accent-500' : 'border border-neutral-200'} w-full`}>
               {/* Popular badge removed per request */}
               
               {product.comingSoon && (
@@ -56,7 +85,7 @@ export default function ProductsSection() {
                 </div>
               )}
 
-              <div className="p-8">
+              <div className="p-8 flex flex-col flex-1">
                 {/* Icon & Name */}
                 <div className="text-center mb-6">
                   <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${product.popular ? 'bg-accent-50' : 'bg-neutral-50'}`}>
@@ -70,24 +99,27 @@ export default function ProductsSection() {
                   </p>
                 </div>
 
-                {/* Price */}
-                <div className="text-center mb-6">
-                  <div className="flex items-center justify-center space-x-2">
-                    <span className={`text-3xl font-bold ${product.comingSoon ? 'text-neutral-400' : 'text-neutral-900'}`}>
-                      {product.price}
-                    </span>
-                    {product.originalPrice && (
-                      <span className="text-lg text-neutral-400">
-                        <PriceX text={product.originalPrice} />
+                {/* Price — sin precio todavía, el bloque entero se omite para no
+                    dejar un hueco vacío del tamaño de una cifra */}
+                {product.price && (
+                  <div className="text-center mb-6">
+                    <div className="flex items-center justify-center space-x-2">
+                      <span className="text-3xl font-bold text-neutral-900">
+                        {product.price}
                       </span>
+                      {product.originalPrice && (
+                        <span className="text-lg text-neutral-400">
+                          <PriceX text={product.originalPrice} />
+                        </span>
+                      )}
+                    </div>
+                    {product.originalPrice && (
+                      <p className="text-sm text-green-600 font-medium">
+                        Ahorra {parseInt(product.originalPrice.replace('$', '')) - parseInt(product.price.replace('$', ''))}$
+                      </p>
                     )}
                   </div>
-                  {!product.comingSoon && product.originalPrice && (
-                    <p className="text-sm text-green-600 font-medium">
-                      Ahorra {parseInt(product.originalPrice.replace('$', '')) - parseInt(product.price.replace('$', ''))}$
-                    </p>
-                  )}
-                </div>
+                )}
 
                 {/* Features */}
                 <div className="space-y-3 mb-8">
@@ -101,29 +133,30 @@ export default function ProductsSection() {
                   ))}
                 </div>
 
-                {/* CTA Button */}
-                <div className="text-center">
+                {/* CTA Button — con la venta pausada, ningún camino del sitio
+                    puede prometer una compra (ver config/sales.ts) */}
+                <div className="text-center mt-auto">
                   {product.comingSoon ? (
-                    <button 
-                      disabled 
+                    <button
+                      disabled
                       className="w-full bg-neutral-100 text-neutral-400 font-semibold py-3 px-6 rounded-lg cursor-not-allowed"
                     >
                       Próximamente
                     </button>
                   ) : (
                     <Link
-                      href="/comprar"
+                      href={EBOOK_SALES_PAUSED ? WAITLIST_PATH : '/comprar'}
                       className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-300 block text-center ${
-                        product.popular 
-                          ? 'btn-primary' 
-                          : 'btn-secondary'
+                        product.popular ? 'btn-primary' : 'btn-secondary'
                       }`}
                     >
-                      {product.name === "eBook Digital" ? "Comprar Ahora" : "Obtener Paquete"}
+                      {EBOOK_SALES_PAUSED ? WAITLIST_CTA_LABEL : 'Comprar Ahora'}
                     </Link>
                   )}
                 </div>
-                <p className="text-xs text-neutral-500 text-center mt-3">Incluye garantía de 30 días</p>
+                {!product.comingSoon && (
+                  <p className="text-xs text-neutral-500 text-center mt-3">Incluye garantía de 30 días</p>
+                )}
               </div>
             </div>
           ))}
